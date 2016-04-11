@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL", "DL\DL.csproj", "{21B42E1D-4DD0-4D80-B554-5A0815BEB332}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{A4499FD2-FC40-4CF4-94BE-245271427CC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{04FCCE16-FF5B-451C-ABAD-37CA95A45952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JLearnWeb", "JLearnWeb\JLearnWeb.csproj", "{774A06F4-6E64-4579-89F1-F1FA00930604}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21B42E1D-4DD0-4D80-B554-5A0815BEB332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B42E1D-4DD0-4D80-B554-5A0815BEB332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B42E1D-4DD0-4D80-B554-5A0815BEB332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B42E1D-4DD0-4D80-B554-5A0815BEB332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4499FD2-FC40-4CF4-94BE-245271427CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4499FD2-FC40-4CF4-94BE-245271427CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4499FD2-FC40-4CF4-94BE-245271427CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4499FD2-FC40-4CF4-94BE-245271427CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FCCE16-FF5B-451C-ABAD-37CA95A45952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FCCE16-FF5B-451C-ABAD-37CA95A45952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FCCE16-FF5B-451C-ABAD-37CA95A45952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FCCE16-FF5B-451C-ABAD-37CA95A45952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774A06F4-6E64-4579-89F1-F1FA00930604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774A06F4-6E64-4579-89F1-F1FA00930604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774A06F4-6E64-4579-89F1-F1FA00930604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774A06F4-6E64-4579-89F1-F1FA00930604}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

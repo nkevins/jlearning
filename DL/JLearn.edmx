@@ -1,0 +1,837 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="JLearnDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseCode" Type="nchar" MaxLength="50" />
+          <Property Name="CourseName" Type="nchar" MaxLength="50" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="150" />
+          <Property Name="Type" Type="nvarchar" MaxLength="10" />
+          <Property Name="ModuleID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="ForumPost">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="500" />
+          <Property Name="ThreadID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="ForumThread">
+          <Key>
+            <PropertyRef Name="ThreadID" />
+          </Key>
+          <Property Name="ThreadID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nchar" MaxLength="500" />
+          <Property Name="ScheduleID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ScheduleID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="QiuzQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="150" />
+          <Property Name="CorrectAnswer" Type="nvarchar" MaxLength="10" />
+          <Property Name="QuizID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="QuizID" />
+          </Key>
+          <Property Name="QuizID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="ScheduleID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="QuizAnswer">
+          <Key>
+            <PropertyRef Name="AnswerID" />
+          </Key>
+          <Property Name="AnswerID" Type="int" Nullable="false" />
+          <Property Name="AnsweredQuestion" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsCorrect" Type="bit" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="QuestionID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NRIC" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="UserSchedule">
+          <Key>
+            <PropertyRef Name="UserScheduleID" />
+          </Key>
+          <Property Name="UserScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ScheduleID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_Document_Module">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumPost_ForumThread">
+          <End Role="ForumThread" Type="Self.ForumThread" Multiplicity="0..1" />
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumThread">
+              <PropertyRef Name="ThreadID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="ThreadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumThread_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="ForumThread" Type="Self.ForumThread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="ForumThread">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QiuzQuestion_Quiz">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="QiuzQuestion" Type="Self.QiuzQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="QuizID" />
+            </Principal>
+            <Dependent Role="QiuzQuestion">
+              <PropertyRef Name="QuizID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quiz_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="Quiz">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizAnswer_QiuzQuestion">
+          <End Role="QiuzQuestion" Type="Self.QiuzQuestion" Multiplicity="0..1" />
+          <End Role="QuizAnswer" Type="Self.QuizAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QiuzQuestion">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="QuizAnswer">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizAnswer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="QuizAnswer" Type="Self.QuizAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="QuizAnswer">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSchedule_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="UserSchedule" Type="Self.UserSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="UserSchedule">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSchedule_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserSchedule" Type="Self.UserSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserSchedule">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JLearnDBModelStoreContainer">
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumPost" EntityType="Self.ForumPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumThread" EntityType="Self.ForumThread" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QiuzQuestion" EntityType="Self.QiuzQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuizAnswer" EntityType="Self.QuizAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSchedule" EntityType="Self.UserSchedule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Document_Module" Association="Self.FK_Document_Module">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_ForumThread" Association="Self.FK_ForumPost_ForumThread">
+            <End Role="ForumThread" EntitySet="ForumThread" />
+            <End Role="ForumPost" EntitySet="ForumPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumThread_Schedule" Association="Self.FK_ForumThread_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="ForumThread" EntitySet="ForumThread" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Module_Schedule" Association="Self.FK_Module_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QiuzQuestion_Quiz" Association="Self.FK_QiuzQuestion_Quiz">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="QiuzQuestion" EntitySet="QiuzQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quiz_Schedule" Association="Self.FK_Quiz_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Quiz" EntitySet="Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizAnswer_QiuzQuestion" Association="Self.FK_QuizAnswer_QiuzQuestion">
+            <End Role="QiuzQuestion" EntitySet="QiuzQuestion" />
+            <End Role="QuizAnswer" EntitySet="QuizAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizAnswer_User" Association="Self.FK_QuizAnswer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="QuizAnswer" EntitySet="QuizAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_User" Association="Self.FK_Role_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Course" Association="Self.FK_Schedule_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSchedule_Schedule" Association="Self.FK_UserSchedule_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="UserSchedule" EntitySet="UserSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSchedule_User" Association="Self.FK_UserSchedule_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSchedule" EntitySet="UserSchedule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JLearnDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseCode" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_Course" FromRole="Course" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleID" Type="Int32" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Module" Relationship="Self.FK_Document_Module" FromRole="Document" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="ForumPost">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="ThreadID" Type="Int32" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ForumThread" Relationship="Self.FK_ForumPost_ForumThread" FromRole="ForumPost" ToRole="ForumThread" />
+        </EntityType>
+        <EntityType Name="ForumThread">
+          <Key>
+            <PropertyRef Name="ThreadID" />
+          </Key>
+          <Property Name="ThreadID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ForumPosts" Relationship="Self.FK_ForumPost_ForumThread" FromRole="ForumThread" ToRole="ForumPost" />
+          <Property Name="ScheduleID" Type="Int32" />
+          <NavigationProperty Name="Schedule" Relationship="JLearnDBModel.FK_ForumThread_Schedule" FromRole="ForumThread" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ScheduleID" Type="Int32" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_Document_Module" FromRole="Module" ToRole="Document" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_Module_Schedule" FromRole="Module" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="QiuzQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectAnswer" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="QuizID" Type="Int32" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Quiz" Relationship="Self.FK_QiuzQuestion_Quiz" FromRole="QiuzQuestion" ToRole="Quiz" />
+          <NavigationProperty Name="QuizAnswers" Relationship="Self.FK_QuizAnswer_QiuzQuestion" FromRole="QiuzQuestion" ToRole="QuizAnswer" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="QuizID" />
+          </Key>
+          <Property Name="QuizID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="QiuzQuestions" Relationship="Self.FK_QiuzQuestion_Quiz" FromRole="Quiz" ToRole="QiuzQuestion" />
+          <Property Name="ScheduleID" Type="Int32" />
+          <NavigationProperty Name="Schedule" Relationship="JLearnDBModel.FK_Quiz_Schedule" FromRole="Quiz" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="QuizAnswer">
+          <Key>
+            <PropertyRef Name="AnswerID" />
+          </Key>
+          <Property Name="AnswerID" Type="Int32" Nullable="false" />
+          <Property Name="AnsweredQuestion" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsCorrect" Type="Boolean" />
+          <Property Name="QuestionID" Type="Int32" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="QiuzQuestion" Relationship="Self.FK_QuizAnswer_QiuzQuestion" FromRole="QuizAnswer" ToRole="QiuzQuestion" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="JLearnDBModel.FK_QuizAnswer_User" FromRole="QuizAnswer" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Schedule_Course" FromRole="Schedule" ToRole="Course" />
+          <NavigationProperty Name="Modules" Relationship="Self.FK_Module_Schedule" FromRole="Schedule" ToRole="Module" />
+          <NavigationProperty Name="UserSchedules" Relationship="JLearnDBModel.FK_UserSchedule_Schedule" FromRole="Schedule" ToRole="UserSchedule" />
+          <NavigationProperty Name="ForumThreads" Relationship="JLearnDBModel.FK_ForumThread_Schedule" FromRole="Schedule" ToRole="ForumThread" />
+          <NavigationProperty Name="Quizs" Relationship="JLearnDBModel.FK_Quiz_Schedule" FromRole="Schedule" ToRole="Quiz" />
+        </EntityType>
+        <Association Name="FK_Schedule_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_Module">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumPost_ForumThread">
+          <End Role="ForumThread" Type="Self.ForumThread" Multiplicity="0..1" />
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumThread">
+              <PropertyRef Name="ThreadID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="ThreadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QiuzQuestion_Quiz">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="QiuzQuestion" Type="Self.QiuzQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="QuizID" />
+            </Principal>
+            <Dependent Role="QiuzQuestion">
+              <PropertyRef Name="QuizID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizAnswer_QiuzQuestion">
+          <End Role="QiuzQuestion" Type="Self.QiuzQuestion" Multiplicity="0..1" />
+          <End Role="QuizAnswer" Type="Self.QuizAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QiuzQuestion">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="QuizAnswer">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JLearnDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="ForumPosts" EntityType="Self.ForumPost" />
+          <EntitySet Name="ForumThreads" EntityType="Self.ForumThread" />
+          <EntitySet Name="Modules" EntityType="Self.Module" />
+          <EntitySet Name="QiuzQuestions" EntityType="Self.QiuzQuestion" />
+          <EntitySet Name="Quizs" EntityType="Self.Quiz" />
+          <EntitySet Name="QuizAnswers" EntityType="Self.QuizAnswer" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <AssociationSet Name="FK_Schedule_Course" Association="Self.FK_Schedule_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_Module" Association="Self.FK_Document_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_ForumThread" Association="Self.FK_ForumPost_ForumThread">
+            <End Role="ForumThread" EntitySet="ForumThreads" />
+            <End Role="ForumPost" EntitySet="ForumPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Module_Schedule" Association="Self.FK_Module_Schedule">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QiuzQuestion_Quiz" Association="Self.FK_QiuzQuestion_Quiz">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="QiuzQuestion" EntitySet="QiuzQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizAnswer_QiuzQuestion" Association="Self.FK_QuizAnswer_QiuzQuestion">
+            <End Role="QiuzQuestion" EntitySet="QiuzQuestions" />
+            <End Role="QuizAnswer" EntitySet="QuizAnswers" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="JLearnDBModel.User" />
+          <AssociationSet Name="FK_QuizAnswer_User" Association="JLearnDBModel.FK_QuizAnswer_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="QuizAnswer" EntitySet="QuizAnswers" />
+          </AssociationSet>
+          <EntitySet Name="UserSchedules" EntityType="JLearnDBModel.UserSchedule" />
+          <AssociationSet Name="FK_UserSchedule_Schedule" Association="JLearnDBModel.FK_UserSchedule_Schedule">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="UserSchedule" EntitySet="UserSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSchedule_User" Association="JLearnDBModel.FK_UserSchedule_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserSchedule" EntitySet="UserSchedules" />
+          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="JLearnDBModel.Role" />
+          <AssociationSet Name="FK_Role_User" Association="JLearnDBModel.FK_Role_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumThread_Schedule" Association="JLearnDBModel.FK_ForumThread_Schedule">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="ForumThread" EntitySet="ForumThreads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quiz_Schedule" Association="JLearnDBModel.FK_Quiz_Schedule">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="Quiz" EntitySet="Quizs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NRIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="QuizAnswers" Relationship="JLearnDBModel.FK_QuizAnswer_User" FromRole="User" ToRole="QuizAnswer" />
+          <NavigationProperty Name="UserSchedules" Relationship="JLearnDBModel.FK_UserSchedule_User" FromRole="User" ToRole="UserSchedule" />
+          <NavigationProperty Name="Roles" Relationship="JLearnDBModel.FK_Role_User" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_QuizAnswer_User">
+          <End Type="JLearnDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.QuizAnswer" Role="QuizAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="QuizAnswer">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserSchedule">
+          <Key>
+            <PropertyRef Name="UserScheduleID" />
+          </Key>
+          <Property Name="UserScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ScheduleID" Type="Int32" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Schedule" Relationship="JLearnDBModel.FK_UserSchedule_Schedule" FromRole="UserSchedule" ToRole="Schedule" />
+          <NavigationProperty Name="User" Relationship="JLearnDBModel.FK_UserSchedule_User" FromRole="UserSchedule" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UserSchedule_Schedule">
+          <End Type="JLearnDBModel.Schedule" Role="Schedule" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.UserSchedule" Role="UserSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="UserSchedule">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSchedule_User">
+          <End Type="JLearnDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.UserSchedule" Role="UserSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserSchedule">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="JLearnDBModel.FK_Role_User" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Role_User">
+          <End Type="JLearnDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.Role" Role="Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumThread_Schedule">
+          <End Type="JLearnDBModel.Schedule" Role="Schedule" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.ForumThread" Role="ForumThread" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="ForumThread">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quiz_Schedule">
+          <End Type="JLearnDBModel.Schedule" Role="Schedule" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.Quiz" Role="Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="Quiz">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JLearnDBModelStoreContainer" CdmEntityContainer="JLearnDBEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="JLearnDBModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="JLearnDBModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumPosts">
+            <EntityTypeMapping TypeName="JLearnDBModel.ForumPost">
+              <MappingFragment StoreEntitySet="ForumPost">
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ThreadID" ColumnName="ThreadID" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumThreads">
+            <EntityTypeMapping TypeName="JLearnDBModel.ForumThread">
+              <MappingFragment StoreEntitySet="ForumThread">
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="ThreadID" ColumnName="ThreadID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="JLearnDBModel.Module">
+              <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QiuzQuestions">
+            <EntityTypeMapping TypeName="JLearnDBModel.QiuzQuestion">
+              <MappingFragment StoreEntitySet="QiuzQuestion">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+                <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizs">
+            <EntityTypeMapping TypeName="JLearnDBModel.Quiz">
+              <MappingFragment StoreEntitySet="Quiz">
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="QuizID" ColumnName="QuizID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizAnswers">
+            <EntityTypeMapping TypeName="JLearnDBModel.QuizAnswer">
+              <MappingFragment StoreEntitySet="QuizAnswer">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+                <ScalarProperty Name="AnsweredQuestion" ColumnName="AnsweredQuestion" />
+                <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="JLearnDBModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="JLearnDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NRIC" ColumnName="NRIC" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSchedules">
+            <EntityTypeMapping TypeName="JLearnDBModel.UserSchedule">
+              <MappingFragment StoreEntitySet="UserSchedule">
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserScheduleID" ColumnName="UserScheduleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="JLearnDBModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

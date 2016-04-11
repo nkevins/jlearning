@@ -1,0 +1,53 @@
+﻿<div class="row">
+    <div class="page-header">
+        <h2>Live Quiz</h2>
+    </div>
+    <div class="col-md-2">
+        @Html.Partial("_ScheduleMenuPartial")
+    </div>
+    <div class="col-md-10">
+        <div class="container">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="topic">Title</label>
+                    <input type="text" class="form-control">
+                </div>
+                <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Quiz</button>
+            </form>
+            <table class="table forum table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">Quiz 1</a></td>
+                        <td>
+                            <form action="@Url.Action("Index", "Quiz")">
+                                <button class="btn btn-default"><span class="glyphicon glyphicon-play"></span> Start Quiz</button>
+                            </formz
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Quiz 2</a></td>
+                        <td>
+                            <form action="@Url.Action("Index", "Quiz")">
+                                <button class="btn btn-default"><span class="glyphicon glyphicon-play"></span> Start Quiz</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Quiz 3</a></td>
+                        <td>
+                            <form action="@Url.Action("Index", "Quiz")">
+                                <button class="btn btn-default"><span class="glyphicon glyphicon-play"></span> Start Quiz</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

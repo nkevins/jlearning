@@ -1,0 +1,77 @@
+﻿@section scripts
+{
+    <script type="text/javascript">
+        function addTopic() {
+            var topic = $('#topic').val();
+            var newRow = '<tr><td class="text-center"></td><td><h4><a href="@Url.Action("Thread", "Schedule")">' + topic + '</a></h4></td><td class="text-center hidden-xs hidden-sm">12345</td><td class="hidden-xs hidden-sm">by John Doe<br><small><i class="glyphicon glyphicon-time"></i> 3 months ago</small></td></tr>';
+            $(newRow).hide().prependTo('#topicTable > tbody').fadeIn('slow');
+            $('#topic').val("");
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="page-header">
+        <h2>Live Forum</h2>
+    </div>
+    <div class="col-md-2">
+        @Html.Partial("_ScheduleMenuPartial")
+    </div>
+    <div class="col-md-10">
+        <div class="container">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="topic">Topic</label>
+                    <input type="text" class="form-control" id="topic">
+                </div>
+                <button class="btn btn-primary" onclick="addTopic(); return false;"><span class="glyphicon glyphicon-plus"></span> Add</button>
+            </form>
+            <table class="table forum table-striped" id="topicTable">
+                <thead>
+                    <tr>
+                        <th class="cell-stat"></th>
+                        <th>
+                            <h3>Topic</h3>
+                        </th>
+                        <th class="cell-stat text-center hidden-xs hidden-sm">Posts</th>
+                        <th class="cell-stat-2x hidden-xs hidden-sm">Last Post</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>
+                            <h4><a href="@Url.Action("Thread", "Schedule")">Topic 1</a></h4>
+                        </td>
+                        <td class="text-center hidden-xs hidden-sm">12345</td>
+                        <td class="hidden-xs hidden-sm">by John Doe<br><small><i class="glyphicon glyphicon-time"></i> 3 months ago</small></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><i class="fa fa-exclamation fa-2x text-danger"></i></td>
+                        <td>
+                            <h4><a href="@Url.Action("Thread", "Schedule")">Topic 2</a></h4>
+                        </td>
+                        <td class="text-center hidden-xs hidden-sm">12345</td>
+                        <td class="hidden-xs hidden-sm">by Jane Doe<br><small><i class="glyphicon glyphicon-time"></i> 1 years ago</small></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><i class="fa fa-exclamation fa-2x text-danger"></i></td>
+                        <td>
+                            <h4><a href="@Url.Action("Thread", "Schedule")">Topic 3</a></h4>
+                        </td>
+                        <td class="text-center hidden-xs hidden-sm">12345</td>
+                        <td class="hidden-xs hidden-sm">by Jane Doe<br><small><i class="glyphicon glyphicon-time"></i> 2 years ago</small></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><i class="fa fa-exclamation fa-2x text-danger"></i></td>
+                        <td>
+                            <h4><a href="@Url.Action("Thread", "Schedule")">Topic 4</a></h4>
+                        </td>
+                        <td class="text-center hidden-xs hidden-sm">12345</td>
+                        <td class="hidden-xs hidden-sm">by Jane Doe<br><small><i class="glyphicon glyphicon-time"></i> 3 years ago</small></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
