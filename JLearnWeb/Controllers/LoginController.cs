@@ -1,5 +1,6 @@
 ﻿using BLL;
 using JLearnWeb.Extensions;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace JLearnWeb.Controllers
     public class LoginController : Controller
     {
 
+        private static readonly ILog log = LogManager.GetLogger(typeof(LoginController));
         private LoginFacade loginFac;
 
         public LoginController()
         {
+            log.Info("Test");
             loginFac = new LoginFacade();
         }
 
