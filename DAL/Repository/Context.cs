@@ -16,5 +16,6 @@ namespace DAL.Repository
 
         }
         public DbSet<Course> courses { get; set; }
+        public DbSet<User> users { get; set; }
     }
 }
