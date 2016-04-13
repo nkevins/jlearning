@@ -16,6 +16,7 @@ namespace DAL.Repository
     public partial class UnitOfWork : IUnitOfWork
     {
         private IRepository<Course> _courseRepository;
+        private IRepository<User> _userRepository;
         private Context _context;
 
         //Add any new repository here 
@@ -29,6 +30,18 @@ namespace DAL.Repository
                     _courseRepository = new Repository<Course>(_context);
 
                 return _courseRepository;
+            }
+        }
+
+        public IRepository<User> UserRepository
+        {
+            get
+            {
+
+                if (_userRepository == null)
+                    _userRepository = new Repository<User>(_context);
+
+                return _userRepository;
             }
         }
 

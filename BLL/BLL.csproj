@@ -51,6 +51,10 @@
       <Project>{a4499fd2-fc40-4cf4-94be-245271427cc0}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DL\DL.csproj">
+      <Project>{21b42e1d-4dd0-4d80-b554-5a0815beb332}</Project>
+      <Name>DL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

@@ -34,11 +34,18 @@ namespace JLearnWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(string username, string password)
         {
-            if(loginFac.login(username, password))
+            try
             {
-                return RedirectToAction("Index", "Home");
+                if (loginFac.login(username, password))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
+            catch (Exception ex)
+            {
+                log.Error("Exception Login ", ex);
+            }
+          
             this.AddNotification("Invalid username or password", NotificationType.ERROR);
             return RedirectToAction("Index", "Login");
         }
