@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Facade;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,13 @@ namespace JLearnWeb.Controllers
 {
     public class ScheduleController : Controller
     {
+        private ForumThreadFacade _forumThreadFacade;
+
+        public ScheduleController()
+        {
+            _forumThreadFacade = new ForumThreadFacade();
+        }
+
         // GET: Schedule
         public ActionResult Index()
         {
@@ -21,9 +29,10 @@ namespace JLearnWeb.Controllers
         }
 
         // GET: Schedule/Forum
-        public ActionResult Forum()
+        public ActionResult Forum(int scheduleId)
         {
-            return View();
+            var forums = _forumThreadFacade.GetBySchedule(scheduleId);
+            return View(forums);
         }
 
         // GET: Schedule/Thread

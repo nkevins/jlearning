@@ -12,15 +12,15 @@ namespace DL
     using System;
     using System.Collections.Generic;
     
-    public partial class QiuzQuestion
+    public partial class QuizQuestion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public QiuzQuestion()
+        public QuizQuestion()
         {
             this.QuizAnswers = new HashSet<QuizAnswer>();
         }
     
-        public int QuestionID { get; set; }
+        public int QuizQuestionID { get; set; }
         public string Title { get; set; }
         public string CorrectAnswer { get; set; }
         public Nullable<int> QuizID { get; set; }

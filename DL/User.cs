@@ -18,8 +18,8 @@ namespace DL
         public User()
         {
             this.QuizAnswers = new HashSet<QuizAnswer>();
-            this.UserSchedules = new HashSet<UserSchedule>();
             this.Roles = new HashSet<Role>();
+            this.UserSchedules = new HashSet<UserSchedule>();
         }
     
         public int UserID { get; set; }
@@ -33,8 +33,8 @@ namespace DL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuizAnswer> QuizAnswers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserSchedule> UserSchedules { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserSchedule> UserSchedules { get; set; }
     }
 }

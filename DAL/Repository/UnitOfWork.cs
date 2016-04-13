@@ -10,6 +10,7 @@ namespace DAL.Repository
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Course> CourseRepository { get; }
+        IRepository<ForumThread> ForumThreadRepository { get; }
         void Save();
     }
 
@@ -17,6 +18,7 @@ namespace DAL.Repository
     {
         private IRepository<Course> _courseRepository;
         private IRepository<User> _userRepository;
+        private IRepository<ForumThread> _forumThreadRepository;
         private Context _context;
 
         //Add any new repository here 
@@ -32,7 +34,7 @@ namespace DAL.Repository
                 return _courseRepository;
             }
         }
-
+        
         public IRepository<User> UserRepository
         {
             get
@@ -42,6 +44,17 @@ namespace DAL.Repository
                     _userRepository = new Repository<User>(_context);
 
                 return _userRepository;
+            }
+        }
+
+        public IRepository<ForumThread> ForumThreadRepository
+        {
+            get
+            {
+                if (_forumThreadRepository == null)
+                    _forumThreadRepository = new Repository<ForumThread>(_context);
+
+                return _forumThreadRepository;
             }
         }
 

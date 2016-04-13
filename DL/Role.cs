@@ -16,8 +16,8 @@ namespace DL
     {
         public int RoleID { get; set; }
         public string Name { get; set; }
-        public string ObsInd { get; set; }
         public Nullable<int> UserID { get; set; }
+        public string ObsInd { get; set; }
     
         public virtual User User { get; set; }
     }

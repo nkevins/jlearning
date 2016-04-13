@@ -82,13 +82,13 @@
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QiuzQuestion.cs">
-      <DependentUpon>JLearn.tt</DependentUpon>
-    </Compile>
     <Compile Include="Quiz.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
     <Compile Include="QuizAnswer.cs">
+      <DependentUpon>JLearn.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuizQuestion.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">

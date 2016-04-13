@@ -17,16 +17,16 @@ namespace DL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Quiz()
         {
-            this.QiuzQuestions = new HashSet<QiuzQuestion>();
+            this.QuizQuestions = new HashSet<QuizQuestion>();
         }
     
         public int QuizID { get; set; }
         public string Title { get; set; }
-        public string ObsInd { get; set; }
         public Nullable<int> ScheduleID { get; set; }
+        public string ObsInd { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QiuzQuestion> QiuzQuestions { get; set; }
         public virtual Schedule Schedule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuizQuestion> QuizQuestions { get; set; }
     }
 }

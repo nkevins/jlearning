@@ -11,11 +11,12 @@ namespace DAL.Repository
     public class Context : DbContext
     {
         public Context()
-            : base()
+            : base("name=JLearnDBEntities")
         {
 
         }
         public DbSet<Course> courses { get; set; }
         public DbSet<User> users { get; set; }
+        public DbSet<ForumThread> forumThreads { get; set; }
     }
 }

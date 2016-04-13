@@ -14,7 +14,7 @@ namespace DL
     
     public partial class ForumPost
     {
-        public int PostID { get; set; }
+        public int ForumPostID { get; set; }
         public string Description { get; set; }
         public Nullable<int> ThreadID { get; set; }
         public string ObsInd { get; set; }

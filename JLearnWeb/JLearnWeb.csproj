@@ -316,6 +316,10 @@
       <Project>{04fcce16-ff5b-451c-abad-37ca95a45952}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DL\DL.csproj">
+      <Project>{21b42e1d-4dd0-4d80-b554-5a0815beb332}</Project>
+      <Name>DL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
