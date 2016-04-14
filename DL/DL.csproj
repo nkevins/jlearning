@@ -78,6 +78,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JLearn.edmx</DependentUpon>
     </Compile>
+    <Compile Include="JLearn.Designer.Designer.cs">
+      <DependentUpon>JLearn.Designer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Module.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>

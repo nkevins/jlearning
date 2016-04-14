@@ -16,7 +16,8 @@ namespace BLL
     {
         private static string SaltString = "test";
         UnitOfWork unitofwork = new UnitOfWork();
-       
+        User usr = new User();
+
         public bool login(string username, string password)
         {
             try
@@ -36,17 +37,37 @@ namespace BLL
 
         public bool compareUserPassword(List<User> lstUser, string hashPwd)
         {
+           
             for (int i = 0; i < lstUser.Count; i++)
             {
                 User u = lstUser[i];
 
                 if (u.Password.Equals(hashPwd))
                 {
+                    usr.UserID = u.UserID;
                     return true;
                 }
             }
 
             return false;
+        }
+
+        public string getUserRole()
+        {
+            IQueryable<Role> userRoleModel = unitofwork.UserRoleRepository.GetAll();
+            List<Role> lstUser = userRoleModel.ToList();
+            string userRole = string.Empty;
+
+            for (int i = 0; i < lstUser.Count; i++)
+            {
+                Role role = lstUser[i];
+                if (role.UserID == usr.UserID)
+                {
+                    userRole = role.Name;
+                }
+            }
+
+            return userRole;
         }
     }
 }

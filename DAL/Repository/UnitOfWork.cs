@@ -18,6 +18,7 @@ namespace DAL.Repository
     {
         private IRepository<Course> _courseRepository;
         private IRepository<User> _userRepository;
+        private IRepository<Role> _userRoleRepository;
         private IRepository<ForumThread> _forumThreadRepository;
         private Context _context;
 
@@ -44,6 +45,18 @@ namespace DAL.Repository
                     _userRepository = new Repository<User>(_context);
 
                 return _userRepository;
+            }
+        }
+
+        public IRepository<Role> UserRoleRepository
+        {
+            get
+            {
+
+                if (_userRoleRepository == null)
+                    _userRoleRepository = new Repository<Role>(_context);
+
+                return _userRoleRepository;
             }
         }
 
