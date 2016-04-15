@@ -14,7 +14,7 @@ namespace BLL
 {
     public class LoginFacade
     {
-        private static string SaltString = "test";
+        //private static string SaltString = "test";
         UnitOfWork unitofwork = new UnitOfWork();
         User usr = new User();
 
@@ -23,11 +23,11 @@ namespace BLL
             try
             {
                  //string saltValue = ConfigurationManager.AppSettings["SaltString"];
-            string hashPwd = PasswordHashUtil.GenerateSaltedHashPwd(password, SaltString);
+            ///string hashPwd = PasswordHashUtil.GenerateSaltedHashPwd(password, SaltString);
             IQueryable<User> userModel =  unitofwork.UserRepository.GetAll();
             List<User> lstUser = userModel.ToList();
 
-            return compareUserPassword(lstUser, hashPwd);
+            return compareUserPassword(lstUser, password);
 
             }catch(Exception ex){
                 throw ex;
@@ -35,13 +35,13 @@ namespace BLL
            
         }
 
-        public bool compareUserPassword(List<User> lstUser, string hashPwd)
+        public bool compareUserPassword(List<User> lstUser, string password)
         {
            
             for (int i = 0; i < lstUser.Count; i++)
             {
                 User u = lstUser[i];
-
+                string hashPwd = PasswordHashUtil.GenerateSaltedHashPwd(password, u.Salt);
                 if (u.Password.Equals(hashPwd))
                 {
                     usr.UserID = u.UserID;
