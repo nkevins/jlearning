@@ -1,4 +1,6 @@
 ﻿using BLL.Facade;
+using DL;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ namespace JLearnWeb.Controllers
     public class ScheduleController : Controller
     {
         private ForumThreadFacade _forumThreadFacade;
+        private static readonly ILog log = LogManager.GetLogger(typeof(ScheduleController));
 
         public ScheduleController()
         {
@@ -20,8 +23,21 @@ namespace JLearnWeb.Controllers
          [Authorize]
         public ActionResult Index(int id)
         {
+            List<StudentEnrollment> lst = null;
+            StudentEnrollment std = null;
 
-            return View();
+            try
+            {
+                UserFacade user = new UserFacade();
+                lst = user.getStudentEnrollmentWithLecturerName(id);
+
+                std = lst[0];
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ", ex);
+            }
+            return View(std);
         }
 
         // GET: Schedule/Module

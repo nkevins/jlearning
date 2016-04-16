@@ -13,8 +13,8 @@
             </div>
             <div class="panel-body">
               <br />
-                Start Date: @item.startDate.ToString()<br />
-                End Date: @item.endDate.ToString()
+                Start Date: @Html.DisplayFor(model => item.startDate)<br />
+                End Date: @Html.DisplayFor(model => item.endDate)
             </div>
         </div>
 }

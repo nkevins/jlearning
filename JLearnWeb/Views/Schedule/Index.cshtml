@@ -1,4 +1,6 @@
-﻿<div class="row">
+﻿@model DL.StudentEnrollment
+
+<div class="row">
     <div class="page-header">
         <h2>Course Overview</h2>
     </div>
@@ -8,10 +10,10 @@
     <div class="col-md-10">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h1>CRS001 - Course 1</h1>
-                <p>Lecturer: Mr. Abc</p>
-                <p>Start Date: 13-Mar-2016</p>
-                <p>End Date: 26-Jun-2016</p>
+                <h1>@Html.DisplayFor(model => model.courseCode) - @Html.DisplayFor(model => model.courseName)</h1>
+                <p>@Html.DisplayNameFor(model => model.lecturerName): @Html.DisplayFor(model => model.lecturerName)</p>
+                <p>@Html.DisplayNameFor(model => model.startDate): @Html.DisplayFor(model => model.startDate)</p>
+                <p>@Html.DisplayNameFor(model => model.endDate): @Html.DisplayFor(model => model.endDate)</p>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Description
