@@ -1,6 +1,7 @@
 ﻿using BLL.Facade;
 using DL;
 using JLearnWeb.Constant;
+using JLearnWeb.Utility;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,7 @@ namespace JLearnWeb.Controllers
             try
             {
                 u.ObsInd = "N";
+                u.Password = PasswordHashUtil.GenerateSaltedHashPwd(u.Password, u.Salt);
                 UserFacade usr = new UserFacade();
                 usr.updateUser(u);
                 return RedirectToAction("Index");
