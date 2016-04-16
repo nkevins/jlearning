@@ -17,7 +17,7 @@
                         <div class="chat-body">
                             <div class="header">
                                 <strong class="primary-font">@p.User.Name</strong> <small class="pull-right text-muted">
-                                    <span class="glyphicon glyphicon-time"></span>@p.CreatedDate.Value.ToString("d-M-yyyy hh:mm:ss")
+                                    <span class="glyphicon glyphicon-time"></span>@p.CreatedDate.Value.ToString("d/M/yyyy h:mm:ss tt")
                                 </small>
                             </div>
                             <p>
@@ -59,7 +59,7 @@
                 if(forumId == @Model.ForumThreadID) {
                     var msg = JSON.parse(message);
                     var postDate = moment(msg.CreatedDate);
-                    var formattedDate = postDate.format('D-M-YYYY HH:mm:ss');
+                    var formattedDate = postDate.format('D/M/YYYY h:mm:ss A');
                     $('#chatMessage').prepend('<li class="left clearfix"><div class="chat-body"><div class="header"><strong class="primary-font">' + htmlEncode(msg.Name) + '</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>' + formattedDate + '</small></div><p>' + htmlEncode(msg.Message) + '</p></div></li>');
                 }
             };
@@ -70,7 +70,7 @@
                 $('#post').click(function () {
                     if($('#message').val() != '') {
                         // Call the Send method on the hub.
-                        chat.server.sendMessage(@Model.ForumThreadID, $('#message').val(), 1);
+                        chat.server.sendMessage(@Model.ForumThreadID, $('#message').val(), @ViewBag.UserId);
                         // Clear text box and reset focus for next comment.
                         $('#message').val('').focus();
                     }

@@ -44,7 +44,7 @@ namespace JLearnWeb.Controllers
                 if (u != null)
                 {
                     string userRole = loginFac.getUserRole(u.UserID);
-                    setIdentityRole(username, userRole);
+                    setIdentityRole(username, userRole, u.UserID);
                     Session.Add(ConstantFields.userSession, u);
                     return RedirectToAction("Index", "Home");
                 }
@@ -59,15 +59,15 @@ namespace JLearnWeb.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        public void setIdentityRole(string userName, string userRole)
+        public void setIdentityRole(string userName, string userRole, int userId)
         {
             var ident = new ClaimsIdentity(
           new[] { 
               // adding following 2 claim just for supporting default antiforgery provider
-              new Claim(ClaimTypes.NameIdentifier, userName),
+              new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
               new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
 
-              new Claim(ClaimTypes.Name,userName),
+              new Claim(ClaimTypes.Name, userName),
 
               // optionally you could add roles if any
               new Claim(ClaimTypes.Role, userRole),

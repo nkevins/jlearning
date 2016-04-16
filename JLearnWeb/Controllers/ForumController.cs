@@ -1,6 +1,7 @@
 ﻿using BLL.Facade;
 using DL;
 using JLearnWeb.Extensions;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace JLearnWeb.Controllers
 {
+    [Authorize]
     public class ForumController : Controller
     {
         private ForumThreadFacade _forumThreadFacade;
@@ -22,6 +24,7 @@ namespace JLearnWeb.Controllers
         public ActionResult Index(int id)
         {
             var forum = _forumThreadFacade.GetById(id);
+            ViewBag.UserId = User.Identity.GetUserId();
             return View(forum);
         }
 
