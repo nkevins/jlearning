@@ -47,10 +47,18 @@ namespace JLearnWeb.Controllers
         }
 
         // GET: Schedule/Forum
-        public ActionResult Forum(int scheduleId)
+        public ActionResult Forum(int id)
         {
-            var forums = _forumThreadFacade.GetBySchedule(scheduleId);
-            ViewBag.ScheduleId = scheduleId;
+            List<ForumThread> forums = null;
+            try
+            {
+                forums = _forumThreadFacade.GetBySchedule(id);
+            }
+            catch(Exception ex)
+            {
+                log.Error("Exception ", ex);
+            }
+            ViewBag.ScheduleId = id;
             return View(forums);
         }
 
