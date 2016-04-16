@@ -18,5 +18,6 @@ namespace DAL.Repository
         public DbSet<Course> courses { get; set; }
         public DbSet<User> users { get; set; }
         public DbSet<ForumThread> forumThreads { get; set; }
+        public DbSet<ForumPost> forumPosts { get; set; }
     }
 }

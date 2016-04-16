@@ -11,6 +11,7 @@ namespace DAL.Repository
     {
         IRepository<Course> CourseRepository { get; }
         IRepository<ForumThread> ForumThreadRepository { get; }
+        IRepository<ForumPost> ForumPostRepository { get; }
         void Save();
     }
 
@@ -20,6 +21,7 @@ namespace DAL.Repository
         private IRepository<User> _userRepository;
         private IRepository<Role> _userRoleRepository;
         private IRepository<ForumThread> _forumThreadRepository;
+        private IRepository<ForumPost> _forumPostRepository;
         private Context _context;
 
         //Add any new repository here 
@@ -68,6 +70,17 @@ namespace DAL.Repository
                     _forumThreadRepository = new Repository<ForumThread>(_context);
 
                 return _forumThreadRepository;
+            }
+        }
+
+        public IRepository<ForumPost> ForumPostRepository
+        {
+            get
+            {
+                if (_forumPostRepository == null)
+                    _forumPostRepository = new Repository<ForumPost>(_context);
+
+                return _forumPostRepository;
             }
         }
 

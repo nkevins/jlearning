@@ -60,6 +60,7 @@
     <Compile Include="ForumPost.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
+    <Compile Include="ForumPostMetaData.cs" />
     <Compile Include="ForumThread.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
