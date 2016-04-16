@@ -1,6 +1,8 @@
-﻿<ul class="nav nav-pills nav-stacked">
+﻿@model DL.StudentEnrollment
+
+<ul class="nav nav-pills nav-stacked">
     <li><a href="@Url.Action("Index", "Schedule")">Overview</a></li>
     <li><a href="@Url.Action("Module", "Schedule")">Module</a></li>
-    <li><a href="@Url.Action("Forum", "Schedule")">Live Forum</a></li>
+    <li><a href="@Url.Action("Forum", "Schedule", new { id = @Html.DisplayFor(model => model.scheduleId) })">Live Forum</a></li>
     <li><a href="@Url.Action("Quiz", "Schedule")">Live Quiz</a></li>
 </ul>
