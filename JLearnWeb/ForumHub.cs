@@ -7,11 +7,13 @@ using DL.ModelView;
 using Newtonsoft.Json;
 using BLL.Facade;
 using DL;
+using log4net;
 
 namespace JLearnWeb
 {
     public class ForumHub : Hub
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(ForumHub));
         private ForumPostFacade _postFac;
         private UserFacade _userFac;
 
@@ -23,23 +25,36 @@ namespace JLearnWeb
 
         public void SendMessage(int forumId, string message, int userId)
         {
-            User usr = _userFac.GetById(userId);
-            ForumPostModelView post = new ForumPostModelView();
-            post.Message = message;
-            post.Name = usr.Name;
-            post.CreatedDate = DateTime.Now;
+            log.Info("Receive message from client forumId: " + forumId + " message: " + message + " userId: " + userId);
 
-            // Saving into database
-            ForumPost p = new ForumPost();
-            p.ThreadID = forumId;
-            p.UserID = userId;
-            p.Description = message;
-            p.CreatedDate = post.CreatedDate;
-            p.ObsInd = "N";
+            try
+            {
+                User usr = _userFac.GetById(userId);
+                ForumPostModelView post = new ForumPostModelView();
+                post.Message = message;
+                post.Name = usr.Name;
+                post.CreatedDate = DateTime.Now;
 
-            _postFac.Add(p);
+                // Saving into database
+                ForumPost p = new ForumPost();
+                p.ThreadID = forumId;
+                p.UserID = userId;
+                p.Description = message;
+                p.CreatedDate = post.CreatedDate;
+                p.ObsInd = "N";
 
-            Clients.All.broadcast(forumId, JsonConvert.SerializeObject(post));
+                _postFac.Add(p);
+
+                log.Info("Save to DB: " + JsonConvert.SerializeObject(p));
+
+                Clients.All.broadcast(forumId, JsonConvert.SerializeObject(post));
+
+                log.Info("Broadcast forumId: " + forumId + " message: " + JsonConvert.SerializeObject(post));
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ", ex);
+            }
         }
     }
 }

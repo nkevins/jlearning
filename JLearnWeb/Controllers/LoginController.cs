@@ -21,7 +21,6 @@ namespace JLearnWeb.Controllers
 
         public LoginController()
         {
-            log.Info("Test");
             loginFac = new LoginFacade();
         }
 

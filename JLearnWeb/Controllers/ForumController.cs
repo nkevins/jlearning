@@ -14,7 +14,7 @@ namespace JLearnWeb.Controllers
     [Authorize]
     public class ForumController : Controller
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(LoginController));
+        private static readonly ILog log = LogManager.GetLogger(typeof(ForumController));
         private ForumThreadFacade _forumThreadFacade;
 
         public ForumController()
