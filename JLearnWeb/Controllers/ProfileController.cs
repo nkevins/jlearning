@@ -82,6 +82,8 @@ namespace JLearnWeb.Controllers
                 u.Password = PasswordHashUtil.GenerateSaltedHashPwd(u.Password, u.Salt);
                 UserFacade usr = new UserFacade();
                 usr.updateUser(u);
+                Session.Remove(ConstantFields.userSession);
+                Session.Add(ConstantFields.userSession, u);
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
