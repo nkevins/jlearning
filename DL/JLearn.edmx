@@ -31,6 +31,8 @@
           <Property Name="ForumPostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nchar" MaxLength="500" />
           <Property Name="ThreadID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UserID" Type="int" />
           <Property Name="ObsInd" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="ForumThread">
@@ -40,6 +42,7 @@
           <Property Name="ForumThreadID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nchar" MaxLength="500" />
           <Property Name="ScheduleID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ObsInd" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="Module">
@@ -142,6 +145,18 @@
             </Principal>
             <Dependent Role="ForumPost">
               <PropertyRef Name="ThreadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumPost_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -286,6 +301,10 @@
             <End Role="ForumThread" EntitySet="ForumThread" />
             <End Role="ForumPost" EntitySet="ForumPost" />
           </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_User" Association="Self.FK_ForumPost_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ForumPost" EntitySet="ForumPost" />
+          </AssociationSet>
           <AssociationSet Name="FK_ForumThread_Schedule" Association="Self.FK_ForumThread_Schedule">
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="ForumThread" EntitySet="ForumThread" />
@@ -392,6 +411,10 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserSchedule" EntitySet="UserSchedules" />
           </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_User" Association="JLearnDBModel.FK_ForumPost_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ForumPost" EntitySet="ForumPosts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Course">
           <Key>
@@ -423,6 +446,9 @@
           <Property Name="ThreadID" Type="Int32" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="ForumThread" Relationship="JLearnDBModel.FK_ForumPost_ForumThread" FromRole="ForumPost" ToRole="ForumThread" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="JLearnDBModel.FK_ForumPost_User" FromRole="ForumPost" ToRole="User" />
         </EntityType>
         <EntityType Name="ForumThread">
           <Key>
@@ -434,6 +460,7 @@
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="ForumPosts" Relationship="JLearnDBModel.FK_ForumPost_ForumThread" FromRole="ForumThread" ToRole="ForumPost" />
           <NavigationProperty Name="Schedule" Relationship="JLearnDBModel.FK_ForumThread_Schedule" FromRole="ForumThread" ToRole="Schedule" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Module">
           <Key>
@@ -521,6 +548,7 @@
           <NavigationProperty Name="QuizAnswers" Relationship="JLearnDBModel.FK_QuizAnswer_User" FromRole="User" ToRole="QuizAnswer" />
           <NavigationProperty Name="Roles" Relationship="JLearnDBModel.FK_Role_User" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="UserSchedules" Relationship="JLearnDBModel.FK_UserSchedule_User" FromRole="User" ToRole="UserSchedule" />
+          <NavigationProperty Name="ForumPosts" Relationship="JLearnDBModel.FK_ForumPost_User" FromRole="User" ToRole="ForumPost" />
         </EntityType>
         <EntityType Name="UserSchedule">
           <Key>
@@ -677,6 +705,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ForumPost_User">
+          <End Type="JLearnDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.ForumPost" Role="ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -707,6 +747,8 @@
           <EntitySetMapping Name="ForumPosts">
             <EntityTypeMapping TypeName="JLearnDBModel.ForumPost">
               <MappingFragment StoreEntitySet="ForumPost">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
                 <ScalarProperty Name="ThreadID" ColumnName="ThreadID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -717,6 +759,7 @@
           <EntitySetMapping Name="ForumThreads">
             <EntityTypeMapping TypeName="JLearnDBModel.ForumThread">
               <MappingFragment StoreEntitySet="ForumThread">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />

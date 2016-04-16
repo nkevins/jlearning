@@ -32,6 +32,7 @@ namespace JLearnWeb.Controllers
         public ActionResult Forum(int scheduleId)
         {
             var forums = _forumThreadFacade.GetBySchedule(scheduleId);
+            ViewBag.ScheduleId = scheduleId;
             return View(forums);
         }
 

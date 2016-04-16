@@ -24,6 +24,7 @@ namespace DL
         public string Title { get; set; }
         public Nullable<int> ScheduleID { get; set; }
         public string ObsInd { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ForumPost> ForumPosts { get; set; }

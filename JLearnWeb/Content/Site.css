@@ -62,7 +62,7 @@ textarea {
 .chat-panel-body
 {
     overflow-y: scroll;
-    height: 450px;
+    height: 310px;
 }
 
 ::-webkit-scrollbar-track

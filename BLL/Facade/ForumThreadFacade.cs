@@ -22,9 +22,20 @@ namespace BLL.Facade
             _uow = uow;
         }
 
+        public ForumThread GetById(int forumThreadId)
+        {
+            return _uow.ForumThreadRepository.GetById(forumThreadId);
+        }
+
         public List<ForumThread> GetBySchedule(int scheduleId)
         {
-            return _uow.ForumThreadRepository.GetAll().Where(x => x.ScheduleID == scheduleId).ToList();
+            return _uow.ForumThreadRepository.GetAll().Where(x => x.ScheduleID == scheduleId && x.ObsInd == "N").OrderByDescending(x => x.CreatedDate).ToList();
+        }
+
+        public void Add(ForumThread forum)
+        {
+            _uow.ForumThreadRepository.Insert(forum);
+            _uow.Save();
         }
     }
 }

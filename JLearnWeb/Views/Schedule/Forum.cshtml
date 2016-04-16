@@ -1,15 +1,4 @@
 ﻿@model IEnumerable<DL.ForumThread>
-@section scripts
-{
-    <script type="text/javascript">
-        function addTopic() {
-            var topic = $('#topic').val();
-            var newRow = '<tr><td class="text-center"></td><td><h4><a href="@Url.Action("Thread", "Schedule")">' + topic + '</a></h4></td><td class="text-center hidden-xs hidden-sm">12345</td><td class="hidden-xs hidden-sm">by John Doe<br><small><i class="glyphicon glyphicon-time"></i> 3 months ago</small></td></tr>';
-            $(newRow).hide().prependTo('#topicTable > tbody').fadeIn('slow');
-            $('#topic').val("");
-        }
-    </script>
-}
 
 <div class="row">
     <div class="page-header">
@@ -20,12 +9,14 @@
     </div>
     <div class="col-md-10">
         <div class="container">
-            <form class="form-inline">
+            @Html.Partial("_Notifications")
+            <form class="form-inline" action="@Url.Action("Index", "Forum")" method="post">
                 <div class="form-group">
                     <label for="topic">Topic</label>
-                    <input type="text" class="form-control" id="topic">
+                    <input type="text" class="form-control" id="topic" name="title" />
+                    <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
                 </div>
-                <button class="btn btn-primary" onclick="addTopic(); return false;"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </form>
             <table class="table forum table-striped" id="topicTable">
                 <thead>
@@ -44,10 +35,16 @@
                         <tr>
                             <td class="text-center"></td>
                             <td>
-                                <h4><a href="@Url.Action("Thread", "Schedule")">@f.Title</a></h4>
+                                <h4><a href="@Url.Action("Index", "Forum", new { id = @f.ForumThreadID})">@f.Title</a></h4>
                             </td>
                             <td class="text-center hidden-xs hidden-sm">@f.ForumPosts.Count</td>
-                            <td class="hidden-xs hidden-sm">by John Doe<br><small><i class="glyphicon glyphicon-time"></i> 3 months ago</small></td>
+                            <td class="hidden-xs hidden-sm">
+                                @if (f.ForumPosts.Count > 0)
+                                {
+                                    <span>by @f.GetLatestPost().User.Name</span><br />
+                                    <small><i class="glyphicon glyphicon-time"></i> @f.GetLatestPost().CreatedDate</small>
+                                }                                
+                            </td>
                         </tr>
                     }
                 </tbody>

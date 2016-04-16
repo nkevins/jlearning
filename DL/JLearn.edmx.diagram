@@ -29,6 +29,7 @@
         <AssociationConnector Association="JLearnDBModel.FK_Role_User" />
         <AssociationConnector Association="JLearnDBModel.FK_UserSchedule_Schedule" />
         <AssociationConnector Association="JLearnDBModel.FK_UserSchedule_User" />
+        <AssociationConnector Association="JLearnDBModel.FK_ForumPost_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
