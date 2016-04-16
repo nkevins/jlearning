@@ -1,4 +1,7 @@
-﻿using JLearnWeb.Constant;
+﻿using BLL.Facade;
+using DL;
+using JLearnWeb.Constant;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +12,9 @@ namespace JLearnWeb.Controllers
 {
     public class ProfileController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(ProfileController));
         // GET: Profile
+        [Authorize]
         public ActionResult Index()
         {
             DL.User usr = null;
@@ -51,23 +56,35 @@ namespace JLearnWeb.Controllers
         }
 
         // GET: Profile/Edit/5
+         [Authorize]
         public ActionResult Edit(int id)
         {
-            return View();
+
+            User usr = null;
+
+            if (Session[ConstantFields.userSession] != null)
+            {
+                usr = (User)Session[ConstantFields.userSession];
+                usr.Password = string.Empty;
+            }
+
+            return View(usr);
         }
 
         // POST: Profile/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(User u)
         {
             try
             {
-                // TODO: Add update logic here
-
+                u.ObsInd = "N";
+                UserFacade usr = new UserFacade();
+                usr.updateUser(u);
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                log.Error("Exceptioin ", ex);
                 return View();
             }
         }
