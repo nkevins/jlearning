@@ -82,6 +82,7 @@
       <DependentUpon>JLearn.Designer.cs</DependentUpon>
     </Compile>
     <Compile Include="ForumThreadMetaData.cs" />
+    <Compile Include="ModelView\ForumPostModelView.cs" />
     <Compile Include="Module.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
