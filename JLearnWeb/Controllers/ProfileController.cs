@@ -74,6 +74,7 @@ namespace JLearnWeb.Controllers
 
         // POST: Profile/Edit/5
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(User u)
         {
             try

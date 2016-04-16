@@ -26,5 +26,18 @@ namespace BLL.Facade
             }
            
         }
+
+        public List<StudentEnrollment> getStudentEnrollment(int userId)
+        {
+            try
+            {
+                UserRepository usrRepo = new UserRepository();
+                return usrRepo.getStudentEnrollment(userId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

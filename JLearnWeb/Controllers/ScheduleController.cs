@@ -17,8 +17,10 @@ namespace JLearnWeb.Controllers
         }
 
         // GET: Schedule
-        public ActionResult Index()
+         [Authorize]
+        public ActionResult Index(int id)
         {
+
             return View();
         }
 

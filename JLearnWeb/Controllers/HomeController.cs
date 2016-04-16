@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BLL.Facade;
+using DL;
+using JLearnWeb.Constant;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +12,29 @@ namespace JLearnWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HomeController));
+
+         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            List<StudentEnrollment> lst = null;
+
+            try
+            {
+                  if (Session[ConstantFields.userSession] != null)
+                  {
+                        User usr = (User)Session[ConstantFields.userSession];
+                        UserFacade user = new UserFacade();
+                        lst = user.getStudentEnrollment(usr.UserID);
+                  }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ex ",ex);
+                
+            }
+
+            return View(lst);
         }
 
         public ActionResult About()

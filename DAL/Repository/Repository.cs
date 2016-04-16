@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DL;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -45,5 +46,8 @@ namespace DAL.Repository
         {
             context.Entry(entity).State = EntityState.Deleted;
         }
+
+
+       
     }
 }

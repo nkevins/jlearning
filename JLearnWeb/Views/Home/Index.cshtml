@@ -1,18 +1,24 @@
-﻿<div class="row">
+﻿@model List<DL.StudentEnrollment>
+
+<div class="row">
     <div class="col-md-7">
         <div class="page-header">
             <h2>Home</h2>
         </div>
+
+@foreach (var item in Model) {
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="@Url.Action("Index", "Schedule")">CRS001 - Course 1</a>
+                <a href="@Url.Action("Index", "Schedule", new { id = @item.scheduleId })">@item.courseCode - @item.courseName</a>
             </div>
             <div class="panel-body">
-                Teacher: Mr. Teacher 1<br />
-                Start Date: 13-Mar-2016<br />
-                End Date: 25-Jun-2016
+              <br />
+                Start Date: @item.startDate.ToString()<br />
+                End Date: @item.endDate.ToString()
             </div>
         </div>
+}
+        <!--
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a href="@Url.Action("Index", "Schedule")">CRS002 - Course 2</a>
@@ -33,5 +39,6 @@
                 End Date: 25-Jun-2016
             </div>
         </div>
+            -->
     </div>
 </div>

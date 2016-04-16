@@ -103,6 +103,7 @@
     <Compile Include="Schedule.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
+    <Compile Include="StudentEnrollment.cs" />
     <Compile Include="User.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
