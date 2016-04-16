@@ -12,6 +12,11 @@ namespace BLL.Facade
     {
         UnitOfWork unitofwork = new UnitOfWork();
 
+        public User GetById(int id)
+        {
+            return unitofwork.UserRepository.GetById(id);
+        }
+
         public bool updateUser(User u)
         {
             try

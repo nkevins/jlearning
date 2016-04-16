@@ -60,7 +60,7 @@
                     var msg = JSON.parse(message);
                     var postDate = moment(msg.CreatedDate);
                     var formattedDate = postDate.format('D-M-YYYY HH:mm:ss');
-                    $('#chatMessage').prepend('<li class="left clearfix"><div class="chat-body"><div class="header"><strong class="primary-font">' + msg.Name + '</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>' + formattedDate + '</small></div><p>' + msg.Message + '</p></div></li>');
+                    $('#chatMessage').prepend('<li class="left clearfix"><div class="chat-body"><div class="header"><strong class="primary-font">' + htmlEncode(msg.Name) + '</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>' + formattedDate + '</small></div><p>' + htmlEncode(msg.Message) + '</p></div></li>');
                 }
             };
             // Set initial focus to message input box.
@@ -68,16 +68,18 @@
             // Start the connection.
             $.connection.hub.start().done(function () {
                 $('#post').click(function () {
-                    // Call the Send method on the hub.
-                    chat.server.sendMessage(@Model.ForumThreadID, $('#message').val(), 1);
-                    // Clear text box and reset focus for next comment.
-                    $('#message').val('').focus();
+                    if($('#message').val() != '') {
+                        // Call the Send method on the hub.
+                        chat.server.sendMessage(@Model.ForumThreadID, $('#message').val(), 1);
+                        // Clear text box and reset focus for next comment.
+                        $('#message').val('').focus();
+                    }
                 });
             });
         });
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
-            var encodedValue = value.html();
+            var encodedValue = $('<div/>').text(value).html();
             return encodedValue;
         }
     </script>
