@@ -55,7 +55,8 @@ namespace DAL.Repository
                          where n.ScheduleID == scheduleId
                          && role.Name == "Lecturer"
                          orderby n.StartDate
-                         select new { courseCode = x.CourseCode, courseName = x.CourseName, startDate = n.StartDate, endDate = n.EndDate, scheduleId = n.ScheduleID,lecturerName = a.Name });
+                         select new { courseCode = x.CourseCode, courseName = x.CourseName, startDate = n.StartDate, 
+                             endDate = n.EndDate, scheduleId = n.ScheduleID,lecturerName = a.Name,description = x.Description });
 
             try
             {
@@ -68,6 +69,7 @@ namespace DAL.Repository
                     obj.startDate = a.startDate;
                     obj.endDate = a.endDate;
                     obj.lecturerName = a.lecturerName;
+                    obj.description = a.description;
                     c.Add(obj);
                 }
             }

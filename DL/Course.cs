@@ -24,6 +24,7 @@ namespace DL
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public string ObsInd { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }

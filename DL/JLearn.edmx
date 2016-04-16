@@ -13,6 +13,7 @@
           <Property Name="CourseCode" Type="nchar" MaxLength="50" />
           <Property Name="CourseName" Type="nchar" MaxLength="50" />
           <Property Name="ObsInd" Type="char" MaxLength="1" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -425,6 +426,7 @@
           <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Schedules" Relationship="JLearnDBModel.FK_Schedule_Course" FromRole="Course" ToRole="Schedule" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -726,6 +728,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="JLearnDBModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
                 <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />

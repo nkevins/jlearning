@@ -27,6 +27,6 @@ namespace DL
        public int scheduleId { get; set; }
 
         [DisplayName("Description")]
-       public int description { get; set; }
+       public string description { get; set; }
     }
 }

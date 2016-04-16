@@ -28,7 +28,7 @@ namespace BLL
             IQueryable<User> userModel =  unitofwork.UserRepository.GetAll();
             List<User> lstUser = userModel.ToList();
 
-            usr = getUserAccount(lstUser, password);
+            usr = getUserAccount(lstUser, username,password);
 
             }catch(Exception ex){
                 throw ex;
@@ -37,14 +37,14 @@ namespace BLL
             return usr;
         }
 
-        public User getUserAccount(List<User> lstUser, string password)
+        public User getUserAccount(List<User> lstUser, string username, string password)
         {
             User user = null;
             for (int i = 0; i < lstUser.Count; i++)
             {
                 User u = lstUser[i];
                 string hashPwd = PasswordHashUtil.GenerateSaltedHashPwd(password, u.Salt);
-                if (u.Password.Equals(hashPwd))
+                if (u.Email.Equals(username) && u.Password.Equals(hashPwd))
                 {
                     user = u;
                     break;
