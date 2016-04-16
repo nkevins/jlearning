@@ -9,6 +9,7 @@ namespace JLearnWeb.Controllers
     public class UserController : Controller
     {
         // GET: Student
+    //    [Authorize(Roles = "Lecturer")]
         public ActionResult Index()
         {
             return View();

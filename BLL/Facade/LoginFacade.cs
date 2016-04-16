@@ -16,10 +16,11 @@ namespace BLL
     {
         //private static string SaltString = "test";
         UnitOfWork unitofwork = new UnitOfWork();
-        User usr = new User();
+       
 
-        public bool login(string username, string password)
+        public User login(string username, string password)
         {
+            User usr = null;
             try
             {
                  //string saltValue = ConfigurationManager.AppSettings["SaltString"];
@@ -27,32 +28,33 @@ namespace BLL
             IQueryable<User> userModel =  unitofwork.UserRepository.GetAll();
             List<User> lstUser = userModel.ToList();
 
-            return compareUserPassword(lstUser, password);
+            usr = getUserAccount(lstUser, password);
 
             }catch(Exception ex){
                 throw ex;
             }
-           
+
+            return usr;
         }
 
-        public bool compareUserPassword(List<User> lstUser, string password)
+        public User getUserAccount(List<User> lstUser, string password)
         {
-           
+            User user = null;
             for (int i = 0; i < lstUser.Count; i++)
             {
                 User u = lstUser[i];
                 string hashPwd = PasswordHashUtil.GenerateSaltedHashPwd(password, u.Salt);
                 if (u.Password.Equals(hashPwd))
                 {
-                    usr.UserID = u.UserID;
-                    return true;
+                    user = u;
+                    break;
                 }
             }
 
-            return false;
+            return user;
         }
 
-        public string getUserRole()
+        public string getUserRole(int userId)
         {
             IQueryable<Role> userRoleModel = unitofwork.UserRoleRepository.GetAll();
             List<Role> lstUser = userRoleModel.ToList();
@@ -61,7 +63,7 @@ namespace BLL
             for (int i = 0; i < lstUser.Count; i++)
             {
                 Role role = lstUser[i];
-                if (role.UserID == usr.UserID)
+                if (role.UserID == userId)
                 {
                     userRole = role.Name;
                 }

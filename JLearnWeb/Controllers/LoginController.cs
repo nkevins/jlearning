@@ -1,4 +1,5 @@
 ﻿using BLL;
+using JLearnWeb.Constant;
 using JLearnWeb.Extensions;
 using log4net;
 using Microsoft.AspNet.Identity;
@@ -39,10 +40,12 @@ namespace JLearnWeb.Controllers
         {
             try
             {
-                if (loginFac.login(username, password))
+                DL.User u = loginFac.login(username, password);
+                if (u != null)
                 {
-                    string userRole = loginFac.getUserRole();
+                    string userRole = loginFac.getUserRole(u.UserID);
                     setIdentityRole(username, userRole);
+                    Session.Add(ConstantFields.userSession, u);
                     return RedirectToAction("Index", "Home");
                 }
             }
