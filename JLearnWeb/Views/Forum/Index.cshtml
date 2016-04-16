@@ -42,6 +42,7 @@
 </div>
 @section scripts {
     <!--Script references. -->
+    <script src="~/Scripts/moment.min.js"></script>
     <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
     <!--Reference the SignalR library. -->
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
@@ -55,12 +56,10 @@
             // Create a function that the hub can call back to display messages.
             chat.client.broadcast = function (forumId, message) {
                 // Add the message to the page.
-                //$('#discussion').append('<li><strong>' + htmlEncode(name)
-                //    + '</strong>: ' + htmlEncode(message) + '</li>');
                 if(forumId == @Model.ForumThreadID) {
                     var msg = JSON.parse(message);
-                    var postDate = new Date(msg.CreatedDate);
-                    var formattedDate = postDate.getDate() + '-' + postDate.getMonth() + '-' + postDate.getFullYear() + ' ' + postDate.getHours() + ':' + postDate.getMinutes() + ':' + postDate.getSeconds();
+                    var postDate = moment(msg.CreatedDate);
+                    var formattedDate = postDate.format('D-M-YYYY HH:mm:ss');
                     $('#chatMessage').prepend('<li class="left clearfix"><div class="chat-body"><div class="header"><strong class="primary-font">' + msg.Name + '</strong> <small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span>' + formattedDate + '</small></div><p>' + msg.Message + '</p></div></li>');
                 }
             };
