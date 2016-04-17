@@ -44,6 +44,7 @@ namespace JLearnWeb.Controllers
         {
             if(ModelState.IsValid)
             {
+                forum.CreatedDate = DateTime.Now;
                 forum.ObsInd = "N";
                 try
                 {
@@ -65,7 +66,7 @@ namespace JLearnWeb.Controllers
                 this.AddNotification(errors[0].First().ErrorMessage, NotificationType.ERROR);
             }
             
-            return RedirectToAction("Forum", "Schedule", new { scheduleId = scheduleId });
+            return RedirectToAction("Forum", "Schedule", new { id = scheduleId });
         }
     }
 }
