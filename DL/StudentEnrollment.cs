@@ -29,18 +29,12 @@ namespace DL
 
         [Required(ErrorMessage = "Schedule end date is required")]
         [DataType(DataType.Date)]
-       
+      
          [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
          [DisplayName("End Date")]
        public DateTime? endDate { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (endDate < startDate)
-            {
-                yield return new ValidationResult("Course schedule end date must be greater than StartDate");
-            }
-        }
+      
 
        [Key]
        public int scheduleId { get; set; }
