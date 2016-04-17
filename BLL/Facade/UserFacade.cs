@@ -58,5 +58,19 @@ namespace BLL.Facade
                 throw ex;
             }
         }
+
+        public List<StudentEnrollment> getCourseSchedule()
+        {
+
+            try
+            {
+                UserRepository usrRepo = new UserRepository();
+                return usrRepo.getCourseSchedule();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

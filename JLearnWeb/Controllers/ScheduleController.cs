@@ -19,6 +19,23 @@ namespace JLearnWeb.Controllers
             _forumThreadFacade = new ForumThreadFacade();
         }
 
+         [Authorize(Roles = "Lecturer")]
+        public ActionResult CourseSchedule()
+        {
+            List<StudentEnrollment> lst = null;
+          
+            try
+            {
+                UserFacade user = new UserFacade();
+                lst = user.getCourseSchedule();
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ", ex);
+            }
+            return View(lst);
+        }
+
         // GET: Schedule
          [Authorize]
         public ActionResult Index(int id)

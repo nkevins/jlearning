@@ -11,7 +11,10 @@ namespace DL
    public class StudentEnrollment
     {
 
+        [DisplayName("Course Code")]
        public string courseCode { get; set; }
+
+        [DisplayName("Course Name")]
        public string courseName { get; set; }
 
         [DisplayName("Lecturer")]
@@ -24,6 +27,8 @@ namespace DL
          [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
          [DisplayName("End Date")]
        public DateTime? endDate { get; set; }
+
+       [Key]
        public int scheduleId { get; set; }
 
         [DisplayName("Description")]
