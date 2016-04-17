@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace DAL.Repository
 {
@@ -123,6 +124,35 @@ namespace DAL.Repository
                 throw ex;
             }
             return c;
+        }
+
+        public List<SelectListItem> getLecturer()
+        {
+            try
+            {
+                 JLearnDBEntities db = new JLearnDBEntities();
+                 List<SelectListItem> lstLecturer = new List<SelectListItem>();
+                 var query = (from
+                              a in db.Users
+                              join role in db.Roles on a.UserID equals role.UserID
+                              where role.Name == "Lecturer" && a.ObsInd == "N"
+                            
+                              select new
+                              {
+                                 userId = a.UserID,
+                                 name = a.Name,
+                              });
+
+                 foreach (var a in query)
+                 {
+                     lstLecturer.Add(new SelectListItem { Text = a.userId + "-" + a.name, Value = a.userId.ToString() });
+                 }
+
+                 return lstLecturer;
+            }catch(Exception ex){
+                throw ex;
+            }
+           
         }
     }
 }

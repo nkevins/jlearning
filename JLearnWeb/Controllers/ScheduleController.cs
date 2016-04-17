@@ -12,17 +12,29 @@ namespace JLearnWeb.Controllers
     public class ScheduleController : Controller
     {
         private ForumThreadFacade _forumThreadFacade;
+        private CourseFacade crsFacade;
+        private UserFacade usrFacade;
+
         private static readonly ILog log = LogManager.GetLogger(typeof(ScheduleController));
+        StudentEnrollment en = new StudentEnrollment();
 
         public ScheduleController()
         {
             _forumThreadFacade = new ForumThreadFacade();
+            crsFacade = new CourseFacade();
+            usrFacade = new UserFacade();
         }
 
          [Authorize(Roles = "Lecturer")]
         public ActionResult Create()
         {
-            return View();
+            List<SelectListItem> items = crsFacade.getCourse();
+            List<SelectListItem> lecturerLst = usrFacade.getLecturer();
+            //ViewBag.CourseLst = items;
+            
+            en.lstCourse = items;
+            en.lstLecturer = lecturerLst;
+            return View(en);
         }
 
          [Authorize(Roles = "Lecturer")]

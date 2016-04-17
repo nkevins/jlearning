@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace BLL.Facade
 {
     public  class UserFacade
     {
         UnitOfWork unitofwork = new UnitOfWork();
+        UserRepository usrRepo = new UserRepository();
 
         public User GetById(int id)
         {
@@ -36,7 +38,6 @@ namespace BLL.Facade
         {
             try
             {
-                UserRepository usrRepo = new UserRepository();
                 return usrRepo.getStudentEnrollment(userId);
             }
             catch (Exception ex)
@@ -50,7 +51,7 @@ namespace BLL.Facade
 
             try
             {
-                UserRepository usrRepo = new UserRepository();
+               
                 return usrRepo.getStudentEnrollmentWithLecturerName(scheduleId);
             }
             catch (Exception ex)
@@ -64,13 +65,27 @@ namespace BLL.Facade
 
             try
             {
-                UserRepository usrRepo = new UserRepository();
+            
                 return usrRepo.getCourseSchedule();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        public List<SelectListItem> getLecturer()
+        {
+            try
+            {
+                List<SelectListItem> lstLecturer = usrRepo.getLecturer();
+                return lstLecturer;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }
