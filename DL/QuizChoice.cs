@@ -12,21 +12,23 @@ namespace DL
     using System;
     using System.Collections.Generic;
     
-    public partial class Quiz
+    public partial class QuizChoice
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Quiz()
+        public QuizChoice()
         {
+            this.QuizAnswers = new HashSet<QuizAnswer>();
             this.QuizQuestions = new HashSet<QuizQuestion>();
         }
     
-        public int QuizID { get; set; }
-        public string Title { get; set; }
-        public Nullable<int> ScheduleID { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public int QuizChoiceID { get; set; }
+        public string Choice { get; set; }
+        public Nullable<int> QuestionID { get; set; }
         public string ObsInd { get; set; }
     
-        public virtual Schedule Schedule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuizAnswer> QuizAnswers { get; set; }
+        public virtual QuizQuestion QuizQuestion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuizQuestion> QuizQuestions { get; set; }
     }

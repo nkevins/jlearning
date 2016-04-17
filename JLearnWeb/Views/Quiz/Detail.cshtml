@@ -1,0 +1,42 @@
+﻿@model DL.Quiz
+
+<div class="row">
+    <div class="page-header page-heading">
+        <h2>@Model.Title</h2>
+    </div>
+    <div class="col-md-6">
+        <div style="margin-bottom: 10px;">
+            <a href="@Url.Action("AddQuestion", "Quiz", new { id = Model.QuizID })" class="btn btn-info" role="button"><span class="glyphicon glyphicon-plus"></span> Add Question</a>
+        </div>
+        @{ int i = 1; }
+        @foreach (var q in Model.QuizQuestions)
+        {
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Question @i
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    @q.Title
+                    @foreach (var c in q.QuizChoices)
+                    {
+                        <div class="radio">
+                            <label>
+                                @if (c.QuizChoiceID == q.CorrectAnswer.Value)
+                                {
+                                    <input type="radio" name="optionsRadios@(q.QuizQuestionID)" value="@c.QuizChoiceID" checked="checked" disabled> @c.Choice
+                                }
+                                else
+                                {
+                                    <input type="radio" name="optionsRadios@(q.QuizQuestionID)" value="@c.QuizChoiceID" disabled> @c.Choice
+                                }
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            { i += 1; }
+        }
+    </div>
+</div>

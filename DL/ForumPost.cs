@@ -17,9 +17,9 @@ namespace DL
         public int ForumPostID { get; set; }
         public string Description { get; set; }
         public Nullable<int> ThreadID { get; set; }
-        public string ObsInd { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> UserID { get; set; }
+        public string ObsInd { get; set; }
     
         public virtual ForumThread ForumThread { get; set; }
         public virtual User User { get; set; }

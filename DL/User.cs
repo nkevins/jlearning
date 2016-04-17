@@ -17,10 +17,10 @@ namespace DL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.ForumPosts = new HashSet<ForumPost>();
             this.QuizAnswers = new HashSet<QuizAnswer>();
             this.Roles = new HashSet<Role>();
             this.UserSchedules = new HashSet<UserSchedule>();
-            this.ForumPosts = new HashSet<ForumPost>();
         }
     
         public int UserID { get; set; }
@@ -32,12 +32,12 @@ namespace DL
         public string ObsInd { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ForumPost> ForumPosts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuizAnswer> QuizAnswers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSchedule> UserSchedules { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ForumPost> ForumPosts { get; set; }
     }
 }

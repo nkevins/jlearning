@@ -15,12 +15,14 @@ namespace JLearnWeb.Controllers
         private CourseFacade crsFacade;
         private UserFacade usrFacade;
         private ScheduleFacade schFacade;
+		private QuizFacade _quizFacade;
         private static readonly ILog log = LogManager.GetLogger(typeof(ScheduleController));
         StudentEnrollment en = new StudentEnrollment();
 
         public ScheduleController()
         {
             _forumThreadFacade = new ForumThreadFacade();
+			_quizFacade = new QuizFacade();
             crsFacade = new CourseFacade();
             usrFacade = new UserFacade();
             schFacade = new ScheduleFacade();
@@ -226,16 +228,20 @@ namespace JLearnWeb.Controllers
             return View(forums);
         }
 
-        // GET: Schedule/Thread
-        public ActionResult Thread()
-        {
-            return View();
-        }
-
         // GET: Schedule/Quiz
-        public ActionResult Quiz()
+        public ActionResult Quiz(int id)
         {
-            return View();
+            List<Quiz> quizes = null;
+            try
+            {
+                quizes = _quizFacade.GetBySchedule(id);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ", ex);
+            }
+            ViewBag.ScheduleId = id;
+            return View(quizes);
         }
     }
 }

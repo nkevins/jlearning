@@ -15,12 +15,13 @@ namespace DL
     public partial class QuizAnswer
     {
         public int QuizAnswerID { get; set; }
-        public string AnsweredQuestion { get; set; }
+        public Nullable<int> QuestionID { get; set; }
+        public Nullable<int> ChoiceSelected { get; set; }
         public Nullable<bool> IsCorrect { get; set; }
         public Nullable<int> UserID { get; set; }
-        public Nullable<int> QuestionID { get; set; }
         public string ObsInd { get; set; }
     
+        public virtual QuizChoice QuizChoice { get; set; }
         public virtual QuizQuestion QuizQuestion { get; set; }
         public virtual User User { get; set; }
     }

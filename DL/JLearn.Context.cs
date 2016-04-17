@@ -32,12 +32,11 @@ namespace DL
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Quiz> Quizs { get; set; }
         public virtual DbSet<QuizAnswer> QuizAnswers { get; set; }
+        public virtual DbSet<QuizChoice> QuizChoices { get; set; }
         public virtual DbSet<QuizQuestion> QuizQuestions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserSchedule> UserSchedules { get; set; }
-
-   
     }
 }

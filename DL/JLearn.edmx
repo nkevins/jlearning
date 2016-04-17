@@ -62,6 +62,7 @@
           <Property Name="QuizID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="ScheduleID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ObsInd" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="QuizAnswer">
@@ -69,9 +70,18 @@
             <PropertyRef Name="QuizAnswerID" />
           </Key>
           <Property Name="QuizAnswerID" Type="int" Nullable="false" />
-          <Property Name="AnsweredQuestion" Type="nvarchar" MaxLength="10" />
+          <Property Name="QuestionID" Type="int" />
+          <Property Name="ChoiceSelected" Type="int" />
           <Property Name="IsCorrect" Type="bit" />
           <Property Name="UserID" Type="int" />
+          <Property Name="ObsInd" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="QuizChoice">
+          <Key>
+            <PropertyRef Name="QuizChoiceID" />
+          </Key>
+          <Property Name="QuizChoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Choice" Type="nvarchar" MaxLength="250" />
           <Property Name="QuestionID" Type="int" />
           <Property Name="ObsInd" Type="char" MaxLength="1" />
         </EntityType>
@@ -81,7 +91,7 @@
           </Key>
           <Property Name="QuizQuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="150" />
-          <Property Name="CorrectAnswer" Type="nvarchar" MaxLength="10" />
+          <Property Name="CorrectAnswer" Type="int" />
           <Property Name="QuizID" Type="int" />
           <Property Name="ObsInd" Type="char" MaxLength="1" />
         </EntityType>
@@ -197,6 +207,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QuizAnswer_QuizChoice">
+          <End Role="QuizChoice" Type="Self.QuizChoice" Multiplicity="0..1" />
+          <End Role="QuizAnswer" Type="Self.QuizAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizChoice">
+              <PropertyRef Name="QuizChoiceID" />
+            </Principal>
+            <Dependent Role="QuizAnswer">
+              <PropertyRef Name="ChoiceSelected" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_QuizAnswer_QuizQuestion">
           <End Role="QuizQuestion" Type="Self.QuizQuestion" Multiplicity="0..1" />
           <End Role="QuizAnswer" Type="Self.QuizAnswer" Multiplicity="*" />
@@ -221,6 +243,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QuizChoice_QuizQuestion">
+          <End Role="QuizQuestion" Type="Self.QuizQuestion" Multiplicity="0..1" />
+          <End Role="QuizChoice" Type="Self.QuizChoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizQuestion">
+              <PropertyRef Name="QuizQuestionID" />
+            </Principal>
+            <Dependent Role="QuizChoice">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_QuizQuestion_Quiz">
           <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
           <End Role="QuizQuestion" Type="Self.QuizQuestion" Multiplicity="*" />
@@ -230,6 +264,18 @@
             </Principal>
             <Dependent Role="QuizQuestion">
               <PropertyRef Name="QuizID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizQuestion_QuizChoice">
+          <End Role="QuizChoice" Type="Self.QuizChoice" Multiplicity="0..1" />
+          <End Role="QuizQuestion" Type="Self.QuizQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizChoice">
+              <PropertyRef Name="QuizChoiceID" />
+            </Principal>
+            <Dependent Role="QuizQuestion">
+              <PropertyRef Name="CorrectAnswer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -289,6 +335,7 @@
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuizAnswer" EntityType="Self.QuizAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuizChoice" EntityType="Self.QuizChoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuizQuestion" EntityType="Self.QuizQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
@@ -318,6 +365,10 @@
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="Quiz" EntitySet="Quiz" />
           </AssociationSet>
+          <AssociationSet Name="FK_QuizAnswer_QuizChoice" Association="Self.FK_QuizAnswer_QuizChoice">
+            <End Role="QuizChoice" EntitySet="QuizChoice" />
+            <End Role="QuizAnswer" EntitySet="QuizAnswer" />
+          </AssociationSet>
           <AssociationSet Name="FK_QuizAnswer_QuizQuestion" Association="Self.FK_QuizAnswer_QuizQuestion">
             <End Role="QuizQuestion" EntitySet="QuizQuestion" />
             <End Role="QuizAnswer" EntitySet="QuizAnswer" />
@@ -326,8 +377,16 @@
             <End Role="User" EntitySet="User" />
             <End Role="QuizAnswer" EntitySet="QuizAnswer" />
           </AssociationSet>
+          <AssociationSet Name="FK_QuizChoice_QuizQuestion" Association="Self.FK_QuizChoice_QuizQuestion">
+            <End Role="QuizQuestion" EntitySet="QuizQuestion" />
+            <End Role="QuizChoice" EntitySet="QuizChoice" />
+          </AssociationSet>
           <AssociationSet Name="FK_QuizQuestion_Quiz" Association="Self.FK_QuizQuestion_Quiz">
             <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="QuizQuestion" EntitySet="QuizQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizQuestion_QuizChoice" Association="Self.FK_QuizQuestion_QuizChoice">
+            <End Role="QuizChoice" EntitySet="QuizChoice" />
             <End Role="QuizQuestion" EntitySet="QuizQuestion" />
           </AssociationSet>
           <AssociationSet Name="FK_Role_User" Association="Self.FK_Role_User">
@@ -359,6 +418,7 @@
           <EntitySet Name="Modules" EntityType="JLearnDBModel.Module" />
           <EntitySet Name="Quizs" EntityType="JLearnDBModel.Quiz" />
           <EntitySet Name="QuizAnswers" EntityType="JLearnDBModel.QuizAnswer" />
+          <EntitySet Name="QuizChoices" EntityType="JLearnDBModel.QuizChoice" />
           <EntitySet Name="QuizQuestions" EntityType="JLearnDBModel.QuizQuestion" />
           <EntitySet Name="Roles" EntityType="JLearnDBModel.Role" />
           <EntitySet Name="Schedules" EntityType="JLearnDBModel.Schedule" />
@@ -374,6 +434,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_ForumPost_ForumThread" Association="JLearnDBModel.FK_ForumPost_ForumThread">
             <End Role="ForumThread" EntitySet="ForumThreads" />
+            <End Role="ForumPost" EntitySet="ForumPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_User" Association="JLearnDBModel.FK_ForumPost_User">
+            <End Role="User" EntitySet="Users" />
             <End Role="ForumPost" EntitySet="ForumPosts" />
           </AssociationSet>
           <AssociationSet Name="FK_ForumThread_Schedule" Association="JLearnDBModel.FK_ForumThread_Schedule">
@@ -392,6 +456,10 @@
             <End Role="Quiz" EntitySet="Quizs" />
             <End Role="QuizQuestion" EntitySet="QuizQuestions" />
           </AssociationSet>
+          <AssociationSet Name="FK_QuizAnswer_QuizChoice" Association="JLearnDBModel.FK_QuizAnswer_QuizChoice">
+            <End Role="QuizChoice" EntitySet="QuizChoices" />
+            <End Role="QuizAnswer" EntitySet="QuizAnswers" />
+          </AssociationSet>
           <AssociationSet Name="FK_QuizAnswer_QuizQuestion" Association="JLearnDBModel.FK_QuizAnswer_QuizQuestion">
             <End Role="QuizQuestion" EntitySet="QuizQuestions" />
             <End Role="QuizAnswer" EntitySet="QuizAnswers" />
@@ -399,6 +467,14 @@
           <AssociationSet Name="FK_QuizAnswer_User" Association="JLearnDBModel.FK_QuizAnswer_User">
             <End Role="User" EntitySet="Users" />
             <End Role="QuizAnswer" EntitySet="QuizAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizChoice_QuizQuestion" Association="JLearnDBModel.FK_QuizChoice_QuizQuestion">
+            <End Role="QuizQuestion" EntitySet="QuizQuestions" />
+            <End Role="QuizChoice" EntitySet="QuizChoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuizQuestion_QuizChoice" Association="JLearnDBModel.FK_QuizQuestion_QuizChoice">
+            <End Role="QuizChoice" EntitySet="QuizChoices" />
+            <End Role="QuizQuestion" EntitySet="QuizQuestions" />
           </AssociationSet>
           <AssociationSet Name="FK_Role_User" Association="JLearnDBModel.FK_Role_User">
             <End Role="User" EntitySet="Users" />
@@ -412,10 +488,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserSchedule" EntitySet="UserSchedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_ForumPost_User" Association="JLearnDBModel.FK_ForumPost_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ForumPost" EntitySet="ForumPosts" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Course">
           <Key>
@@ -425,8 +497,8 @@
           <Property Name="CourseCode" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Schedules" Relationship="JLearnDBModel.FK_Schedule_Course" FromRole="Course" ToRole="Schedule" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Schedules" Relationship="JLearnDBModel.FK_Schedule_Course" FromRole="Course" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -446,10 +518,10 @@
           <Property Name="ForumPostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="ThreadID" Type="Int32" />
-          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="ForumThread" Relationship="JLearnDBModel.FK_ForumPost_ForumThread" FromRole="ForumPost" ToRole="ForumThread" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UserID" Type="Int32" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ForumThread" Relationship="JLearnDBModel.FK_ForumPost_ForumThread" FromRole="ForumPost" ToRole="ForumThread" />
           <NavigationProperty Name="User" Relationship="JLearnDBModel.FK_ForumPost_User" FromRole="ForumPost" ToRole="User" />
         </EntityType>
         <EntityType Name="ForumThread">
@@ -459,10 +531,10 @@
           <Property Name="ForumThreadID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
           <Property Name="ScheduleID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="ForumPosts" Relationship="JLearnDBModel.FK_ForumPost_ForumThread" FromRole="ForumThread" ToRole="ForumPost" />
           <NavigationProperty Name="Schedule" Relationship="JLearnDBModel.FK_ForumThread_Schedule" FromRole="ForumThread" ToRole="Schedule" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Module">
           <Key>
@@ -482,6 +554,7 @@
           <Property Name="QuizID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ScheduleID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Schedule" Relationship="JLearnDBModel.FK_Quiz_Schedule" FromRole="Quiz" ToRole="Schedule" />
           <NavigationProperty Name="QuizQuestions" Relationship="JLearnDBModel.FK_QuizQuestion_Quiz" FromRole="Quiz" ToRole="QuizQuestion" />
@@ -491,13 +564,26 @@
             <PropertyRef Name="QuizAnswerID" />
           </Key>
           <Property Name="QuizAnswerID" Type="Int32" Nullable="false" />
-          <Property Name="AnsweredQuestion" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionID" Type="Int32" />
+          <Property Name="ChoiceSelected" Type="Int32" />
           <Property Name="IsCorrect" Type="Boolean" />
           <Property Name="UserID" Type="Int32" />
-          <Property Name="QuestionID" Type="Int32" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="QuizChoice" Relationship="JLearnDBModel.FK_QuizAnswer_QuizChoice" FromRole="QuizAnswer" ToRole="QuizChoice" />
           <NavigationProperty Name="QuizQuestion" Relationship="JLearnDBModel.FK_QuizAnswer_QuizQuestion" FromRole="QuizAnswer" ToRole="QuizQuestion" />
           <NavigationProperty Name="User" Relationship="JLearnDBModel.FK_QuizAnswer_User" FromRole="QuizAnswer" ToRole="User" />
+        </EntityType>
+        <EntityType Name="QuizChoice">
+          <Key>
+            <PropertyRef Name="QuizChoiceID" />
+          </Key>
+          <Property Name="QuizChoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Choice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionID" Type="Int32" />
+          <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="QuizAnswers" Relationship="JLearnDBModel.FK_QuizAnswer_QuizChoice" FromRole="QuizChoice" ToRole="QuizAnswer" />
+          <NavigationProperty Name="QuizQuestion" Relationship="JLearnDBModel.FK_QuizChoice_QuizQuestion" FromRole="QuizChoice" ToRole="QuizQuestion" />
+          <NavigationProperty Name="QuizQuestions" Relationship="JLearnDBModel.FK_QuizQuestion_QuizChoice" FromRole="QuizChoice" ToRole="QuizQuestion" />
         </EntityType>
         <EntityType Name="QuizQuestion">
           <Key>
@@ -505,11 +591,13 @@
           </Key>
           <Property Name="QuizQuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CorrectAnswer" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectAnswer" Type="Int32" />
           <Property Name="QuizID" Type="Int32" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Quiz" Relationship="JLearnDBModel.FK_QuizQuestion_Quiz" FromRole="QuizQuestion" ToRole="Quiz" />
           <NavigationProperty Name="QuizAnswers" Relationship="JLearnDBModel.FK_QuizAnswer_QuizQuestion" FromRole="QuizQuestion" ToRole="QuizAnswer" />
+          <NavigationProperty Name="QuizChoices" Relationship="JLearnDBModel.FK_QuizChoice_QuizQuestion" FromRole="QuizQuestion" ToRole="QuizChoice" />
+          <NavigationProperty Name="QuizChoice" Relationship="JLearnDBModel.FK_QuizQuestion_QuizChoice" FromRole="QuizQuestion" ToRole="QuizChoice" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -547,10 +635,10 @@
           <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ForumPosts" Relationship="JLearnDBModel.FK_ForumPost_User" FromRole="User" ToRole="ForumPost" />
           <NavigationProperty Name="QuizAnswers" Relationship="JLearnDBModel.FK_QuizAnswer_User" FromRole="User" ToRole="QuizAnswer" />
           <NavigationProperty Name="Roles" Relationship="JLearnDBModel.FK_Role_User" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="UserSchedules" Relationship="JLearnDBModel.FK_UserSchedule_User" FromRole="User" ToRole="UserSchedule" />
-          <NavigationProperty Name="ForumPosts" Relationship="JLearnDBModel.FK_ForumPost_User" FromRole="User" ToRole="ForumPost" />
         </EntityType>
         <EntityType Name="UserSchedule">
           <Key>
@@ -596,6 +684,18 @@
             </Principal>
             <Dependent Role="ForumPost">
               <PropertyRef Name="ThreadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumPost_User">
+          <End Type="JLearnDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.ForumPost" Role="ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -647,6 +747,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QuizAnswer_QuizChoice">
+          <End Type="JLearnDBModel.QuizChoice" Role="QuizChoice" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.QuizAnswer" Role="QuizAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizChoice">
+              <PropertyRef Name="QuizChoiceID" />
+            </Principal>
+            <Dependent Role="QuizAnswer">
+              <PropertyRef Name="ChoiceSelected" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_QuizAnswer_QuizQuestion">
           <End Type="JLearnDBModel.QuizQuestion" Role="QuizQuestion" Multiplicity="0..1" />
           <End Type="JLearnDBModel.QuizAnswer" Role="QuizAnswer" Multiplicity="*" />
@@ -668,6 +780,30 @@
             </Principal>
             <Dependent Role="QuizAnswer">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizChoice_QuizQuestion">
+          <End Type="JLearnDBModel.QuizQuestion" Role="QuizQuestion" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.QuizChoice" Role="QuizChoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizQuestion">
+              <PropertyRef Name="QuizQuestionID" />
+            </Principal>
+            <Dependent Role="QuizChoice">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuizQuestion_QuizChoice">
+          <End Type="JLearnDBModel.QuizChoice" Role="QuizChoice" Multiplicity="0..1" />
+          <End Type="JLearnDBModel.QuizQuestion" Role="QuizQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuizChoice">
+              <PropertyRef Name="QuizChoiceID" />
+            </Principal>
+            <Dependent Role="QuizQuestion">
+              <PropertyRef Name="CorrectAnswer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -707,18 +843,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ForumPost_User">
-          <End Type="JLearnDBModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="JLearnDBModel.ForumPost" Role="ForumPost" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="ForumPost">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -750,9 +874,9 @@
           <EntitySetMapping Name="ForumPosts">
             <EntityTypeMapping TypeName="JLearnDBModel.ForumPost">
               <MappingFragment StoreEntitySet="ForumPost">
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
                 <ScalarProperty Name="ThreadID" ColumnName="ThreadID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ForumPostID" ColumnName="ForumPostID" />
@@ -762,8 +886,8 @@
           <EntitySetMapping Name="ForumThreads">
             <EntityTypeMapping TypeName="JLearnDBModel.ForumThread">
               <MappingFragment StoreEntitySet="ForumThread">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ForumThreadID" ColumnName="ForumThreadID" />
@@ -784,6 +908,7 @@
             <EntityTypeMapping TypeName="JLearnDBModel.Quiz">
               <MappingFragment StoreEntitySet="Quiz">
                 <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="QuizID" ColumnName="QuizID" />
@@ -794,11 +919,21 @@
             <EntityTypeMapping TypeName="JLearnDBModel.QuizAnswer">
               <MappingFragment StoreEntitySet="QuizAnswer">
                 <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
-                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
-                <ScalarProperty Name="AnsweredQuestion" ColumnName="AnsweredQuestion" />
+                <ScalarProperty Name="ChoiceSelected" ColumnName="ChoiceSelected" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="QuizAnswerID" ColumnName="QuizAnswerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuizChoices">
+            <EntityTypeMapping TypeName="JLearnDBModel.QuizChoice">
+              <MappingFragment StoreEntitySet="QuizChoice">
+                <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Choice" ColumnName="Choice" />
+                <ScalarProperty Name="QuizChoiceID" ColumnName="QuizChoiceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -18,16 +18,20 @@ namespace DL
         public QuizQuestion()
         {
             this.QuizAnswers = new HashSet<QuizAnswer>();
+            this.QuizChoices = new HashSet<QuizChoice>();
         }
     
         public int QuizQuestionID { get; set; }
         public string Title { get; set; }
-        public string CorrectAnswer { get; set; }
+        public Nullable<int> CorrectAnswer { get; set; }
         public Nullable<int> QuizID { get; set; }
         public string ObsInd { get; set; }
     
         public virtual Quiz Quiz { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuizAnswer> QuizAnswers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuizChoice> QuizChoices { get; set; }
+        public virtual QuizChoice QuizChoice { get; set; }
     }
 }

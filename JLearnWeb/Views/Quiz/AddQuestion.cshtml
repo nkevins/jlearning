@@ -1,0 +1,63 @@
+﻿@model DL.Quiz
+
+<div class="row">
+    <div class="page-header page-heading">
+        <h2>Add Question</h2>
+    </div>
+    <div class="col-md-6">
+        <h3>@Model.Title</h3>
+        <form class="form-horizontal" method="post" action="@Url.Action("AddQuestion", "Quiz")">
+            <div class="form-group">
+                <label for="question" class="col-sm-2 control-label">Question</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" id="question" name="question" required></textarea>
+                </div>
+            </div>
+            <hr />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Correct Answer</th>
+                        <th>Choice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="radio" name="correctAnswer" value="choice1" checked="checked" />
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" id="choice1" name="choice1" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="correctAnswer" value="choice2" />
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" id="choice2" name="choice2" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="correctAnswer" value="choice3" />
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" id="choice3" name="choice3" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="correctAnswer" value="choice4" />
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" id="choice4" name="choice4" required></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="hidden" name="quizId" value="@Model.QuizID" />
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>
