@@ -16,14 +16,18 @@ namespace BLL.Facade
         {
             try
             {
+              
                 var query = unitofwork.CourseRepository.GetAll().Select(c => new SelectListItem
                 {
-                    Value = c.CourseCode.ToString(),
+                    Value = c.CourseID.ToString(),
                     Text = c.CourseCode + "-" + c.CourseName,
-                    // Selected = c.CategoryID.Equals(3)
+                    //Selected = c.CourseCode.Equals(1)
                 });
 
+             
                 List<SelectListItem> lstCourse = query.ToList();
+
+              
                 return lstCourse;
             }
             catch (Exception ex)

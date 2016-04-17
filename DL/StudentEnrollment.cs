@@ -43,7 +43,7 @@ namespace DL
        public string description { get; set; }
 
         public List<SelectListItem> lstCourse { get; set; }
-        public Int16 selected { get; set; }
+        public Int16 courseSelected { get; set; }
 
         public List<SelectListItem> lstLecturer { get; set; }
         public Int16 lecturerSelected { get; set; }

@@ -7,7 +7,7 @@
 <h2>Create Course Schedule</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("SubmitForm", "Schedule", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
@@ -18,18 +18,17 @@
 
         <!--
         <div class="form-group">
-            @Html.LabelFor(model => model.courseCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.courseName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.courseCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.courseCode, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(x => x.courseSelected, Model.lstCourse)
+                @Html.ValidationMessageFor(model => model.courseName, "", new { @class = "text-danger" })
             </div>
         </div>
             -->
         <div class="form-group">
             @Html.LabelFor(model => model.courseName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-            
-                @Html.DropDownListFor(x => x.selected, Model.lstCourse)
+                @Html.DropDownListFor(x => x.courseSelected, Model.lstCourse)
                 @Html.ValidationMessageFor(model => model.courseName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,15 +57,7 @@
             </div>
         </div>
 
-        <!--
-        <div class="form-group">
-            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-            -->
+   
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

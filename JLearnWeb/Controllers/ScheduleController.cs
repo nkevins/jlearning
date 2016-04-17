@@ -26,6 +26,15 @@ namespace JLearnWeb.Controllers
         }
 
          [Authorize(Roles = "Lecturer")]
+        public ActionResult SubmitForm(StudentEnrollment std)
+        {
+
+           // return View("CourseSchedule");
+            CourseSchedule();
+            return View("CourseSchedule");
+        }
+
+         [Authorize(Roles = "Lecturer")]
         public ActionResult Create()
         {
             List<SelectListItem> items = crsFacade.getCourse();
@@ -33,6 +42,7 @@ namespace JLearnWeb.Controllers
             //ViewBag.CourseLst = items;
             
             en.lstCourse = items;
+           // en.courseSelected = 1;
             en.lstLecturer = lecturerLst;
             return View(en);
         }
