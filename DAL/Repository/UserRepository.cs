@@ -43,6 +43,51 @@ namespace DAL.Repository
             return c;
         }
 
+        public List<StudentEnrollment> getStudentEnrollmentWithoutLecturerName(int scheduleId)
+        {
+
+            List<StudentEnrollment> c = new List<StudentEnrollment>();
+            JLearnDBEntities db = new JLearnDBEntities();
+            var query = (from 
+                          n in db.Schedules 
+                         join x in db.Courses on n.CourseID equals x.CourseID
+               
+                         where n.ScheduleID == scheduleId
+                         && n.ObsInd == "N"
+                         orderby n.StartDate
+                         select new
+                         {
+                             courseCode = x.CourseCode,
+                             courseName = x.CourseName,
+                             startDate = n.StartDate,
+                             endDate = n.EndDate,
+                             scheduleId = n.ScheduleID,
+                             lecturerName = string.Empty,
+                             description = x.Description
+                         });
+
+            try
+            {
+                foreach (var a in query)
+                {
+                    StudentEnrollment obj = new StudentEnrollment();
+                    obj.courseCode = a.courseCode;
+                    obj.courseName = a.courseName;
+                    obj.scheduleId = a.scheduleId;
+                    obj.startDate = a.startDate;
+                    obj.endDate = a.endDate;
+                    obj.lecturerName = a.lecturerName;
+                    obj.description = a.description;
+                    c.Add(obj);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return c;
+        }
+
         public List<StudentEnrollment> getStudentEnrollmentWithLecturerName(int scheduleId)
         {
 

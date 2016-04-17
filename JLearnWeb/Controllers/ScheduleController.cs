@@ -228,6 +228,11 @@ namespace JLearnWeb.Controllers
                 UserFacade user = new UserFacade();
                 lst = user.getStudentEnrollmentWithLecturerName(id);
 
+                if (lst == null || lst.Count == 0)
+                {
+                    lst = user.getStudentEnrollmentWithoutLecturerName(id);
+                }
+
                 std = lst[0];
             }
             catch (Exception ex)
