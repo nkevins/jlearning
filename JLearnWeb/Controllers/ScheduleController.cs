@@ -14,7 +14,7 @@ namespace JLearnWeb.Controllers
         private ForumThreadFacade _forumThreadFacade;
         private CourseFacade crsFacade;
         private UserFacade usrFacade;
-
+        private ScheduleFacade schFacade;
         private static readonly ILog log = LogManager.GetLogger(typeof(ScheduleController));
         StudentEnrollment en = new StudentEnrollment();
 
@@ -23,13 +23,23 @@ namespace JLearnWeb.Controllers
             _forumThreadFacade = new ForumThreadFacade();
             crsFacade = new CourseFacade();
             usrFacade = new UserFacade();
+            schFacade = new ScheduleFacade();
         }
 
          [Authorize(Roles = "Lecturer")]
         public ActionResult SubmitForm(StudentEnrollment std)
         {
+            Schedule sch = new Schedule();
+            sch.ObsInd = "N";
+            sch.CourseID = std.courseSelected;
+            sch.StartDate = std.startDate;
+            sch.EndDate = std.endDate;
 
-           // return View("CourseSchedule");
+            schFacade.insertCourseSchedule(sch);
+            //UserSchedule usrSch = new UserSchedule();
+            //usrSch.UserID = std.lecturerSelected;
+            //usrSch.ScheduleID = std.scheduleId;
+
             CourseSchedule();
             return View("CourseSchedule");
         }

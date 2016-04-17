@@ -34,7 +34,13 @@ namespace DL
          [DisplayName("End Date")]
        public DateTime? endDate { get; set; }
 
-      
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (endDate < startDate)
+            {
+                yield return new ValidationResult("End Date must be greater than Start Date");
+            }
+        }
 
        [Key]
        public int scheduleId { get; set; }

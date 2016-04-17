@@ -22,9 +22,22 @@ namespace DAL.Repository
         private IRepository<Role> _userRoleRepository;
         private IRepository<ForumThread> _forumThreadRepository;
         private IRepository<ForumPost> _forumPostRepository;
+        private IRepository<Schedule> schRepo;
         private Context _context;
 
         //Add any new repository here 
+
+        public IRepository<Schedule> SchRepo
+        {
+            get
+            {
+
+                if (schRepo == null)
+                    schRepo = new Repository<Schedule>(_context);
+
+                return schRepo;
+            }
+        }
 
         public IRepository<Course> CourseRepository
         {
