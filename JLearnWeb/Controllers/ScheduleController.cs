@@ -48,12 +48,12 @@ namespace JLearnWeb.Controllers
         public ActionResult Create()
         {
             List<SelectListItem> items = crsFacade.getCourse();
-            List<SelectListItem> lecturerLst = usrFacade.getLecturer();
+           // List<SelectListItem> lecturerLst = usrFacade.getLecturer();
             //ViewBag.CourseLst = items;
             
             en.lstCourse = items;
            // en.courseSelected = 1;
-            en.lstLecturer = lecturerLst;
+            //en.lstLecturer = lecturerLst;
             return View(en);
         }
 

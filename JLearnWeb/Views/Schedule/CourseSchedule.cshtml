@@ -4,7 +4,7 @@
     ViewBag.Title = "Course Schedule";
 }
 
-<h2>Schedule a course</h2>
+<h2>Schedule Course</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,14 +12,16 @@
 <table class="table">
     <tr>
         <th>
+            Schedule ID
+        </th>
+
+        <th>
             Course Code
         </th>
         <th>
            Course Name
         </th>
-        <th>
-           Lecturer Name
-        </th>
+      
         <th>
            Start Date
         </th>
@@ -33,14 +35,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(model => item.scheduleId)
+        </td>
+
+        <td>
             @Html.DisplayFor(model => item.courseCode)
         </td>
         <td>
             @Html.DisplayFor(model => item.courseName)
         </td>
-        <td>
-            @Html.DisplayFor(model => item.lecturerName)
-        </td>
+       
         <td>
             @Html.DisplayFor(model => item.startDate)
         </td>

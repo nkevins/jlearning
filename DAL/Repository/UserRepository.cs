@@ -86,12 +86,28 @@ namespace DAL.Repository
 
             List<StudentEnrollment> c = new List<StudentEnrollment>();
             JLearnDBEntities db = new JLearnDBEntities();
-            var query = (from m in db.UserSchedules
-                         join n in db.Schedules on m.ScheduleID equals n.ScheduleID
+            //var query = (from m in db.UserSchedules
+            //             join n in db.Schedules on m.ScheduleID equals n.ScheduleID
+            //             join x in db.Courses on n.CourseID equals x.CourseID
+            //             join a in db.Users on m.UserID equals a.UserID
+            //             join role in db.Roles on a.UserID equals role.UserID
+            //             where role.Name == "Lecturer" && n.ObsInd == "N"
+            //             orderby n.StartDate
+            //             select new
+            //             {
+            //                 courseCode = x.CourseCode,
+            //                 courseName = x.CourseName,
+            //                 startDate = n.StartDate,
+            //                 endDate = n.EndDate,
+            //                 scheduleId = n.ScheduleID,
+            //                 lecturerName = a.Name,
+            //                 description = x.Description
+            //             });
+
+            var query = (from 
+                          n in db.Schedules 
                          join x in db.Courses on n.CourseID equals x.CourseID
-                         join a in db.Users on m.UserID equals a.UserID
-                         join role in db.Roles on a.UserID equals role.UserID
-                         where role.Name == "Lecturer" && n.ObsInd == "N"
+                         where  n.ObsInd == "N"
                          orderby n.StartDate
                          select new
                          {
@@ -100,7 +116,7 @@ namespace DAL.Repository
                              startDate = n.StartDate,
                              endDate = n.EndDate,
                              scheduleId = n.ScheduleID,
-                             lecturerName = a.Name,
+                          
                              description = x.Description
                          });
 
@@ -114,7 +130,7 @@ namespace DAL.Repository
                     obj.scheduleId = a.scheduleId;
                     obj.startDate = a.startDate;
                     obj.endDate = a.endDate;
-                    obj.lecturerName = a.lecturerName;
+                   
                     obj.description = a.description;
                     c.Add(obj);
                 }
