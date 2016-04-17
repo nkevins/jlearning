@@ -39,5 +39,7 @@ namespace DL
         public virtual DbSet<UserSchedule> UserSchedules { get; set; }
 
         public System.Data.Entity.DbSet<DL.StudentEnrollment> StudentEnrollments { get; set; }
+
+        //public System.Data.Entity.DbSet<DL.StudentEnrollment> StudentEnrollments { get; set; }
     }
 }

@@ -20,6 +20,12 @@ namespace JLearnWeb.Controllers
         }
 
          [Authorize(Roles = "Lecturer")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+         [Authorize(Roles = "Lecturer")]
         public ActionResult CourseSchedule()
         {
             List<StudentEnrollment> lst = null;
