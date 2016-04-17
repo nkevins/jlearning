@@ -116,7 +116,7 @@ namespace DAL.Repository
                              startDate = n.StartDate,
                              endDate = n.EndDate,
                              scheduleId = n.ScheduleID,
-                          
+                             courseId = n.CourseID,
                              description = x.Description
                          });
 
@@ -130,7 +130,7 @@ namespace DAL.Repository
                     obj.scheduleId = a.scheduleId;
                     obj.startDate = a.startDate;
                     obj.endDate = a.endDate;
-                   
+                    obj.courseId = (int) a.courseId;
                     obj.description = a.description;
                     c.Add(obj);
                 }

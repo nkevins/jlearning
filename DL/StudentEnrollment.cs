@@ -57,5 +57,8 @@ namespace DL
 
         [DisplayName("User Id")]
         public string userId { get; set; }
+
+        [DisplayName("Course ID")]
+        public int courseId { get; set; }
     }
 }

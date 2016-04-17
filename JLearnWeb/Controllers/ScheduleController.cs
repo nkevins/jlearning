@@ -27,20 +27,105 @@ namespace JLearnWeb.Controllers
         }
 
          [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+
+        public ActionResult deleteCourseSchedule(int id)
+        {
+            try
+            {
+                StudentEnrollment stdmModel = new StudentEnrollment();
+
+                if (Session[Constant.ConstantFields.courseSchedule] != null)
+                {
+                    List<StudentEnrollment> lst = (List<StudentEnrollment>)Session[Constant.ConstantFields.courseSchedule];
+
+                    for (int i = 0; i < lst.Count; i++)
+                    {
+                        StudentEnrollment std = lst[i];
+                        if (std.scheduleId == id)
+                        {
+                            stdmModel = std;
+                           
+                            break;
+                        }
+                    }
+                }
+
+                Schedule sch = new Schedule();
+                sch.ObsInd = "Y";
+                sch.CourseID = stdmModel.courseId;
+                sch.StartDate = stdmModel.startDate;
+                sch.EndDate = stdmModel.endDate;
+                sch.ScheduleID = stdmModel.scheduleId;
+
+                schFacade.updateCourseSchedule(sch);
+
+                CourseSchedule();
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ", ex);
+            }
+
+            return View("CourseSchedule");
+        }
+
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult EditForm(StudentEnrollment std)
+        {
+            try
+            {
+                Schedule sch = new Schedule();
+
+                if (TempData[Constant.ConstantFields.scheduleID] != null)
+                {
+                    sch.ScheduleID = (int) TempData[Constant.ConstantFields.scheduleID];
+                }
+               
+                 if (TempData[Constant.ConstantFields.courseID] != null)
+                {
+                    sch.CourseID = (int)TempData[Constant.ConstantFields.courseID];
+                }
+
+                sch.StartDate = std.startDate;
+                sch.EndDate = std.endDate;
+                sch.ObsInd = "N";
+
+                schFacade.updateCourseSchedule(sch);
+                CourseSchedule();
+
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ex", ex);
+            }
+            
+            return View("CourseSchedule");
+        }
+
+         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult SubmitForm(StudentEnrollment std)
         {
-            Schedule sch = new Schedule();
-            sch.ObsInd = "N";
-            sch.CourseID = std.courseSelected;
-            sch.StartDate = std.startDate;
-            sch.EndDate = std.endDate;
+            try
+            {
+                Schedule sch = new Schedule();
+                sch.ObsInd = "N";
+                sch.CourseID = std.courseSelected;
+                sch.StartDate = std.startDate;
+                sch.EndDate = std.endDate;
 
-            schFacade.insertCourseSchedule(sch);
-            //UserSchedule usrSch = new UserSchedule();
-            //usrSch.UserID = std.lecturerSelected;
-            //usrSch.ScheduleID = std.scheduleId;
+                schFacade.insertCourseSchedule(sch);
+                //UserSchedule usrSch = new UserSchedule();
+                //usrSch.UserID = std.lecturerSelected;
+                //usrSch.ScheduleID = std.scheduleId;
 
-            CourseSchedule();
+                CourseSchedule();
+              
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ", ex);
+            }
+
             return View("CourseSchedule");
         }
 
@@ -72,6 +157,8 @@ namespace JLearnWeb.Controllers
                      if (std.scheduleId == id)
                      {
                          stdmModel = std;
+                         TempData[Constant.ConstantFields.scheduleID] = id;
+                         TempData[Constant.ConstantFields.courseID] = std.courseId;
                      }
                  }
              }
@@ -85,8 +172,8 @@ namespace JLearnWeb.Controllers
           
             try
             {
-                UserFacade user = new UserFacade();
-                lst = user.getCourseSchedule();
+           
+                lst = schFacade.getCourseSchedule();
                 Session.Add(Constant.ConstantFields.courseSchedule, lst);
             }
             catch (Exception ex)

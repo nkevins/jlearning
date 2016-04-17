@@ -60,19 +60,7 @@ namespace BLL.Facade
             }
         }
 
-        public List<StudentEnrollment> getCourseSchedule()
-        {
-
-            try
-            {
-            
-                return usrRepo.getCourseSchedule();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+      
 
         public List<SelectListItem> getLecturer()
         {

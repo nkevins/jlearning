@@ -11,5 +11,7 @@ namespace JLearnWeb.Constant
         public const string courseSchedule = "courseSchedule";
         public const string Lecturer = "Lecturer";
         public const string Student = "Student";
+        public const string scheduleID = "scheduleID";
+        public const string courseID = "courseID";
     }
 }
