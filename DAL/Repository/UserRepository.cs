@@ -81,6 +81,44 @@ namespace DAL.Repository
             return c;
         }
 
+        public List<StudentEnrollment> getLecturerSchedule()
+        {
+
+            List<StudentEnrollment> c = new List<StudentEnrollment>();
+            JLearnDBEntities db = new JLearnDBEntities();
+            var query = (from m in db.UserSchedules
+                         join n in db.Schedules on m.ScheduleID equals n.ScheduleID
+                         join a in db.Users on m.UserID equals a.UserID
+                         join role in db.Roles on a.UserID equals role.UserID
+                         where role.Name == "Lecturer" && n.ObsInd == "N"
+                         orderby n.StartDate
+                         select new
+                         {
+                             scheduleId = n.ScheduleID,
+                             lecturerName = a.Name,
+                             userId = m.UserID
+                            
+                         });
+
+
+            try
+            {
+                foreach (var a in query)
+                {
+                    StudentEnrollment obj = new StudentEnrollment();
+                    obj.userId = (int) a.userId;
+                    obj.lecturerName = a.lecturerName;
+                    obj.scheduleId = a.scheduleId;
+                    c.Add(obj);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return c;
+        }
+
         public List<StudentEnrollment> getCourseSchedule()
         {
 

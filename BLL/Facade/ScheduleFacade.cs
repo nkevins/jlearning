@@ -28,6 +28,31 @@ namespace BLL.Facade
 
         }
 
+        public List<StudentEnrollment> getLecturerCfmSchedule()
+        {
+            try
+            {
+                return usrRepo.getLecturerSchedule();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<StudentEnrollment> getLecturerSchedule()
+        {
+
+            try
+            {
+                return usrRepo.getCourseSchedule();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<StudentEnrollment> getCourseSchedule()
         {
 

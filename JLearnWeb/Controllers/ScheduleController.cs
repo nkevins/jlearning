@@ -166,6 +166,39 @@ namespace JLearnWeb.Controllers
          }
 
          [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult LecturerSchedule()
+        {
+            List<StudentEnrollment> lst = null;
+            List<StudentEnrollment> lst1 = null;
+            try
+            {
+                lst = schFacade.getLecturerSchedule();
+                lst1 = schFacade.getLecturerCfmSchedule();
+
+                for (int i = 0; i < lst.Count; i++)
+                {
+                    StudentEnrollment s1 = lst[i];
+
+                    for (int j = 0; j < lst1.Count; j++)
+                    {
+                        StudentEnrollment s2 = lst1[j];
+                        if (s1.scheduleId == s2.scheduleId)
+                        {
+                            s1.lecturerName = s2.lecturerName;
+                            s1.userId = s2.userId;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ",ex);
+            }
+
+            return View(lst);
+        }
+
+         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult CourseSchedule()
         {
             List<StudentEnrollment> lst = null;
