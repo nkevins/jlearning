@@ -46,6 +46,20 @@ namespace BLL.Facade
             }
         }
 
+        public List<StudentEnrollment> getStudentEnrollmentWithoutLecturerName(int scheduleId)
+        {
+
+            try
+            {
+
+                return usrRepo.getStudentEnrollmentWithoutLecturerName(scheduleId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<StudentEnrollment> getStudentEnrollmentWithLecturerName(int scheduleId)
         {
 

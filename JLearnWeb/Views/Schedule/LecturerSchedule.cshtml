@@ -1,0 +1,71 @@
+﻿@model List<DL.StudentEnrollment>
+
+@{
+    ViewBag.Title = "Lecturer Schedule";
+}
+
+<h2>Lecturer Course Schedule</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Schedule ID
+        </th>
+
+        <th>
+            Course Code
+        </th>
+        <th>
+            Course Name
+        </th>
+
+        <th>
+            Lecturer Name
+        </th>
+
+        <th>
+            Start Date
+        </th>
+        <th>
+            End Date
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.scheduleId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => item.courseCode)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.courseName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => item.lecturerName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => item.startDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.endDate)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "EditCourseSchedule", new { id = item.scheduleId }) |
+                @Html.ActionLink("Details", "Index", new { id = item.scheduleId }) |
+                @Html.ActionLink("Delete", "DeleteCourseSchedule", new { id = item.scheduleId },
+            new { onclick = "return confirm('Are you sure you wish to delete this course schedule?');" })
+            </td>
+        </tr>
+    }
+
+</table>
