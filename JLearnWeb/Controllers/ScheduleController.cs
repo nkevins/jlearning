@@ -26,7 +26,7 @@ namespace JLearnWeb.Controllers
             schFacade = new ScheduleFacade();
         }
 
-         [Authorize(Roles = "Lecturer")]
+         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult SubmitForm(StudentEnrollment std)
         {
             Schedule sch = new Schedule();
@@ -44,7 +44,7 @@ namespace JLearnWeb.Controllers
             return View("CourseSchedule");
         }
 
-         [Authorize(Roles = "Lecturer")]
+         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult Create()
         {
             List<SelectListItem> items = crsFacade.getCourse();
@@ -57,7 +57,28 @@ namespace JLearnWeb.Controllers
             return View(en);
         }
 
-         [Authorize(Roles = "Lecturer")]
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+         public ActionResult EditCourseSchedule(int id)
+         {
+             StudentEnrollment stdmModel = new StudentEnrollment();
+
+             if (Session[Constant.ConstantFields.courseSchedule] != null)
+             {
+                 List<StudentEnrollment> lst = ( List<StudentEnrollment>) Session[Constant.ConstantFields.courseSchedule];
+
+                 for (int i = 0; i < lst.Count; i++)
+                 {
+                     StudentEnrollment std = lst[i];
+                     if (std.scheduleId == id)
+                     {
+                         stdmModel = std;
+                     }
+                 }
+             }
+             return View(stdmModel);
+         }
+
+         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult CourseSchedule()
         {
             List<StudentEnrollment> lst = null;
@@ -66,6 +87,7 @@ namespace JLearnWeb.Controllers
             {
                 UserFacade user = new UserFacade();
                 lst = user.getCourseSchedule();
+                Session.Add(Constant.ConstantFields.courseSchedule, lst);
             }
             catch (Exception ex)
             {

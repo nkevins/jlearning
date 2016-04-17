@@ -43,6 +43,7 @@ namespace DL
         }
 
        [Key]
+       [DisplayName("Course Schedule ID")]
        public int scheduleId { get; set; }
 
         [DisplayName("Description")]
