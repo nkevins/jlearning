@@ -80,5 +80,35 @@ namespace BLL.Facade
             }
 
         }
+
+        public bool updateLectureSchedule(UserSchedule u)
+        {
+            try
+            {
+                unitofwork.UsrSchRepo.Edit(u);
+                unitofwork.Save();
+                return true; ;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public bool insertLectureSchedule(UserSchedule u)
+        {
+            try
+            {
+                unitofwork.UsrSchRepo.Insert(u);
+                unitofwork.Save();
+                return true; ;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

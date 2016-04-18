@@ -337,6 +337,7 @@
     <Content Include="Views\Schedule\LecturerSchedule.cshtml" />
     <Content Include="Views\Quiz\Detail.cshtml" />
     <Content Include="Views\Quiz\AddQuestion.cshtml" />
+    <Content Include="Views\Schedule\EditLecturerSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

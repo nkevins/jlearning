@@ -46,6 +46,8 @@ namespace DL
        [DisplayName("Course Schedule ID")]
        public int scheduleId { get; set; }
 
+       public int usrScheduleId { get; set; }
+
         [DisplayName("Description")]
        public string description { get; set; }
 

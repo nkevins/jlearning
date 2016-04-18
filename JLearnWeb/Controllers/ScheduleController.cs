@@ -105,6 +105,45 @@ namespace JLearnWeb.Controllers
         }
 
          [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult EditLecturerForm(StudentEnrollment std)
+        {
+            try
+            {
+                UserSchedule usrSch = new UserSchedule();
+
+                if (TempData[Constant.ConstantFields.usrScheduleID] != null)
+                {
+                    usrSch.UserScheduleID = (int) TempData[Constant.ConstantFields.usrScheduleID];
+                }
+
+                if (TempData[Constant.ConstantFields.scheduleID] != null)
+                {
+                    usrSch.ScheduleID = (int) TempData[Constant.ConstantFields.scheduleID];
+                }
+
+                usrSch.UserID = std.lecturerSelected;
+                usrSch.ObsInd = "N";
+
+                if (TempData[Constant.ConstantFields.lecturerName] == null)
+                {
+                    schFacade.insertLectureSchedule(usrSch);
+                }
+                else
+                {
+                    schFacade.updateLectureSchedule(usrSch);
+                }
+               
+                LecturerSchedule();
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ex ", ex);
+            }
+           
+            return View("LecturerSchedule");
+        }
+
+         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult SubmitForm(StudentEnrollment std)
         {
             try
@@ -144,26 +183,71 @@ namespace JLearnWeb.Controllers
             return View(en);
         }
 
+         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+         public ActionResult EditLecturerSchedule(int id)
+         {
+             StudentEnrollment stdmModel = new StudentEnrollment();
+             List<SelectListItem> lecturerLst = usrFacade.getLecturer();
+
+             try
+             {
+                 if (Session[Constant.ConstantFields.lecturerSchedule] != null)
+                 {
+                     List<StudentEnrollment> lst = (List<StudentEnrollment>) Session[Constant.ConstantFields.lecturerSchedule];
+
+                     for (int i = 0; i < lst.Count; i++)
+                     {
+                         StudentEnrollment std = lst[i];
+                         if (std.scheduleId == id)
+                         {
+                             stdmModel = std;
+                             stdmModel.lecturerSelected = (Int16)std.userId;
+                             TempData[Constant.ConstantFields.usrScheduleID] = id;
+                             TempData[Constant.ConstantFields.scheduleID] = std.scheduleId;
+                             TempData[Constant.ConstantFields.lecturerName] = std.lecturerName;
+                             stdmModel.lstLecturer = lecturerLst;
+                             //TempData[Constant.ConstantFields.courseID] = std.courseId;
+                         }
+                     }
+
+                 }
+             }
+             catch (Exception ex)
+             {
+                 log.Error("Exception ex ", ex);
+             }
+
+             return View(stdmModel);
+         }
+
         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
          public ActionResult EditCourseSchedule(int id)
          {
              StudentEnrollment stdmModel = new StudentEnrollment();
 
-             if (Session[Constant.ConstantFields.courseSchedule] != null)
+             try
              {
-                 List<StudentEnrollment> lst = ( List<StudentEnrollment>) Session[Constant.ConstantFields.courseSchedule];
-
-                 for (int i = 0; i < lst.Count; i++)
+                 if (Session[Constant.ConstantFields.courseSchedule] != null)
                  {
-                     StudentEnrollment std = lst[i];
-                     if (std.scheduleId == id)
+                     List<StudentEnrollment> lst = (List<StudentEnrollment>)Session[Constant.ConstantFields.courseSchedule];
+
+                     for (int i = 0; i < lst.Count; i++)
                      {
-                         stdmModel = std;
-                         TempData[Constant.ConstantFields.scheduleID] = id;
-                         TempData[Constant.ConstantFields.courseID] = std.courseId;
+                         StudentEnrollment std = lst[i];
+                         if (std.scheduleId == id)
+                         {
+                             stdmModel = std;
+                             TempData[Constant.ConstantFields.scheduleID] = id;
+                             TempData[Constant.ConstantFields.courseID] = std.courseId;
+                         }
                      }
                  }
              }
+             catch (Exception ex)
+             {
+                 log.Error("Exception ex ", ex);
+             }
+        
              return View(stdmModel);
          }
 
@@ -172,6 +256,7 @@ namespace JLearnWeb.Controllers
         {
             List<StudentEnrollment> lst = null;
             List<StudentEnrollment> lst1 = null;
+            List<StudentEnrollment> finalLst = new List<StudentEnrollment>();
             try
             {
                 lst = schFacade.getLecturerSchedule();
@@ -179,17 +264,23 @@ namespace JLearnWeb.Controllers
 
                 for (int i = 0; i < lst.Count; i++)
                 {
-                    StudentEnrollment s1 = lst[i];
+                    StudentEnrollment s1 = new StudentEnrollment();
+                       s1 =  lst[i];
 
                     for (int j = 0; j < lst1.Count; j++)
                     {
-                        StudentEnrollment s2 = lst1[j];
+                        StudentEnrollment s2 = new StudentEnrollment();
+                        s2 = lst1[j];
                         if (s1.scheduleId == s2.scheduleId)
                         {
                             s1.lecturerName = s2.lecturerName;
                             s1.userId = s2.userId;
+                            
+                            s1.usrScheduleId = s2.usrScheduleId;
+                            break;
                         }
                     }
+                    finalLst.Add(s1);
                 }
             }
             catch (Exception ex)
@@ -197,6 +288,7 @@ namespace JLearnWeb.Controllers
                 log.Error("Exception ",ex);
             }
 
+            Session.Add(Constant.ConstantFields.lecturerSchedule, finalLst);
             return View(lst);
         }
 

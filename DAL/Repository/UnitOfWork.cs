@@ -25,11 +25,24 @@ namespace DAL.Repository
         private IRepository<ForumThread> _forumThreadRepository;
         private IRepository<ForumPost> _forumPostRepository;
         private IRepository<Schedule> schRepo;
+        private IRepository<UserSchedule> usrSchRepo;
         private IRepository<Quiz> _quizRepository;
         private IRepository<QuizQuestion> _quizQuestionRepository;
         private Context _context;
 
         //Add any new repository here 
+
+        public IRepository<UserSchedule> UsrSchRepo
+        {
+            get
+            {
+
+                if (usrSchRepo == null)
+                    usrSchRepo = new Repository<UserSchedule>(_context);
+
+                return usrSchRepo;
+            }
+        }
 
         public IRepository<Schedule> SchRepo
         {

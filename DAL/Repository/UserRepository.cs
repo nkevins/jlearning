@@ -139,7 +139,8 @@ namespace DAL.Repository
                          orderby n.StartDate
                          select new
                          {
-                             scheduleId = n.ScheduleID,
+                             scheduleId = m.ScheduleID,
+                             usrscheduleId = m.UserScheduleID,
                              lecturerName = a.Name,
                              userId = m.UserID
                             
@@ -153,7 +154,8 @@ namespace DAL.Repository
                     StudentEnrollment obj = new StudentEnrollment();
                     obj.userId = (int) a.userId;
                     obj.lecturerName = a.lecturerName;
-                    obj.scheduleId = a.scheduleId;
+                    obj.usrScheduleId = a.usrscheduleId;
+                    obj.scheduleId = (int)a.scheduleId;
                     c.Add(obj);
                 }
             }
