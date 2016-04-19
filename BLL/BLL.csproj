@@ -73,6 +73,7 @@
     <Compile Include="Facade\CourseFacade.cs" />
     <Compile Include="Facade\ForumPostFacade.cs" />
     <Compile Include="Facade\ForumThreadFacade.cs" />
+    <Compile Include="Facade\LiveQuizFacade.cs" />
     <Compile Include="Facade\LoginFacade.cs" />
     <Compile Include="Facade\QuizFacade.cs" />
     <Compile Include="Facade\ScheduleFacade.cs" />

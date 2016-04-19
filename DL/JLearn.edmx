@@ -69,7 +69,7 @@
           <Key>
             <PropertyRef Name="QuizAnswerID" />
           </Key>
-          <Property Name="QuizAnswerID" Type="int" Nullable="false" />
+          <Property Name="QuizAnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="QuestionID" Type="int" />
           <Property Name="ChoiceSelected" Type="int" />
           <Property Name="IsCorrect" Type="bit" />

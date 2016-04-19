@@ -22,5 +22,6 @@ namespace DAL.Repository
         public DbSet<Schedule> schedule { get; set; }
         public DbSet<Quiz> quizes { get; set; }
         public DbSet<QuizQuestion> quizQuestions { get; set; }
+        public DbSet<QuizAnswer> quizAnswers { get; set; }
     }
 }

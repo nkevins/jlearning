@@ -29,9 +29,7 @@
                         <tr>
                             <td><a href="@Url.Action("Detail", "Quiz", new { id = q.QuizID })">@q.Title</a></td>
                             <td>
-                                <form action="#">
-                                    <button class="btn btn-default"><span class="glyphicon glyphicon-play"></span> Start Quiz</button>
-                                </form>
+                                <a href="@Url.Action("Live", "Quiz", new { id = q.QuizID })" class="btn btn-default" role="button"><span class="glyphicon glyphicon-play"></span> Start Quiz</a>
                             </td>
                         </tr>
                     }

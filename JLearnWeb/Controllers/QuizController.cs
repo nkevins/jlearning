@@ -2,6 +2,7 @@
 using DL;
 using DL.ModelView;
 using log4net;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace JLearnWeb.Controllers
 {
+    [Authorize]
     public class QuizController : Controller
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(QuizController));
@@ -29,6 +31,14 @@ namespace JLearnWeb.Controllers
         // GET: Quiz/Detail
         public ActionResult Detail(int id)
         {
+            var quiz = _quizFac.GetById(id);
+            return View(quiz);
+        }
+
+        // GET: Quiz/Live
+        public ActionResult Live(int id)
+        {
+            ViewBag.UserId = User.Identity.GetUserId();
             var quiz = _quizFac.GetById(id);
             return View(quiz);
         }

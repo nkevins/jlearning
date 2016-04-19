@@ -19,7 +19,7 @@
                 </div>
                 <div class="panel-body">
                     @q.Title
-                    @foreach (var c in q.QuizChoices)
+                    @foreach (var c in q.QuizChoices.OrderBy(x => x.QuizChoiceID))
                     {
                         <div class="radio">
                             <label>
