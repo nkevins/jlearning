@@ -1,0 +1,79 @@
+﻿@model List<DL.StudentEnrollment>
+
+@{
+    ViewBag.Title = "Student Enrollment";
+}
+
+<h2>Student Enrollment</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateEnrollment")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Schedule ID
+        </th>
+
+        <th>
+            Course Code
+        </th>
+        <th>
+            Course Name
+        </th>
+
+        <th>
+            Student Name
+        </th>
+
+        <th>
+            Start Date
+        </th>
+        <th>
+            End Date
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.usrScheduleId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.scheduleId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => item.courseCode)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.courseName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => item.studentName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => item.startDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.endDate)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "EditLecturerSchedule", new { id = item.scheduleId }) |
+                <!--@Html.ActionLink("Details", "Index", new { id = item.scheduleId }) |-->
+                @Html.ActionLink("Delete", "DeleteCourseSchedule", new { id = item.scheduleId },
+            new { onclick = "return confirm('Are you sure you wish to delete this course schedule?');" })
+            </td>
+        </tr>
+    }
+
+</table>
