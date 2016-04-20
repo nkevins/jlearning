@@ -14,6 +14,7 @@ namespace DAL.Repository
         IRepository<ForumPost> ForumPostRepository { get; }
         IRepository<Quiz> QuizRepository { get; }
         IRepository<QuizQuestion> QuizQuestionRepository { get; }
+        IRepository<QuizChoice> QuizChoiceRepository { get; }
         IRepository<QuizAnswer> QuizAnswerRepository { get; }
         void Save();
     }
@@ -29,6 +30,7 @@ namespace DAL.Repository
         private IRepository<UserSchedule> usrSchRepo;
         private IRepository<Quiz> _quizRepository;
         private IRepository<QuizQuestion> _quizQuestionRepository;
+        private IRepository<QuizChoice> _quizChoiceRepository;
         private IRepository<QuizAnswer> _quizAnswerRepository;
         private Context _context;
 
@@ -135,6 +137,17 @@ namespace DAL.Repository
                     _quizQuestionRepository = new Repository<QuizQuestion>(_context);
 
                 return _quizQuestionRepository;
+            }
+        }
+
+        public IRepository<QuizChoice> QuizChoiceRepository
+        {
+            get
+            {
+                if (_quizChoiceRepository == null)
+                    _quizChoiceRepository = new Repository<QuizChoice>(_context);
+
+                return _quizChoiceRepository;
             }
         }
 

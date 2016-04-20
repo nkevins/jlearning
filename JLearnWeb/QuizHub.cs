@@ -15,11 +15,6 @@ namespace JLearnWeb
     {
         public static LiveQuizFacade _quiz = new LiveQuizFacade();
 
-        public QuizHub()
-        {
-            //_quiz = new LiveQuizFacade();
-        }
-
         public void Start(int quizId)
         {
             _quiz.Start(quizId);
@@ -28,6 +23,7 @@ namespace JLearnWeb
             LiveQuizModelView question = MapQuizToViewModel(firstQuestion);
 
             Clients.All.setQuestion(quizId, JsonConvert.SerializeObject(question));
+            Clients.All.setStats(quizId, _quiz.GetAnswerStatistic(question.QuestionID));
         }
 
         public void Next(int quizId)
@@ -38,6 +34,7 @@ namespace JLearnWeb
             LiveQuizModelView question = MapQuizToViewModel(currentQuestion);
 
             Clients.All.setQuestion(quizId, JsonConvert.SerializeObject(question));
+            Clients.All.setStats(quizId, _quiz.GetAnswerStatistic(question.QuestionID));
         }
 
         public void Prev(int quizId)
@@ -48,6 +45,7 @@ namespace JLearnWeb
             LiveQuizModelView question = MapQuizToViewModel(currentQuestion);
 
             Clients.All.setQuestion(quizId, JsonConvert.SerializeObject(question));
+            Clients.All.setStats(quizId, _quiz.GetAnswerStatistic(question.QuestionID));
         }
 
         public void GetCurrentQuestion(int quizId)
@@ -59,12 +57,13 @@ namespace JLearnWeb
             Clients.Caller.setQuestion(quizId, JsonConvert.SerializeObject(question));
         }
 
-        public void Answer(int questionId, int answer, int userId)
+        public void Answer(int questionId, int answer, int userId, int quizId)
         {
             try
             {
                 _quiz.Answer(questionId, answer, userId);
                 Clients.Caller.notify(NotificationType.SUCCESS, "Answer submitted");
+                Clients.All.setStats(quizId, _quiz.GetAnswerStatistic(questionId));
             }
             catch (Exception ex)
             {

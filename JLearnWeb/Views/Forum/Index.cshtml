@@ -56,7 +56,8 @@
             // Create a function that the hub can call back to display messages.
             chat.client.broadcast = function (forumId, message) {
                 // Add the message to the page.
-                if(forumId == @Model.ForumThreadID) {
+                var forumThreadId = @Model.ForumThreadID;
+                if(forumId == forumThreadId) {
                     var msg = JSON.parse(message);
                     var postDate = moment(msg.CreatedDate);
                     var formattedDate = postDate.format('D/M/YYYY h:mm:ss A');

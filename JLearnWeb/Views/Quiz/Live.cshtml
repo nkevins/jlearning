@@ -15,33 +15,45 @@
             // Create a function that the hub can call back to display messages.
             quiz.client.setQuestion = function (quizId, question) {
                 // Add the message to the page.
-                if(quizId == @Model.QuizID) {
+                var currentQuiz = @Model.QuizID;
+                if(quizId == currentQuiz) {
                     var qsn = JSON.parse(question);
                     displayQuestion(qsn);
                 }
             };
             quiz.client.notify = function (type, message) {
                 if(type == "Success") {
-                    $('#notification').html('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong><span class="glyphicon glyphicon-ok"></span> Success! </strong><p>' + message + '</p></div>');
+                    $('#notification').html('<div class="alert alert-success alert-dismissable in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong><span class="glyphicon glyphicon-ok"></span> Success! </strong><p>' + message + '</p></div>');
+                    $("#choice :input").attr("disabled", true);
+                    $("#button-footer :button").attr("disabled", true);
                 } else {
-                    $('#notification').html('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong><span class="glyphicon glyphicon-remove"></span> Error: </strong><p>' + message + '</p></div>');
+                    $('#notification').html('<div class="alert alert-danger alert-dismissable in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong><span class="glyphicon glyphicon-remove"></span> Error: </strong><p>' + message + '</p></div>');
                 }
+            }
+            @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+            {
+                @: quiz.client.setStats = function(quizId, stats) {
+                @:    var currentQuiz = @Model.QuizID;
+                @:    if (quizId == currentQuiz) {
+                @:        drawChart(JSON.parse(stats));
+                @:    }
+                @: }
             }
             // Start the connection.
             $.connection.hub.start().done(function () {
                 $('#next').click(function () {
-                    quiz.server.next(@Model.QuizID);
-                });
+        quiz.server.next(@Model.QuizID);
+    });
                 $('#prev').click(function () {
-                    quiz.server.prev(@Model.QuizID);
-                });
+                quiz.server.prev(@Model.QuizID);
+            });
                 $('#submitAnswer').click(function () {
-                    var questionId = $('#questionId').val();
-                    var userId = @ViewBag.UserId;
-                    var answer = $('input[name=optionsRadios]:checked', '#choice').val();
-                    quiz.server.answer(questionId, answer, userId);
-                });
-                @if(Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+                var questionId = $('#questionId').val();
+                var userId = @ViewBag.UserId;
+                var answer = $('input[name=optionsRadios]:checked', '#choice').val();
+                quiz.server.answer(questionId, answer, userId, @Model.QuizID);
+            });
+            @if(Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
                 {
                     @:quiz.server.start(@Model.QuizID);
                 }
@@ -94,20 +106,19 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             google.charts.load('current', { packages: ['corechart', 'bar'] });
-            google.charts.setOnLoadCallback(drawBasic);
 
-            function drawBasic() {
-
+            function drawChart(stats) {
                 var data = google.visualization.arrayToDataTable([
                     ['Question', 'Answer'],
-                    ['A', 4],
-                    ['B', 15],
-                    ['C', 7],
-                    ['D', 1]
+                    ['A', stats[0].Count],
+                    ['B', stats[1].Count],
+                    ['C', stats[2].Count],
+                    ['D', stats[3].Count]
                 ]);
 
                 var options = {
                     legend: { position: 'none' },
+                    vAxis: { minValue:0, maxValue:5, gridlines:{count:6}, format:'0' },
                 };
 
                 var chart = new google.visualization.ColumnChart(
@@ -148,7 +159,7 @@
             </div>
             <div class="panel-body" id="choice">
             </div>
-            <div class="panel-footer">
+            <div class="panel-footer" id="button-footer">
                 @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
                 {
                     <button type="button" class="btn btn-default" id="prev">Prev</button>

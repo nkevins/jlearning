@@ -1,5 +1,6 @@
 ﻿using DAL.Repository;
 using DL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +100,14 @@ namespace BLL.Facade
 
             _uow.QuizAnswerRepository.Insert(ans);
             _uow.Save();
+        }
+
+        public string GetAnswerStatistic(int questionId)
+        {
+            var query = _uow.QuizChoiceRepository.GetAll().Where(x => x.QuestionID == questionId).OrderBy(x => x.QuestionID)
+                .Select(x => new { x.QuizChoiceID, Count = x.QuizAnswers.Count() });
+
+            return JsonConvert.SerializeObject(query, Formatting.None);
         }
 
         private bool isAnwerCorrect(int questionId, int answer)
