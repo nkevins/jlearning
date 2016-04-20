@@ -26,7 +26,7 @@ namespace JLearnWeb
 
         public void SendMessage(int forumId, string message, int userId)
         {
-            log.Info("Receive message from client forumId: " + forumId + " message: " + message + " userId: " + userId);
+            log.Debug("Receive message from client forumId: " + forumId + " message: " + message + " userId: " + userId);
 
             try
             {
@@ -46,11 +46,11 @@ namespace JLearnWeb
 
                 _postFac.Add(p);
 
-                log.Info("Save to DB: " + JsonConvert.SerializeObject(p));
+                log.Debug("Save to DB: " + JsonConvert.SerializeObject(p));
 
                 Clients.All.broadcast(forumId, JsonConvert.SerializeObject(post));
 
-                log.Info("Broadcast forumId: " + forumId + " message: " + JsonConvert.SerializeObject(post));
+                log.Debug("Broadcast forumId: " + forumId + " message: " + JsonConvert.SerializeObject(post));
             }
             catch (Exception ex)
             {
