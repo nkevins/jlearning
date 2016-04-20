@@ -28,6 +28,18 @@ namespace BLL.Facade
 
         }
 
+        public List<StudentEnrollment> getStudentCfmScheduleByID(int ID)
+        {
+            try
+            {
+                return usrRepo.getStudentSchedule(ID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<StudentEnrollment> getStudentCfmSchedule()
         {
             try
@@ -51,6 +63,11 @@ namespace BLL.Facade
                 throw ex;
             }
         }
+        public List<StudentEnrollment> getStudentScheduleByID(int ID)
+        {
+            return usrRepo.getStudentScheduleEnlById(ID);
+        }
+
         public List<StudentEnrollment> getStudentSchedule()
         {
             return usrRepo.getStudentScheduleEnl();

@@ -252,15 +252,25 @@ namespace JLearnWeb.Controllers
          }
 
         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
-        public ActionResult StudentSchedule()
+        public ActionResult StudentSchedule(string SearchString)
         {
             List<StudentEnrollment> lst = null;
             List<StudentEnrollment> lst1 = null;
             List<StudentEnrollment> finalLst = new List<StudentEnrollment>();
             try
             {
-                lst = schFacade.getStudentSchedule();
-                lst1 = schFacade.getStudentCfmSchedule();
+                if (SearchString == null || SearchString.Trim().Length == 0)
+                {
+                    lst = schFacade.getStudentSchedule();
+                    lst1 = schFacade.getStudentCfmSchedule();
+                }
+                else
+                {
+                    int id = Int32.Parse(SearchString);
+                    lst = schFacade.getStudentScheduleByID(id);
+                    lst1 = schFacade.getStudentCfmScheduleByID(id);
+                }
+              
 
                 for (int i = 0; i < lst.Count; i++)
                 {
