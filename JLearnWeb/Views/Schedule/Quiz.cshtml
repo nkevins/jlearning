@@ -9,13 +9,18 @@
     </div>
     <div class="col-md-10">
         <div class="container">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="topic">Title</label>
-                    <input type="text" class="form-control">
-                </div>
-                <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Quiz</button>
-            </form>
+            @Html.Partial("_Notifications")
+            @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+            {
+                <form class="form-inline" action="@Url.Action("Add", "Quiz")" method="post">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="title" id="title" required />
+                        <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
+                    </div>
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Quiz</button>
+                </form>
+            }
             <table class="table forum table-striped">
                 <thead>
                     <tr>
@@ -27,7 +32,16 @@
                     @foreach (var q in Model.OrderByDescending(x => x.CreatedDate))
                     {
                         <tr>
-                            <td><a href="@Url.Action("Detail", "Quiz", new { id = q.QuizID })">@q.Title</a></td>
+                            <td>
+                                @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+                                {
+                                    <a href="@Url.Action("Detail", "Quiz", new { id = q.QuizID })">@q.Title</a>
+                                }
+                                else
+                                {
+                                    @q.Title
+                                }
+                            </td>
                             <td>
                                 <a href="@Url.Action("Live", "Quiz", new { id = q.QuizID })" class="btn btn-default" role="button"><span class="glyphicon glyphicon-play"></span> Start Quiz</a>
                             </td>

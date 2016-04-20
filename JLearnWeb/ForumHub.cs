@@ -11,6 +11,7 @@ using log4net;
 
 namespace JLearnWeb
 {
+    [Authorize]
     public class ForumHub : Hub
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ForumHub));

@@ -33,6 +33,18 @@ namespace BLL.Facade
             return _uow.QuizRepository.GetById(quizId);
         }
 
+        public void Add(int scheduleId, string title)
+        {
+            Quiz quiz = new Quiz();
+            quiz.Title = title;
+            quiz.ScheduleID = scheduleId;
+            quiz.CreatedDate = DateTime.Now;
+            quiz.ObsInd = "N";
+
+            _uow.QuizRepository.Insert(quiz);
+            _uow.Save();
+        }
+
         public void AddQuestion(QuizAddQuestionModelView model)
         {
             QuizQuestion question = new QuizQuestion();

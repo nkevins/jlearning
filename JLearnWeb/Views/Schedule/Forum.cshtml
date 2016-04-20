@@ -10,14 +10,17 @@
     <div class="col-md-10">
         <div class="container">
             @Html.Partial("_Notifications")
-            <form class="form-inline" action="@Url.Action("Index", "Forum")" method="post">
-                <div class="form-group">
-                    <label for="topic">Topic</label>
-                    <input type="text" class="form-control" id="topic" name="title" />
-                    <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
-                </div>
-                <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
-            </form>
+            @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+            {
+                <form class="form-inline" action="@Url.Action("Index", "Forum")" method="post">
+                    <div class="form-group">
+                        <label for="topic">Topic</label>
+                        <input type="text" class="form-control" id="topic" name="title" required />
+                        <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
+                    </div>
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                </form>
+            }
             <table class="table forum table-striped" id="topicTable">
                 <thead>
                     <tr>

@@ -11,6 +11,7 @@ using JLearnWeb.Extensions;
 
 namespace JLearnWeb
 {
+    [Authorize]
     public class QuizHub : Hub
     {
         public static LiveQuizFacade _quiz = new LiveQuizFacade();

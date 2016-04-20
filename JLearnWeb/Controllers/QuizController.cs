@@ -29,6 +29,7 @@ namespace JLearnWeb.Controllers
         }
 
         // GET: Quiz/Detail
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult Detail(int id)
         {
             var quiz = _quizFac.GetById(id);
@@ -43,7 +44,26 @@ namespace JLearnWeb.Controllers
             return View(quiz);
         }
 
+        // POST: Quiz/Add
+        [HttpPost]
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult Add(int scheduleId, string title)
+        {
+            try
+            {
+                _quizFac.Add(scheduleId, title);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ", ex);
+                throw ex;
+            }
+
+            return RedirectToAction("Quiz", "Schedule", new { id = scheduleId });
+        }
+
         // GET: Quiz/AddQuestion
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult AddQuestion(int id)
         {
             var quiz = _quizFac.GetById(id);
@@ -51,6 +71,7 @@ namespace JLearnWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult AddQuestion(QuizAddQuestionModelView model)
         {
             try

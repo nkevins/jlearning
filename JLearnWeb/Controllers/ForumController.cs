@@ -40,6 +40,7 @@ namespace JLearnWeb.Controllers
 
         // POST: Forum
         [HttpPost]
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult Index([Bind(Include = "Title, ScheduleId")] ForumThread forum, int scheduleId)
         {
             if(ModelState.IsValid)
