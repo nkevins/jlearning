@@ -261,8 +261,8 @@ namespace JLearnWeb.Controllers
             {
                 if (SearchString == null || SearchString.Trim().Length == 0)
                 {
-                    lst = schFacade.getStudentSchedule();
-                    lst1 = schFacade.getStudentCfmSchedule();
+                    lst = schFacade.getStudentScheduleByID(0);
+                    lst1 = schFacade.getStudentCfmScheduleByID(0);
                 }
                 else
                 {

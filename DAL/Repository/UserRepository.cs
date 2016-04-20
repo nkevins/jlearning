@@ -175,7 +175,7 @@ namespace DAL.Repository
                          join n in db.Schedules on m.ScheduleID equals n.ScheduleID
                          join a in db.Users on m.UserID equals a.UserID
                          join role in db.Roles on a.UserID equals role.UserID
-                         where role.Name == "Student" && n.ObsInd == "N" && n.ScheduleID == ID
+                         where role.Name == "Student" && n.ObsInd == "N" //&& n.ScheduleID == ID
                          orderby n.StartDate
                          select new
                          {
@@ -186,7 +186,11 @@ namespace DAL.Repository
 
                          });
 
-
+            if (ID > 0)
+            {
+                query = query.Where(n => n.scheduleId == ID);
+            }
+           
             try
             {
                 foreach (var a in query)
@@ -206,45 +210,7 @@ namespace DAL.Repository
             return c;
         }
 
-        public List<StudentEnrollment> getStudentSchedule()
-        {
-
-            List<StudentEnrollment> c = new List<StudentEnrollment>();
-            JLearnDBEntities db = new JLearnDBEntities();
-            var query = (from m in db.UserSchedules
-                         join n in db.Schedules on m.ScheduleID equals n.ScheduleID
-                         join a in db.Users on m.UserID equals a.UserID
-                         join role in db.Roles on a.UserID equals role.UserID
-                         where role.Name == "Student" && n.ObsInd == "N"
-                         orderby n.StartDate
-                         select new
-                         {
-                             scheduleId = m.ScheduleID,
-                             usrscheduleId = m.UserScheduleID,
-                             stdName = a.Name,
-                             userId = m.UserID
-
-                         });
-
-
-            try
-            {
-                foreach (var a in query)
-                {
-                    StudentEnrollment obj = new StudentEnrollment();
-                    obj.userId = (int)a.userId;
-                    obj.studentName = a.stdName;
-                    obj.usrScheduleId = a.usrscheduleId;
-                    obj.scheduleId = (int)a.scheduleId;
-                    c.Add(obj);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return c;
-        }
+       
 
         public List<StudentEnrollment> getCourseSchedule()
         {
@@ -317,7 +283,7 @@ namespace DAL.Repository
                           n in db.Schedules
                          join y in db.UserSchedules on n.ScheduleID equals y.ScheduleID
                          join x in db.Courses on n.CourseID equals x.CourseID
-                         where n.ObsInd == "N" && n.ScheduleID == ID
+                         where n.ObsInd == "N" //&& n.ScheduleID == ID
                          orderby n.StartDate
                          select new
                          {
@@ -330,52 +296,11 @@ namespace DAL.Repository
                              description = x.Description,
                              userSchID = y.UserScheduleID
                          });
-
-            try
+            if (ID > 0)
             {
-                foreach (var a in query)
-                {
-                    StudentEnrollment obj = new StudentEnrollment();
-                    obj.courseCode = a.courseCode;
-                    obj.courseName = a.courseName;
-                    obj.scheduleId = a.scheduleId;
-                    obj.startDate = a.startDate;
-                    obj.endDate = a.endDate;
-                    obj.courseId = (int)a.courseId;
-                    obj.description = a.description;
-                    obj.usrScheduleId = a.userSchID;
-                    c.Add(obj);
-                }
+                query = query.Where(n => n.scheduleId == ID);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return c;
-        }
-
-        public List<StudentEnrollment> getStudentScheduleEnl()
-        {
-
-            List<StudentEnrollment> c = new List<StudentEnrollment>();
-            JLearnDBEntities db = new JLearnDBEntities();
            
-            var query = (from
-                          n in db.Schedules join y in db.UserSchedules on n.ScheduleID equals y.ScheduleID
-                         join x in db.Courses on n.CourseID equals x.CourseID
-                         where n.ObsInd == "N"
-                         orderby n.StartDate
-                         select new
-                         {
-                             courseCode = x.CourseCode,
-                             courseName = x.CourseName,
-                             startDate = n.StartDate,
-                             endDate = n.EndDate,
-                             scheduleId = n.ScheduleID,
-                             courseId = n.CourseID,
-                             description = x.Description,
-                             userSchID = y.UserScheduleID
-                         });
 
             try
             {
@@ -399,6 +324,8 @@ namespace DAL.Repository
             }
             return c;
         }
+
+        
 
         public List<SelectListItem> getLecturer()
         {
