@@ -1,0 +1,81 @@
+﻿@model  DL.StudentEnrollment
+
+@{
+    ViewBag.Title = "Edit Student Schedule";
+}
+
+<h2>Edit Student Schedule</h2>
+
+<script>
+    function show_alert() {
+        if (confirm("Do you really want to do this?"))
+            document.forms[0].submit();
+        else
+            return false;
+    }
+</script>
+
+@using (Html.BeginForm("EditStudentForm", "Schedule", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Lecturer Schedule</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.scheduleId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.scheduleId, new { disabled = "disabled", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.usrScheduleId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.courseName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.courseName, new { disabled = "disabled", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.courseName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.studentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.studentSelected, Model.lstStudent)
+                @Html.ValidationMessageFor(model => model.lstStudent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.startDate, new { disabled = "disabled", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.endDate, new { disabled = "disabled", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "StudentSchedule")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

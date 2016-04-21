@@ -89,5 +89,19 @@ namespace BLL.Facade
             }
 
         }
+
+        public List<SelectListItem> getStudent()
+        {
+            try
+            {
+                List<SelectListItem> lstLecturer = usrRepo.getStudent();
+                return lstLecturer;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

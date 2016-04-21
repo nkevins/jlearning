@@ -76,10 +76,10 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "EditLecturerSchedule", new { id = item.scheduleId }) |
-                <!--@Html.ActionLink("Details", "Index", new { id = item.scheduleId }) |-->
-                @Html.ActionLink("Delete", "DeleteCourseSchedule", new { id = item.scheduleId },
-            new { onclick = "return confirm('Are you sure you wish to delete this course schedule?');" })
+                @Html.ActionLink("Edit", "EditStudentSchedule", new { id = item.usrScheduleId }) |
+                <!--@Html.ActionLink("Details", "Index", new { id = item.usrScheduleId }) |-->
+                @Html.ActionLink("Delete", "DeleteStudentSchedule", new { id = item.usrScheduleId },
+            new { onclick = "return confirm('Are you sure you wish to remove this student from this schedule enrollment?');" })
             </td>
         </tr>
     }

@@ -40,7 +40,19 @@ namespace BLL.Facade
             }
         }
 
-       
+        public StudentEnrollment setModel(StudentEnrollment a)
+        {
+            StudentEnrollment obj = new StudentEnrollment();
+            obj.userId = (int)a.userId;
+            obj.lecturerName = a.lecturerName;
+            obj.usrScheduleId = a.usrScheduleId;
+            obj.scheduleId = (int)a.scheduleId;
+            obj.courseCode = a.courseCode;
+            obj.courseName = a.courseName;
+            obj.endDate = a.endDate;
+            obj.startDate = a.startDate;
+            return obj;
+        }
 
         public List<StudentEnrollment> getLecturerCfmSchedule()
         {

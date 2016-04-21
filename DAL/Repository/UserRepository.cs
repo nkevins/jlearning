@@ -210,8 +210,7 @@ namespace DAL.Repository
             return c;
         }
 
-       
-
+     
         public List<StudentEnrollment> getCourseSchedule()
         {
 
@@ -294,7 +293,8 @@ namespace DAL.Repository
                              scheduleId = n.ScheduleID,
                              courseId = n.CourseID,
                              description = x.Description,
-                             userSchID = y.UserScheduleID
+                             userSchID = y.UserScheduleID,
+                             userId = y.UserID
                          });
             if (ID > 0)
             {
@@ -315,6 +315,7 @@ namespace DAL.Repository
                     obj.courseId = (int)a.courseId;
                     obj.description = a.description;
                     obj.usrScheduleId = a.userSchID;
+                    obj.userId = (int) a.userId;
                     c.Add(obj);
                 }
             }
@@ -354,6 +355,37 @@ namespace DAL.Repository
                 throw ex;
             }
            
+        }
+
+        public List<SelectListItem> getStudent()
+        {
+            try
+            {
+                JLearnDBEntities db = new JLearnDBEntities();
+                List<SelectListItem> lstStudent = new List<SelectListItem>();
+                var query = (from
+                             a in db.Users
+                             join role in db.Roles on a.UserID equals role.UserID
+                             where role.Name == "Student" && a.ObsInd == "N"
+
+                             select new
+                             {
+                                 userId = a.UserID,
+                                 name = a.Name,
+                             });
+
+                foreach (var a in query)
+                {
+                    lstStudent.Add(new SelectListItem { Text = a.userId + "-" + a.name, Value = a.userId.ToString() });
+                }
+
+                return lstStudent;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

@@ -66,6 +66,7 @@ namespace DL
         [DisplayName("Student Name")]
         public string studentName { get; set; }
 
-        
+        public List<SelectListItem> lstStudent { get; set; }
+        public Int16 studentSelected { get; set; }
     }
 }
