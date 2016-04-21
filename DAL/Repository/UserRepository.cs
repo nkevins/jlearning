@@ -175,7 +175,7 @@ namespace DAL.Repository
                          join n in db.Schedules on m.ScheduleID equals n.ScheduleID
                          join a in db.Users on m.UserID equals a.UserID
                          join role in db.Roles on a.UserID equals role.UserID
-                         where role.Name == "Student" && n.ObsInd == "N" //&& n.ScheduleID == ID
+                         where role.Name == "Student" && n.ObsInd == "N" && m.ObsInd == "N"
                          orderby n.StartDate
                          select new
                          {
@@ -282,7 +282,7 @@ namespace DAL.Repository
                           n in db.Schedules
                          join y in db.UserSchedules on n.ScheduleID equals y.ScheduleID
                          join x in db.Courses on n.CourseID equals x.CourseID
-                         where n.ObsInd == "N" //&& n.ScheduleID == ID
+                         where n.ObsInd == "N" && y.ObsInd == "N"
                          orderby n.StartDate
                          select new
                          {

@@ -54,7 +54,7 @@ namespace JLearnWeb.Controllers
                 sch.ObsInd = "Y";
       
                 sch.ScheduleID = stdmModel.scheduleId;
-                sch.UserID = stdmModel.lecturerSelected;
+                sch.UserID = stdmModel.userId;
                 sch.UserScheduleID = stdmModel.usrScheduleId;
 
                 schFacade.updateLectureSchedule(sch);
