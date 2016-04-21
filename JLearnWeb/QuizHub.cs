@@ -30,9 +30,12 @@ namespace JLearnWeb
             Clients.All.setQuestion(quizId, JsonConvert.SerializeObject(question));
             log.Debug("Broadcast question: " + JsonConvert.SerializeObject(question));
 
-            string stats = _quiz.GetAnswerStatistic(question.QuestionID);
-            Clients.All.setStats(quizId, stats);
-            log.Debug("Broadcast answer statistic: " + stats);
+            if (question != null)
+            {
+                string stats = _quiz.GetAnswerStatistic(question.QuestionID);
+                Clients.All.setStats(quizId, stats);
+                log.Debug("Broadcast answer statistic: " + stats);
+            }
         }
 
         public void Next(int quizId)
@@ -47,10 +50,12 @@ namespace JLearnWeb
             Clients.All.setQuestion(quizId, JsonConvert.SerializeObject(question));
             log.Debug("Broadcast question: " + JsonConvert.SerializeObject(question));
 
-
-            string stats = _quiz.GetAnswerStatistic(question.QuestionID);
-            Clients.All.setStats(quizId, stats);
-            log.Debug("Broadcast answer statistic: " + stats);
+            if (question != null)
+            {
+                string stats = _quiz.GetAnswerStatistic(question.QuestionID);
+                Clients.All.setStats(quizId, stats);
+                log.Debug("Broadcast answer statistic: " + stats);
+            }
         }
 
         public void Prev(int quizId)
@@ -65,9 +70,12 @@ namespace JLearnWeb
             Clients.All.setQuestion(quizId, JsonConvert.SerializeObject(question));
             log.Debug("Broadcast question: " + JsonConvert.SerializeObject(question));
 
-            string stats = _quiz.GetAnswerStatistic(question.QuestionID);
-            Clients.All.setStats(quizId, stats);
-            log.Debug("Broadcast answer statistic: " + stats);
+            if(question != null)
+            {
+                string stats = _quiz.GetAnswerStatistic(question.QuestionID);
+                Clients.All.setStats(quizId, stats);
+                log.Debug("Broadcast answer statistic: " + stats);
+            }
         }
 
         public void GetCurrentQuestion(int quizId)
