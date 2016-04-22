@@ -341,6 +341,7 @@
     <Content Include="Views\Schedule\EditLecturerSchedule.cshtml" />
     <Content Include="Views\Schedule\StudentSchedule.cshtml" />
     <Content Include="Views\Schedule\EditStudentSchedule.cshtml" />
+    <Content Include="Views\Schedule\CreateEnrollment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

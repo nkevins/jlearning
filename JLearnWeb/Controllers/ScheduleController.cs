@@ -296,6 +296,47 @@ namespace JLearnWeb.Controllers
 
          }
 
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult CreateEnrollment(int id)
+        {
+            StudentEnrollment stdmModel = new StudentEnrollment();
+            List<SelectListItem> lecturerLst = usrFacade.getLecturer();
+            List<SelectListItem> studentLst = usrFacade.getStudent();
+
+            try
+            {
+                if (Session[Constant.ConstantFields.lecturerSchedule] != null)
+                {
+                    List<StudentEnrollment> lst = (List<StudentEnrollment>)Session[Constant.ConstantFields.lecturerSchedule];
+                    // stdmModel.lstLecturer = lecturerLst;
+                    for (int i = 0; i < lst.Count; i++)
+                    {
+                        StudentEnrollment std = lst[i];
+                        if (std.scheduleId == id)
+                        {
+                            stdmModel = std;
+                            stdmModel.lecturerSelected = (Int16)std.userId;
+                            TempData[Constant.ConstantFields.usrScheduleID] = id;
+                            TempData[Constant.ConstantFields.scheduleID] = std.scheduleId;
+                            TempData[Constant.ConstantFields.lecturerName] = std.lecturerName;
+                            stdmModel.lstLecturer = lecturerLst;
+                            stdmModel.lstStudent = studentLst;
+                            //TempData[Constant.ConstantFields.courseID] = std.courseId;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ex ", ex);
+            }
+
+
+            return View(stdmModel);
+        }
+
          [Authorize(Roles = Constant.ConstantFields.Lecturer)]
          public ActionResult EditLecturerSchedule(int id)
          {

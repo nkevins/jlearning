@@ -70,7 +70,8 @@
                 @Html.ActionLink("Edit", "EditLecturerSchedule", new { id = item.scheduleId }) |
                 @Html.ActionLink("Details", "Index", new { id = item.scheduleId }) |
                 @Html.ActionLink("Delete", "DeleteCourseSchedule", new { id = item.scheduleId },
-            new { onclick = "return confirm('Are you sure you wish to delete this course schedule?');" })
+                new { onclick = "return confirm('Are you sure you wish to delete this course schedule?');" }) |
+                @Html.ActionLink("Enroll Student", "CreateEnrollment", new { id = item.scheduleId })
             </td>
         </tr>
     }
