@@ -9,9 +9,9 @@
 
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             Lecturer Schedule ID
-        </th>
+        </th>*@
         <th>
             Course Schedule ID
         </th>
@@ -40,9 +40,9 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(model => item.usrScheduleId)
-            </td>
+            </td>*@
 
             <td>
                 @Html.DisplayFor(model => item.scheduleId)
