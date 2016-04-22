@@ -307,7 +307,7 @@ namespace JLearnWeb.Controllers
                  if (Session[Constant.ConstantFields.lecturerSchedule] != null)
                  {
                      List<StudentEnrollment> lst = (List<StudentEnrollment>) Session[Constant.ConstantFields.lecturerSchedule];
-
+                    // stdmModel.lstLecturer = lecturerLst;
                      for (int i = 0; i < lst.Count; i++)
                      {
                          StudentEnrollment std = lst[i];
@@ -331,6 +331,7 @@ namespace JLearnWeb.Controllers
                  log.Error("Exception ex ", ex);
              }
 
+          
              return View(stdmModel);
          }
 
@@ -436,7 +437,7 @@ namespace JLearnWeb.Controllers
                 {
                     StudentEnrollment s1 = new StudentEnrollment();
                     s1 =  lst[i];
-                     
+                    bool recFound = false; 
 
                     for (int j = 0; j < lst1.Count; j++)
                     {
@@ -452,8 +453,15 @@ namespace JLearnWeb.Controllers
                             finalLst.Add(s1);
                             //s1 = new StudentEnrollment();
                             s1 = schFacade.setModel(s1);
+                            recFound = true;
                         }
                     }
+
+                    if (!recFound)
+                    {
+                        finalLst.Add(s1);
+                    }
+                    
                     
                 }
             }
