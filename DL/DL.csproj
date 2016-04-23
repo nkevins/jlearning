@@ -141,6 +141,7 @@
     <Compile Include="User.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserData.cs" />
     <Compile Include="UserMetaData.cs" />
     <Compile Include="UserSchedule.cs">
       <DependentUpon>JLearn.tt</DependentUpon>

@@ -349,6 +349,7 @@
     <Content Include="Views\Schedule\CreateEnrollment.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

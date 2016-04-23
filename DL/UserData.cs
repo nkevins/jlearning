@@ -6,21 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 namespace DL
 {
-    [MetadataType(typeof(UserMetaData))]
-    public partial class User
-    {
-      
-    } 
-
-  public  class UserMetaData
+  public  class UserData
     {
         [Required(ErrorMessage = "NRIC is required")]
         public string NRIC { get; set; }
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
-         [Required(ErrorMessage = "Email is required")]
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
 
         [DisplayName("Obsolete")]
@@ -34,8 +29,8 @@ namespace DL
 
         public int UserID { get; set; }
 
-       
+        [DisplayName("Role")]
+        public List<SelectListItem> userRole { get; set; }
+        public string selectedRole { get; set; }
     }
-
-   
 }

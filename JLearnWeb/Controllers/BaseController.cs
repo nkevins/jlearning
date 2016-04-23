@@ -50,6 +50,7 @@ namespace JLearnWeb.Controllers
             if (ModelState.IsValid)
             {
                 _repository.Insert(Mapper.Map<T>(model));
+                _repository.Save();
                 return RedirectToAction("Index");
             }
 

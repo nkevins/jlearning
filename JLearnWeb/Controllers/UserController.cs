@@ -80,8 +80,60 @@ namespace JLearnWeb.Controllers
             catch (Exception ex)
             {
                 log.Error("Exceptioin ", ex);
-                return View();
+               
             }
+
+            return View();
+        }
+
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult Create()
+        {
+
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            items.Add(new SelectListItem { Text = "Student", Value = "Student", Selected = true });
+            items.Add(new SelectListItem { Text = "Lecturer", Value = "Lecturer" });
+
+            var model = new UserData()
+            {
+                userRole = items,
+                selectedRole = "Student"
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult Create(UserData u)
+        {
+            try
+            {
+                User usr = new User();
+                usr.NRIC = u.NRIC;
+                usr.Email = u.Email;
+                usr.Name = u.Name;
+                usr.Salt = u.Salt;
+                usr.Password = u.Password;
+                usr.ObsInd = "N";
+                
+                Role r = new Role();
+                r.Name = u.selectedRole;
+                r.ObsInd = "N";
+
+                usr.Roles.Add(r);
+
+                base.Add(usr);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Execption ex ", ex);
+            }
+          
+
+            return RedirectToAction("UserIndex");
+            
         }
     }
 }
