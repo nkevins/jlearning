@@ -135,7 +135,7 @@ namespace DAL.Repository
                          join n in db.Schedules on m.ScheduleID equals n.ScheduleID
                          join a in db.Users on m.UserID equals a.UserID
                          join role in db.Roles on a.UserID equals role.UserID
-                         where role.Name == "Lecturer" && n.ObsInd == "N"
+                         where role.Name == "Lecturer" && n.ObsInd == "N" && m.ObsInd == "N"
                          orderby n.StartDate
                          select new
                          {

@@ -69,6 +69,46 @@ namespace JLearnWeb.Controllers
             return View("StudentSchedule");
         }
 
+          public ActionResult DeleteLecturerSchedule(int id)
+          {
+              try
+              {
+                  StudentEnrollment stdmModel = new StudentEnrollment();
+
+                  if (Session[Constant.ConstantFields.lecturerSchedule] != null)
+                  {
+                      List<StudentEnrollment> lst = (List<StudentEnrollment>)Session[Constant.ConstantFields.lecturerSchedule];
+
+                      for (int i = 0; i < lst.Count; i++)
+                      {
+                          StudentEnrollment std = lst[i];
+                          if (std.usrScheduleId == id)
+                          {
+                              stdmModel = std;
+                              break;
+                          }
+                      }
+                  }
+
+                  UserSchedule sch = new UserSchedule();
+                  sch.ObsInd = "Y";
+
+                  sch.ScheduleID = stdmModel.scheduleId;
+                  sch.UserID = stdmModel.userId;
+                  sch.UserScheduleID = stdmModel.usrScheduleId;
+
+                  schFacade.updateLectureSchedule(sch);
+
+                  LecturerSchedule();
+              }
+              catch (Exception ex)
+              {
+                  log.Error("Exception ", ex);
+              }
+
+              return View("LecturerSchedule");
+          }
+
          [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult deleteCourseSchedule(int id)
         {
