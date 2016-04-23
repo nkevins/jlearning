@@ -326,7 +326,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Quiz\Live.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Schedule\Forum.cshtml" />
@@ -350,6 +349,9 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\EditUser.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
+    <Content Include="Views\Course\CreateCourse.cshtml" />
+    <Content Include="Views\Course\EditCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

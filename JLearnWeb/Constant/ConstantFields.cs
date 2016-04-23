@@ -9,6 +9,7 @@ namespace JLearnWeb.Constant
     {
         public const string userSession = "userSession";
         public const string userList = "userList";
+        public const string courseList = "courseList";
         public const string courseSchedule = "courseSchedule";
         public const string lecturerSchedule = "lecturerSchedule";
         public const string StudentSchedule = "studentSchedule";

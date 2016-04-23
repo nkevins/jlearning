@@ -1,34 +1,67 @@
-﻿<div class="row">
-    <div class="col-md-7">
-        <div class="page-header">
-            <h2>Course</h2>
-        </div>
-        <td><a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Course</a></td>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Course Code</th>
-                    <th>Title</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="#">CRS001</a></td>
-                    <td>Course 1</td>
-                    <td><a href="#" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Edit</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">CRS002</a></td>
-                    <td>Course 2</td>
-                    <td><a href="#" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Edit</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">CRS003</a></td>
-                    <td>Course 3</td>
-                    <td><a href="#" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Edit</a></td>
-                </tr>
-            </tbody>
-        </table>
+﻿@model List<DL.Course>
+
+@{
+    ViewBag.Title = "List of Courses";
+}
+
+<h2>List of Courses</h2>
+
+<p>
+   
+    <div style="margin-bottom: 10px;">
+        <a href="@Url.Action("CreateCourse")" class="btn btn-info" role="button"><span class="glyphicon glyphicon-plus"></span> Create New</a>
     </div>
-</div>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Course Code
+
+        </th>
+        <th>
+           Course Name
+        </th>
+        <th>
+           Obsoleted
+
+        </th>
+        <th>
+           Description
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ObsInd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+
+            <a href='@Url.Action("EditCourse", new { id = item.CourseID })' class="btn btn-info" role="button">
+                <span class="glyphicon glyphicon-pencil"></span>
+                Edit
+            </a>
+
+            <a href='@Url.Action("DeleteCourse", new { id = item.CourseID })'
+               onclick="return confirm('Are you sure you wish to delete this course?')" class="btn btn-primary" role="button">
+                <span class="glyphicon glyphicon-remove"></span>
+                Delete
+            </a>
+
+          
+        </td>
+    </tr>
+}
+
+</table>
