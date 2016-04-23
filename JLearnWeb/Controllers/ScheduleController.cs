@@ -111,6 +111,32 @@ namespace JLearnWeb.Controllers
             return View("CourseSchedule");
         }
 
+          [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult CreateStudentForm(StudentEnrollment std){
+
+            try
+            {
+                UserSchedule usr = new UserSchedule();
+
+                if (TempData[Constant.ConstantFields.scheduleID] != null)
+                {
+                    usr.ScheduleID = (int)TempData[Constant.ConstantFields.scheduleID];
+                }
+
+                usr.UserID = std.studentSelected;
+                usr.ObsInd = "N";
+                schFacade.insertLectureSchedule(usr);
+                StudentSchedule(string.Empty);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ex",ex);
+            }
+            
+
+            return View("StudentSchedule");
+        }
+
         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
         public ActionResult EditForm(StudentEnrollment std)
         {
@@ -316,9 +342,9 @@ namespace JLearnWeb.Controllers
                         {
                             stdmModel = std;
                             stdmModel.lecturerSelected = (Int16)std.userId;
-                            TempData[Constant.ConstantFields.usrScheduleID] = id;
+                            TempData[Constant.ConstantFields.usrScheduleID] = std.usrScheduleId;
                             TempData[Constant.ConstantFields.scheduleID] = std.scheduleId;
-                            TempData[Constant.ConstantFields.lecturerName] = std.lecturerName;
+                           // TempData[Constant.ConstantFields.lecturerName] = std.lecturerName;
                             stdmModel.lstLecturer = lecturerLst;
                             stdmModel.lstStudent = studentLst;
                             //TempData[Constant.ConstantFields.courseID] = std.courseId;
@@ -356,7 +382,7 @@ namespace JLearnWeb.Controllers
                          {
                              stdmModel = std;
                              stdmModel.lecturerSelected = (Int16)std.userId;
-                             TempData[Constant.ConstantFields.usrScheduleID] = id;
+                             TempData[Constant.ConstantFields.usrScheduleID] = std.usrScheduleId;
                              TempData[Constant.ConstantFields.scheduleID] = std.scheduleId;
                              TempData[Constant.ConstantFields.lecturerName] = std.lecturerName;
                              stdmModel.lstLecturer = lecturerLst;
