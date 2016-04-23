@@ -123,8 +123,8 @@
           <Property Name="NRIC" Type="nvarchar" MaxLength="50" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="Salt" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="60" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
           <Property Name="ObsInd" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="UserSchedule">
@@ -634,8 +634,8 @@
           <Property Name="NRIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salt" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="ForumPosts" Relationship="JLearnDBModel.FK_ForumPost_User" FromRole="User" ToRole="ForumPost" />
           <NavigationProperty Name="QuizAnswers" Relationship="JLearnDBModel.FK_QuizAnswer_User" FromRole="User" ToRole="QuizAnswer" />

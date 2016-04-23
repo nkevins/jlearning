@@ -11,7 +11,15 @@ namespace DL
     [MetadataType(typeof(UserMetaData))]
     public partial class User
     {
-      
+        public void SetPassword(string password)
+        {
+            var crypto = new SimpleCrypto.PBKDF2();
+            string salt = crypto.GenerateSalt();
+            string hashedPassword = crypto.Compute(password);
+
+            this.Salt = salt;
+            this.Password = hashedPassword;
+        } 
     } 
 
   public  class UserMetaData

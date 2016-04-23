@@ -11,7 +11,6 @@ namespace DL
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
     
     public partial class User
     {
@@ -31,7 +30,7 @@ namespace DL
         public string Salt { get; set; }
         public string Password { get; set; }
         public string ObsInd { get; set; }
-      
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ForumPost> ForumPosts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

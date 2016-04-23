@@ -23,35 +23,25 @@ namespace BLL
             User usr = null;
             try
             {
-                 //string saltValue = ConfigurationManager.AppSettings["SaltString"];
-            ///string hashPwd = PasswordHashUtil.GenerateSaltedHashPwd(password, SaltString);
-            IQueryable<User> userModel =  unitofwork.UserRepository.GetAll();
-            List<User> lstUser = userModel.ToList();
+                usr = unitofwork.UserRepository.GetAll().Where(x => x.Email == username).FirstOrDefault();
+                if (usr == null)
+                {
+                    return null;
+                }
 
-            usr = getUserAccount(lstUser, username,password);
-
-            }catch(Exception ex){
+                var crypto = new SimpleCrypto.PBKDF2();
+                string inputPassword = crypto.Compute(password, usr.Salt);
+                if(!crypto.Compare(usr.Password, inputPassword))
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
 
             return usr;
-        }
-
-        public User getUserAccount(List<User> lstUser, string username, string password)
-        {
-            User user = null;
-            for (int i = 0; i < lstUser.Count; i++)
-            {
-                User u = lstUser[i];
-                string hashPwd = PasswordHashUtil.GenerateSaltedHashPwd(password, u.Salt);
-                if (u.Email.Equals(username) && u.Password.Equals(hashPwd))
-                {
-                    user = u;
-                    break;
-                }
-            }
-
-            return user;
         }
 
         public string getUserRole(int userId)
