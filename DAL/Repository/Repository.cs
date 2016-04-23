@@ -19,7 +19,8 @@ namespace DAL.Repository
         }
         public Repository()
         {
-
+            this.context = new Context();
+            dbset = context.Set<T>();
         }
 
 
