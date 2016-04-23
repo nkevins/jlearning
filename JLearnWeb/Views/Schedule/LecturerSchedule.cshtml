@@ -67,12 +67,36 @@
             </td>
 
             <td>
+                <a href='@Url.Action("EditLecturerSchedule", new { id = item.scheduleId })' class="btn btn-info" role="button">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Edit
+                </a>
+
+                <a href='@Url.Action("Index", new { id = item.scheduleId })' class="btn btn-info" role="button">
+                    <span class="glyphicon glyphicon-zoom-in"></span>
+                    Details
+                </a>
+
+                <a href='@Url.Action("DeleteLecturerSchedule", new { id = item.usrScheduleId })'
+                   onclick="return confirm('Are you sure you wish to delete this leturer from this course schedule?')" class="btn btn-info" role="button">
+                    <span class="glyphicon glyphicon-remove"></span>
+                        Delete
+                        </a>
+
+                <a href='@Url.Action("CreateEnrollment", new { id = item.scheduleId })' class="btn btn-info" role="button">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Enroll Student
+                </a>
+
+                     <!--
                 @Html.ActionLink("Edit", "EditLecturerSchedule", new { id = item.scheduleId }) |
                 @Html.ActionLink("Details", "Index", new { id = item.scheduleId }) |
-                @Html.ActionLink("Delete", "DeleteCourseSchedule", new { id = item.scheduleId },
+
+
+                            @Html.ActionLink("Delete", "DeleteCourseSchedule", new { id = item.scheduleId },
                 new { onclick = "return confirm('Are you sure you wish to delete this course schedule?');" }) |
-                @Html.ActionLink("Enroll Student", "CreateEnrollment", new { id = item.scheduleId })
-            </td>
+                            @Html.ActionLink("Enroll Student", "CreateEnrollment", new { id = item.scheduleId })-->
+</td>
         </tr>
     }
 
