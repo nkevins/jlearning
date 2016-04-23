@@ -34,6 +34,18 @@ namespace BLL.Facade
            
         }
 
+        public List<User> getAllUser()
+        {
+            try
+            {
+                return unitofwork.UserRepository.GetAll().Where(x => x.ObsInd == "N").ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<StudentEnrollment> getStudentEnrollment(int userId)
         {
             try

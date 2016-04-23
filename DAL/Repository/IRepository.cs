@@ -13,5 +13,6 @@ namespace DAL.Repository
         void Edit(T entity);
         void Insert(T entity);
         void Delete(T entity);
+        void Save();
     }
 }

@@ -14,13 +14,15 @@ namespace JLearnWeb.Controllers
         where M : new()
     {
         protected IRepository<T> _repository;
+        private Context _context;
 
         public BaseController(IRepository<T> repository)
         {
             this._repository = repository;
+           
         }
-        
-        public virtual ActionResult Index()
+
+        public virtual List<M> Index()
         {
             var entities = _repository.GetAll();
             List<M> model = new List<M>();
@@ -30,7 +32,8 @@ namespace JLearnWeb.Controllers
                 model.Add(Mapper.Map<M>(currentEntity));
             }
 
-            return View(model);
+            return model;
+           // return View(model);
         }
 
         [HttpGet]
@@ -58,7 +61,7 @@ namespace JLearnWeb.Controllers
         {
             T domainModelEntity = _repository.GetById(modelId);
             M model = Mapper.Map<M>(domainModelEntity);
-
+            
             return View(model);
         }
 
@@ -70,6 +73,7 @@ namespace JLearnWeb.Controllers
             if (ModelState.IsValid)
             {
                 _repository.Edit(Mapper.Map<T>(model));
+                _repository.Save();
                 return RedirectToAction("Index");
             }
 

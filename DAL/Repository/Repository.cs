@@ -48,7 +48,10 @@ namespace DAL.Repository
             context.Entry(entity).State = EntityState.Deleted;
         }
 
-
+        public void Save()
+        {
+            this.context.SaveChanges();
+        }
        
     }
 }

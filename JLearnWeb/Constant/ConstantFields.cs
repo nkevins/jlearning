@@ -8,6 +8,7 @@ namespace JLearnWeb.Constant
     public class ConstantFields
     {
         public const string userSession = "userSession";
+        public const string userList = "userList";
         public const string courseSchedule = "courseSchedule";
         public const string lecturerSchedule = "lecturerSchedule";
         public const string StudentSchedule = "studentSchedule";
