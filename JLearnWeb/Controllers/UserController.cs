@@ -74,8 +74,6 @@ namespace JLearnWeb.Controllers
                 base.Update(u);
                 //UserFacade usr = new UserFacade();
                 //usr.updateUser(u);
-
-                return RedirectToAction("UserIndex");
             }
             catch (Exception ex)
             {
@@ -83,7 +81,7 @@ namespace JLearnWeb.Controllers
                
             }
 
-            return View();
+            return RedirectToAction("UserIndex");
         }
 
         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
@@ -134,6 +132,45 @@ namespace JLearnWeb.Controllers
 
             return RedirectToAction("UserIndex");
             
+        }
+
+         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        public ActionResult DeleteUser(int id)
+        {
+            List<User> lstUsr = new List<User>();
+            User u = null;
+            User usr = new User();
+            try
+            {
+                if (Session[Constant.ConstantFields.userList] != null)
+                {
+                    lstUsr = (List<User>)Session[Constant.ConstantFields.userList];
+                }
+
+                for (int i = 0; i < lstUsr.Count; i++)
+                {
+                    u = lstUsr[i];
+                    if (u.UserID == id)
+                    {
+                        usr.UserID = u.UserID;
+                        usr.NRIC = u.NRIC;
+                        usr.Email = u.Email;
+                        usr.Name = u.Name;
+                        usr.Salt = u.Salt;
+                        usr.Password = u.Password;
+                        usr.ObsInd = "Y";
+                        break;
+                    }
+                }
+
+                base.Update(usr);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ex ", ex);
+            }
+
+            return RedirectToAction("UserIndex");
         }
     }
 }
