@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace JLearnWeb.Controllers
 {
+    [Authorize]
     public class ScheduleController : Controller
     {
         private ForumThreadFacade _forumThreadFacade;
@@ -16,6 +17,7 @@ namespace JLearnWeb.Controllers
         private UserFacade usrFacade;
         private ScheduleFacade schFacade;
 		private QuizFacade _quizFacade;
+        private ModuleFacade _moduleFacade;
         private static readonly ILog log = LogManager.GetLogger(typeof(ScheduleController));
         StudentEnrollment en = new StudentEnrollment();
 
@@ -23,6 +25,7 @@ namespace JLearnWeb.Controllers
         {
             _forumThreadFacade = new ForumThreadFacade();
 			_quizFacade = new QuizFacade();
+            _moduleFacade = new ModuleFacade();
             crsFacade = new CourseFacade();
             usrFacade = new UserFacade();
             schFacade = new ScheduleFacade();
@@ -626,9 +629,19 @@ namespace JLearnWeb.Controllers
         }
 
         // GET: Schedule/Module
-        public ActionResult Module()
+        public ActionResult Module(int id)
         {
-            return View();
+            List<Module> modules = null;
+            try
+            {
+                modules = _moduleFacade.GetBySchedule(id);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Exception ", ex);
+            }
+            ViewBag.ScheduleId = id;
+            return View(modules);
         }
 
         // GET: Schedule/Forum

@@ -1,31 +1,34 @@
-﻿<div class="row">
+﻿@model IEnumerable<DL.Module>
+
+<div class="row">
     <div class="page-header">
         <h2>Module</h2>
     </div>
     <div class="col-md-2">
-        @Html.Partial("_ScheduleMenuPartial")
+        @Html.Partial("_ScheduleMenuPartial", (int) @ViewBag.ScheduleID)
     </div>
     <div class="col-md-10">
-        <div>
-            <h2>Topic 1</h2>
-            <hr />
-            <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 1</a></p>
-            <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 2</a></p>
-            <p><span class="glyphicon glyphicon-file"></span> <a href="#">Slide 1</a></p>
-        </div>
-        <div>
-            <h2>Topic 2</h2>
-            <hr />
-            <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 1</a></p>
-            <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 2</a></p>
-            <p><span class="glyphicon glyphicon-file"></span> <a href="#">Slide 1</a></p>
-        </div>
-        <div>
-            <h2>Topic 3</h2>
-            <hr />
-            <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 1</a></p>
-            <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 2</a></p>
-            <p><span class="glyphicon glyphicon-file"></span> <a href="#">Slide 1</a></p>
+        <div class="container">
+            @Html.Partial("_Notifications")
+            @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+            {
+                <form class="form-inline" action="@Url.Action("Index", "Module")" method="post">
+                    <div class="form-group">
+                        <label for="title">Module Title</label>
+                        <input type="text" class="form-control" id="title" name="moduleName" required />
+                        <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
+                    </div>
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                </form>
+            }
+            @foreach (var m in Model)
+            {
+                <h2>@m.ModuleName</h2>
+                <hr />
+                <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 1</a></p>
+                <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 2</a></p>
+                <p><span class="glyphicon glyphicon-file"></span> <a href="#">Slide 1</a></p>
+            }
         </div>
     </div>
 </div>
