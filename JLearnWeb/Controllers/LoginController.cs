@@ -28,6 +28,8 @@ namespace JLearnWeb.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            //HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            //Session.Abandon();
             return View();
         }
 
@@ -74,7 +76,17 @@ namespace JLearnWeb.Controllers
           },
           DefaultAuthenticationTypes.ApplicationCookie);
             HttpContext.GetOwinContext().Authentication.SignIn(
-               new AuthenticationProperties { IsPersistent = true }, ident);
+               new AuthenticationProperties { IsPersistent = false }, ident);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+       // [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
     }
 }
