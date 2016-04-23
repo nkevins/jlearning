@@ -20,7 +20,7 @@ namespace DAL.Repository
                          join n in db.Schedules on m.ScheduleID equals n.ScheduleID
                          join x in db.Courses on n.CourseID equals x.CourseID
                          join a in db.Users on m.UserID equals a.UserID
-                         where a.UserID == userId orderby n.StartDate
+                         where a.UserID == userId && m.ObsInd == "N" orderby n.StartDate
                          select new { courseCode = x.CourseCode, courseName = x.CourseName, startDate  = n.StartDate, endDate =n.EndDate, scheduleId = n.ScheduleID});
 
             try
