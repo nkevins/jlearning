@@ -16,7 +16,8 @@ namespace DL
     {
         public int DocumentID { get; set; }
         public string Title { get; set; }
-        public string Type { get; set; }
+        public Nullable<int> Type { get; set; }
+        public string FileName { get; set; }
         public Nullable<int> ModuleID { get; set; }
         public string ObsInd { get; set; }
     

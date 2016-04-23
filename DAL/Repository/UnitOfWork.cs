@@ -17,6 +17,7 @@ namespace DAL.Repository
         IRepository<QuizChoice> QuizChoiceRepository { get; }
         IRepository<QuizAnswer> QuizAnswerRepository { get; }
         IRepository<Module> ModuleRepository { get; }
+        IRepository<Document> DocumentRepository { get; }
         void Save();
     }
 
@@ -34,6 +35,7 @@ namespace DAL.Repository
         private IRepository<QuizChoice> _quizChoiceRepository;
         private IRepository<QuizAnswer> _quizAnswerRepository;
         private IRepository<Module> _moduleRepository;
+        private IRepository<Document> _documentRepository;
         private Context _context;
 
         //Add any new repository here 
@@ -172,6 +174,17 @@ namespace DAL.Repository
                     _moduleRepository = new Repository<Module>(_context);
 
                 return _moduleRepository;
+            }
+        }
+
+        public IRepository<Document> DocumentRepository
+        {
+            get
+            {
+                if (_documentRepository == null)
+                    _documentRepository = new Repository<Document>(_context);
+
+                return _documentRepository;
             }
         }
 

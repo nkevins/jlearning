@@ -5,19 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f177f683d83d47d9b4567301c00e6567" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="JLearnDBModel.Course" Width="1.5" PointX="0.75" PointY="8.625" />
-        <EntityTypeShape EntityType="JLearnDBModel.Document" Width="1.5" PointX="7.5" PointY="8.625" />
-        <EntityTypeShape EntityType="JLearnDBModel.ForumPost" Width="1.5" PointX="7.5" PointY="4.5" />
-        <EntityTypeShape EntityType="JLearnDBModel.ForumThread" Width="1.5" PointX="5.25" PointY="5.5" />
-        <EntityTypeShape EntityType="JLearnDBModel.Module" Width="1.5" PointX="5.25" PointY="8.625" />
-        <EntityTypeShape EntityType="JLearnDBModel.Quiz" Width="1.5" PointX="5.25" PointY="14.5" />
-        <EntityTypeShape EntityType="JLearnDBModel.QuizAnswer" Width="1.5" PointX="12" PointY="17" />
-        <EntityTypeShape EntityType="JLearnDBModel.QuizChoice" Width="1.5" PointX="9.75" PointY="19" />
-        <EntityTypeShape EntityType="JLearnDBModel.QuizQuestion" Width="1.5" PointX="7.5" PointY="15.375" />
-        <EntityTypeShape EntityType="JLearnDBModel.Role" Width="1.5" PointX="7.5" PointY="0.75" />
-        <EntityTypeShape EntityType="JLearnDBModel.Schedule" Width="1.5" PointX="3" PointY="8.25" />
-        <EntityTypeShape EntityType="JLearnDBModel.User" Width="1.5" PointX="5.25" PointY="1.125" />
-        <EntityTypeShape EntityType="JLearnDBModel.UserSchedule" Width="1.5" PointX="8.25" PointY="11.625" />
+        <EntityTypeShape EntityType="JLearnDBModel.Course" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="JLearnDBModel.Document" Width="1.5" PointX="7.5" PointY="10.875" />
+        <EntityTypeShape EntityType="JLearnDBModel.ForumPost" Width="1.5" PointX="7.5" PointY="15" />
+        <EntityTypeShape EntityType="JLearnDBModel.ForumThread" Width="1.5" PointX="5.25" PointY="14" />
+        <EntityTypeShape EntityType="JLearnDBModel.Module" Width="1.5" PointX="5.25" PointY="11" />
+        <EntityTypeShape EntityType="JLearnDBModel.Quiz" Width="1.5" PointX="5.25" PointY="7.875" />
+        <EntityTypeShape EntityType="JLearnDBModel.QuizAnswer" Width="1.5" PointX="15" PointY="9.25" />
+        <EntityTypeShape EntityType="JLearnDBModel.QuizChoice" Width="1.5" PointX="12.75" PointY="11.375" />
+        <EntityTypeShape EntityType="JLearnDBModel.QuizQuestion" Width="1.5" PointX="10.5" PointY="7.625" />
+        <EntityTypeShape EntityType="JLearnDBModel.Role" Width="1.5" PointX="8.25" PointY="4.25" />
+        <EntityTypeShape EntityType="JLearnDBModel.Schedule" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="JLearnDBModel.User" Width="1.5" PointX="6" PointY="3.625" />
+        <EntityTypeShape EntityType="JLearnDBModel.UserSchedule" Width="1.5" PointX="8.25" PointY="7.125" />
         <AssociationConnector Association="JLearnDBModel.FK_Schedule_Course" />
         <AssociationConnector Association="JLearnDBModel.FK_Document_Module" />
         <AssociationConnector Association="JLearnDBModel.FK_ForumPost_ForumThread" />

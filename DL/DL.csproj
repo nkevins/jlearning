@@ -85,6 +85,7 @@
     <Compile Include="Document.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>
+    <Compile Include="DocumentMetaData.cs" />
     <Compile Include="ForumPost.cs">
       <DependentUpon>JLearn.tt</DependentUpon>
     </Compile>

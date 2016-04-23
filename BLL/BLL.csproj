@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Facade\CourseFacade.cs" />
+    <Compile Include="Facade\DocumentFacade.cs" />
     <Compile Include="Facade\ForumPostFacade.cs" />
     <Compile Include="Facade\ForumThreadFacade.cs" />
     <Compile Include="Facade\LiveQuizFacade.cs" />

@@ -21,7 +21,8 @@
           </Key>
           <Property Name="DocumentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="150" />
-          <Property Name="Type" Type="nvarchar" MaxLength="10" />
+          <Property Name="Type" Type="int" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" />
           <Property Name="ModuleID" Type="int" />
           <Property Name="ObsInd" Type="char" MaxLength="1" />
         </EntityType>
@@ -506,7 +507,8 @@
           </Key>
           <Property Name="DocumentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModuleID" Type="Int32" />
           <Property Name="ObsInd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Module" Relationship="JLearnDBModel.FK_Document_Module" FromRole="Document" ToRole="Module" />
@@ -563,7 +565,7 @@
           <Key>
             <PropertyRef Name="QuizAnswerID" />
           </Key>
-          <Property Name="QuizAnswerID" Type="Int32" Nullable="false" />
+          <Property Name="QuizAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="QuestionID" Type="Int32" />
           <Property Name="ChoiceSelected" Type="Int32" />
           <Property Name="IsCorrect" Type="Boolean" />
@@ -865,6 +867,7 @@
               <MappingFragment StoreEntitySet="Document">
                 <ScalarProperty Name="ObsInd" ColumnName="ObsInd" />
                 <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />

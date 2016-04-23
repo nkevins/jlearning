@@ -23,11 +23,65 @@
             }
             @foreach (var m in Model)
             {
-                <h2>@m.ModuleName</h2>
-                <hr />
-                <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 1</a></p>
-                <p><span class="glyphicon glyphicon-film"></span> <a href="#">Video 2</a></p>
-                <p><span class="glyphicon glyphicon-file"></span> <a href="#">Slide 1</a></p>
+                <div class="row">
+                    <div class="col-md-10">
+                        <h2>@m.ModuleName</h2>
+                        <hr />
+
+                        @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+                        {
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="panel-group" id="accordion@(m.ModuleID)">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion@(m.ModuleID)" href="#collapse@(m.ModuleID)">
+                                                        <span class="glyphicon glyphicon-plus"></span> Add Item
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse@(m.ModuleID)" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <form method="post" enctype="multipart/form-data" action="@Url.Action("AddDocument", "Module")">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Title</label>
+                                                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" required />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputFile">File input</label>
+                                                            <input type="file" id="inputFile" name="inputFile" required />
+                                                            <p class="help-block">Only ppt, pptx, mp4 is allowed.</p>
+                                                        </div>
+                                                        <input type="hidden" name="moduleId" value="@m.ModuleID" />
+                                                        <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                @foreach (var d in m.Documents)
+                                {
+                                    if (d.Type == (int) DL.Document.DocumentType.File)
+                                    {
+                                        <p><span class="glyphicon glyphicon-file"></span> <a href="@Url.Content("~/Upload/" + d.FileName)" target="_blank">@d.Title</a></p>
+                                    }
+                                    else
+                                    {
+                                        <p><span class="glyphicon glyphicon-film"></span> <a href="@Url.Content("~/Upload/" + d.FileName)" target="_blank">@d.Title</a></p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     </div>
