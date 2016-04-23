@@ -18,6 +18,7 @@
                         <input type="text" class="form-control" id="title" name="moduleName" required />
                         <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
                     </div>
+                    @Html.AntiForgeryToken()
                     <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
                 </form>
             }
@@ -69,13 +70,39 @@
                             <div class="col-md-8">
                                 @foreach (var d in m.Documents)
                                 {
-                                    if (d.Type == (int) DL.Document.DocumentType.File)
+                                    if (d.Type == (int)DL.Document.DocumentType.File)
                                     {
-                                        <p><span class="glyphicon glyphicon-file"></span> <a href="@Url.Content("~/Upload/" + d.FileName)" target="_blank">@d.Title</a></p>
+                                        <div>
+                                            <span>
+                                                <span class="glyphicon glyphicon-file"></span> <a href="@Url.Content("~/Upload/" + d.FileName)" target="_blank">@d.Title</a>
+                                            </span>
+                                            @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+                                            {
+                                                <form style="display:inline;" method="post" action="@Url.Action("DeleteDocument", "Module")" id="deleteDocForm@(d.DocumentID)">
+                                                    <span class="glyphicon glyphicon-remove" style="cursor: pointer; margin-left: 10px;" onclick="$('#deleteDocForm@(d.DocumentID)').submit();"></span>
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="documentId" value="@d.DocumentID" />
+                                                    <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
+                                                </form>
+                                            }
+                                        </div>
                                     }
                                     else
                                     {
-                                        <p><span class="glyphicon glyphicon-film"></span> <a href="@Url.Content("~/Upload/" + d.FileName)" target="_blank">@d.Title</a></p>
+                                        <div>
+                                            <span>
+                                                <span class="glyphicon glyphicon-film"></span> <a href="@Url.Content("~/Upload/" + d.FileName)" target="_blank">@d.Title</a>
+                                            </span>
+                                            @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+                                            {
+                                                <form style="display:inline;" method="post" action="@Url.Action("DeleteDocument", "Module")" id="deleteDocForm@(d.DocumentID)">
+                                                    <span class="glyphicon glyphicon-remove" style="cursor: pointer; margin-left: 10px;" onclick="$('#deleteDocForm@(d.DocumentID)').submit();"></span>
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="documentId" value="@d.DocumentID" />
+                                                    <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
+                                                </form>
+                                            }
+                                        </div>
                                     }
                                 }
                             </div>

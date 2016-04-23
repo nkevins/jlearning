@@ -13,6 +13,7 @@ namespace JLearnWeb.Controllers
     [Authorize]
     public class ModuleController : Controller
     {
+        private const string UPLOAD_FOLDER = "~/Upload/";
         private static readonly ILog log = LogManager.GetLogger(typeof(ForumController));
         private ModuleFacade _moduleFacade;
         private DocumentFacade _docFacade;
@@ -54,9 +55,10 @@ namespace JLearnWeb.Controllers
             return RedirectToAction("Module", "Schedule", new { id = scheduleId });
         }
 
-        // POST: AddDOcument
+        // POST: AddDocument
         [HttpPost]
         [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        [ValidateAntiForgeryToken]
         public ActionResult AddDocument(int scheduleId, int moduleId, string title)
         {
             string fileName = "";
@@ -76,7 +78,7 @@ namespace JLearnWeb.Controllers
                     }
 
                     fileName = Guid.NewGuid().ToString() + fileExtension;
-                    var path = Path.Combine(Server.MapPath("~/Upload/"), fileName);
+                    var path = Path.Combine(Server.MapPath(UPLOAD_FOLDER), fileName);
                     file.SaveAs(path);
                 } else
                 {
@@ -93,6 +95,25 @@ namespace JLearnWeb.Controllers
             _docFacade.Add(doc);
 
             this.AddNotification("Document uploaded", NotificationType.SUCCESS);
+            return RedirectToAction("Module", "Schedule", new { id = scheduleId });
+        }
+
+        // POST: DeleteDocument
+        [HttpPost]
+        [Authorize(Roles = Constant.ConstantFields.Lecturer)]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteDocument(int documentId, int scheduleId)
+        {
+            Document doc = _docFacade.GetById(documentId);
+
+            _docFacade.Delete(doc);
+
+            if (System.IO.File.Exists(Server.MapPath(UPLOAD_FOLDER + doc.FileName)))
+            {
+                System.IO.File.Delete(Server.MapPath(UPLOAD_FOLDER + doc.FileName));
+            }
+
+            this.AddNotification("Document deleted", NotificationType.SUCCESS);
             return RedirectToAction("Module", "Schedule", new { id = scheduleId });
         }
     }

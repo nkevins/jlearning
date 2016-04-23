@@ -23,9 +23,20 @@ namespace BLL.Facade
             _uow = uow;
         }
 
+        public Document GetById(int documentId)
+        {
+            return _uow.DocumentRepository.GetById(documentId);
+        }
+
         public void Add(Document doc)
         {
             _uow.DocumentRepository.Insert(doc);
+            _uow.Save();
+        }
+
+        public void Delete(Document doc)
+        {
+            _uow.DocumentRepository.Delete(doc);
             _uow.Save();
         }
 
