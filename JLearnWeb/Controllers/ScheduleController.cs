@@ -1,5 +1,6 @@
 ﻿using BLL.Facade;
 using DL;
+using JLearnWeb.Constant;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -608,9 +609,20 @@ namespace JLearnWeb.Controllers
         {
             List<StudentEnrollment> lst = null;
             StudentEnrollment std = null;
+            ScheduleFacade usrSch = new ScheduleFacade();
 
             try
             {
+                if (Session[ConstantFields.userSession] != null)
+                {
+                    User u = (User)Session[ConstantFields.userSession];
+
+                    if (!usrSch.isUserEnrolled(u.UserID, id))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                   
+                }
                 UserFacade user = new UserFacade();
                 lst = user.getStudentEnrollmentWithLecturerName(id);
 

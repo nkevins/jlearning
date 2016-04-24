@@ -113,6 +113,25 @@ namespace BLL.Facade
 
         }
 
+        public bool isUserEnrolled(int userid, int scheduleId)
+        {
+            try
+            {
+                List<UserSchedule> entities = unitofwork.UsrSchRepo.GetAll().Where((x => x.ScheduleID == scheduleId && x.UserID == userid)).ToList();
+
+               if (entities == null || entities.Count == 0)
+               {
+                   return false;
+               }
+
+                return true; ;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool updateLectureSchedule(UserSchedule u)
         {
             try
