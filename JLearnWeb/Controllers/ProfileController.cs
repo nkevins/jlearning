@@ -66,7 +66,10 @@ namespace JLearnWeb.Controllers
             if (Session[ConstantFields.userSession] != null)
             {
                 usr = (User)Session[ConstantFields.userSession];
-                usr.Password = string.Empty;
+                TempData[ConstantFields.usrPwd] = usr.Password;
+                TempData[ConstantFields.usrSalt] = usr.Salt;
+                TempData[ConstantFields.usrId] = usr.UserID;
+                //usr.Password = string.Empty;
             }
 
             return View(usr);
@@ -79,8 +82,12 @@ namespace JLearnWeb.Controllers
         {
             try
             {
+                u.Password = (string)TempData[Constant.ConstantFields.usrPwd];
+                u.Salt = (string)TempData[Constant.ConstantFields.usrSalt];
+                u.UserID = (int)TempData[Constant.ConstantFields.usrId];
+
                 u.ObsInd = "N";
-                u.Password = PasswordHashUtil.GenerateSaltedHashPwd(u.Password, u.Salt);
+               // u.Password = PasswordHashUtil.GenerateSaltedHashPwd(u.Password, u.Salt);
                 UserFacade usr = new UserFacade();
                 usr.updateUser(u);
                 Session.Remove(ConstantFields.userSession);
