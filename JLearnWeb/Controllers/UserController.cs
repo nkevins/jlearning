@@ -123,7 +123,7 @@ namespace JLearnWeb.Controllers
                 LoginFacade lgn = new LoginFacade();
                 usr.Salt = lgn.returnSalt();
                 usr.Password = lgn.computePassword(u.Password, usr.Salt);
-
+               
                 usr.ObsInd = "N";
                 
                 Role r = new Role();

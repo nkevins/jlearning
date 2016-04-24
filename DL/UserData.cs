@@ -21,7 +21,7 @@ namespace DL
         [DisplayName("Obsolete")]
         public string ObsInd { get; set; }
 
-        [Required(ErrorMessage = "Salt value is required to hash with password")]
+        
         public string Salt { get; set; }
 
         [Required(ErrorMessage = "Password is required")]

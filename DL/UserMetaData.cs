@@ -32,9 +32,10 @@ namespace DL
         public string Email { get; set; }
 
         [DisplayName("Obsolete")]
+        [Required(ErrorMessage = "Status is required, value Y or N")]
         public string ObsInd { get; set; }
 
-        [Required(ErrorMessage = "Salt value is required to hash with password")]
+      
         public string Salt { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
@@ -42,6 +43,7 @@ namespace DL
 
         public int UserID { get; set; }
 
+      
        
     }
 

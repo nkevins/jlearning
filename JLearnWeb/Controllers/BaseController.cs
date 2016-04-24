@@ -47,14 +47,18 @@ namespace JLearnWeb.Controllers
         [ValidateInput(false)]
         public virtual ActionResult Add(M model)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _repository.Insert(Mapper.Map<T>(model));
                 _repository.Save();
                 return RedirectToAction("Index");
-            }
+            //}
+            //else
+            //{
+            //    var errors = ModelState.Values.SelectMany(v => v.Errors);
+            //}
 
-            return View(model);
+            //return View(model);
         }
 
         [HttpGet]
@@ -71,14 +75,18 @@ namespace JLearnWeb.Controllers
         [ValidateInput(false)]
         public virtual ActionResult Update(M model)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _repository.Edit(Mapper.Map<T>(model));
                 _repository.Save();
                 return RedirectToAction("Index");
-            }
+            //}
+            //else
+            //{
+            //    var errors = ModelState.Values.SelectMany(v => v.Errors);
+            //}
 
-            return View(model);
+           // return View(model);
         }
 
         public virtual ActionResult Delete(M model)
