@@ -40,7 +40,10 @@ namespace BLL.Facade
             if (GetCurrentQuestion(quizId) != null)
             {
                 QuizQuestion nextQuestion = GetNextQuestion(quizId, GetCurrentQuestion(quizId).QuizQuestionID);
-                _quiz[quizId] = nextQuestion;
+                if (nextQuestion != null)
+                {
+                    _quiz[quizId] = nextQuestion;
+                }
             }
         }
 
@@ -49,7 +52,10 @@ namespace BLL.Facade
             if (GetCurrentQuestion(quizId) != null)
             {
                 QuizQuestion nextQuestion = GetPrevQuestion(quizId, GetCurrentQuestion(quizId).QuizQuestionID);
-                _quiz[quizId] = nextQuestion;
+                if (nextQuestion != null)
+                {
+                    _quiz[quizId] = nextQuestion;
+                }
             }
         }
 
