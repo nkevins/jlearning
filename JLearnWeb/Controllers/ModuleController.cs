@@ -61,6 +61,7 @@ namespace JLearnWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddDocument(int scheduleId, int moduleId, string title)
         {
+            string originalFileName = "";
             string fileName = "";
             string fileExtension = "";
             if (Request.Files.Count > 0)
@@ -77,6 +78,7 @@ namespace JLearnWeb.Controllers
                         return RedirectToAction("Module", "Schedule", new { id = scheduleId });
                     }
 
+                    originalFileName = file.FileName;
                     fileName = Guid.NewGuid().ToString() + fileExtension;
                     var path = Path.Combine(Server.MapPath(UPLOAD_FOLDER), fileName);
                     file.SaveAs(path);
@@ -90,6 +92,7 @@ namespace JLearnWeb.Controllers
             Document doc = new Document();
             doc.ModuleID = moduleId;
             doc.Title = title;
+            doc.OriginalFileName = originalFileName;
             doc.FileName = fileName;
             doc.Type = (int) _docFacade.getDocumentType(fileExtension);
             _docFacade.Add(doc);
@@ -115,6 +118,18 @@ namespace JLearnWeb.Controllers
 
             this.AddNotification("Document deleted", NotificationType.SUCCESS);
             return RedirectToAction("Module", "Schedule", new { id = scheduleId });
+        }
+
+        // GET: Download
+        public ActionResult Download(int id)
+        {
+            Document doc = _docFacade.GetById(id);
+            if (doc == null)
+            {
+                throw new HttpException(404, "File not exist.");
+            }
+
+            return File(Path.Combine(Server.MapPath(UPLOAD_FOLDER + doc.FileName)), MimeMapping.GetMimeMapping(doc.FileName), doc.OriginalFileName);
         }
     }
 }

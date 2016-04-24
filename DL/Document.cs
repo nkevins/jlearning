@@ -20,6 +20,7 @@ namespace DL
         public string FileName { get; set; }
         public Nullable<int> ModuleID { get; set; }
         public string ObsInd { get; set; }
+        public string OriginalFileName { get; set; }
     
         public virtual Module Module { get; set; }
     }

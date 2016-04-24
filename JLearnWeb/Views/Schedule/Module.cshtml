@@ -56,6 +56,7 @@
                                                         </div>
                                                         <input type="hidden" name="moduleId" value="@m.ModuleID" />
                                                         <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
+                                                        @Html.AntiForgeryToken()
                                                         <button type="submit" class="btn btn-primary">Submit</button>
                                                     </form>
                                                 </div>
@@ -74,7 +75,7 @@
                                     {
                                         <div>
                                             <span>
-                                                <span class="glyphicon glyphicon-file"></span> <a href="@Url.Content("~/Upload/" + d.FileName)" target="_blank">@d.Title</a>
+                                                <span class="glyphicon glyphicon-file"></span> <a href="@Url.Action("Download", "Module", new { id = d.DocumentID })" target="_blank">@d.Title</a>
                                             </span>
                                             @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
                                             {
@@ -91,7 +92,7 @@
                                     {
                                         <div>
                                             <span>
-                                                <span class="glyphicon glyphicon-film"></span> <a href="@Url.Content("~/Upload/" + d.FileName)" target="_blank">@d.Title</a>
+                                                <span class="glyphicon glyphicon-film"></span> <a href="@Url.Action("Download", "Module", new { id = d.DocumentID })" target="_blank">@d.Title</a>
                                             </span>
                                             @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
                                             {
