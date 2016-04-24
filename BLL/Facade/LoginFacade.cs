@@ -16,7 +16,24 @@ namespace BLL
     {
         //private static string SaltString = "test";
         UnitOfWork unitofwork = new UnitOfWork();
-       
+
+        public string returnSalt()
+        {
+            var crypto = new SimpleCrypto.PBKDF2();
+            return crypto.GenerateSalt();
+        }
+
+        public string computePassword(string password, string salt)
+        {
+            var crypto = new SimpleCrypto.PBKDF2();
+            return crypto.Compute(password, salt);
+        }
+
+        private bool compareUsrPassword(string userpwd, string inputpassword)
+        {
+            var crypto = new SimpleCrypto.PBKDF2();
+            return crypto.Compare(userpwd, inputpassword);
+        }
 
         public User login(string username, string password)
         {
@@ -29,9 +46,8 @@ namespace BLL
                     return null;
                 }
 
-                var crypto = new SimpleCrypto.PBKDF2();
-                string inputPassword = crypto.Compute(password, usr.Salt);
-                if(!crypto.Compare(usr.Password, inputPassword))
+                string inputPassword = computePassword(password, usr.Salt);
+                if (!compareUsrPassword(usr.Password, inputPassword))
                 {
                     return null;
                 }

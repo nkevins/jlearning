@@ -1,4 +1,5 @@
-﻿using BLL.Facade;
+﻿using BLL;
+using BLL.Facade;
 using DAL.Repository;
 using DL;
 using JLearnWeb.Constant;
@@ -50,7 +51,10 @@ namespace JLearnWeb.Controllers
                     u = lstUsr[i];
                     if (u.UserID == id)
                     {
-                        u.Password = string.Empty;
+                       // u.Password = string.Empty;
+                        TempData[Constant.ConstantFields.usrPwd] = u.Password;
+                        TempData[Constant.ConstantFields.usrSalt] = u.Salt;
+                        TempData[Constant.ConstantFields.usrId] = id;
                         break;
                     }
                 }
@@ -69,8 +73,11 @@ namespace JLearnWeb.Controllers
         {
             try
             {
-                u.ObsInd = "N";
-                u.Password = PasswordHashUtil.GenerateSaltedHashPwd(u.Password, u.Salt);
+                //u.ObsInd = "N";
+                //u.Password = PasswordHashUtil.GenerateSaltedHashPwd(u.Password, u.Salt);
+                u.Password = (string) TempData[Constant.ConstantFields.usrPwd] ;
+                u.Salt = (string) TempData[Constant.ConstantFields.usrSalt] ;
+               u.UserID =(int)  TempData[Constant.ConstantFields.usrId];
                 base.Update(u);
                 //UserFacade usr = new UserFacade();
                 //usr.updateUser(u);
@@ -112,8 +119,11 @@ namespace JLearnWeb.Controllers
                 usr.NRIC = u.NRIC;
                 usr.Email = u.Email;
                 usr.Name = u.Name;
-                usr.Salt = u.Salt;
-                usr.Password = u.Password;
+                //usr.Salt = u.Salt;
+                LoginFacade lgn = new LoginFacade();
+                usr.Salt = lgn.returnSalt();
+                usr.Password = lgn.computePassword(u.Password, usr.Salt);
+
                 usr.ObsInd = "N";
                 
                 Role r = new Role();
