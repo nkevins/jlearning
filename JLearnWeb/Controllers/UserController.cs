@@ -120,9 +120,10 @@ namespace JLearnWeb.Controllers
                 usr.Email = u.Email;
                 usr.Name = u.Name;
                 //usr.Salt = u.Salt;
-                LoginFacade lgn = new LoginFacade();
-                usr.Salt = lgn.returnSalt();
-                usr.Password = lgn.computePassword(u.Password, usr.Salt);
+                //LoginFacade lgn = new LoginFacade();
+                //usr.Salt = lgn.returnSalt();
+                //usr.Password = lgn.computePassword(u.Password, usr.Salt);
+                usr.SetPassword(u.Password);
                
                 usr.ObsInd = "N";
                 

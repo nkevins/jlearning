@@ -11,11 +11,14 @@ namespace DL
     [MetadataType(typeof(UserMetaData))]
     public partial class User
     {
+        private const int SALT_SIZE = 16;
+        private const int HASH_ITERATIONS = 50;
+
         public void SetPassword(string password)
         {
             var crypto = new SimpleCrypto.PBKDF2();
-            string salt = crypto.GenerateSalt();
-            string hashedPassword = crypto.Compute(password);
+            string hashedPassword = crypto.Compute(password, SALT_SIZE, HASH_ITERATIONS);
+            string salt = crypto.Salt;            
 
             this.Salt = salt;
             this.Password = hashedPassword;

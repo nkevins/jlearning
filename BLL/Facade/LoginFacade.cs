@@ -17,12 +17,6 @@ namespace BLL
         //private static string SaltString = "test";
         UnitOfWork unitofwork = new UnitOfWork();
 
-        public string returnSalt()
-        {
-            var crypto = new SimpleCrypto.PBKDF2();
-            return crypto.GenerateSalt();
-        }
-
         public string computePassword(string password, string salt)
         {
             var crypto = new SimpleCrypto.PBKDF2();
