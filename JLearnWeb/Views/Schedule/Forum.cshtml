@@ -12,7 +12,7 @@
             @Html.Partial("_Notifications")
             @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
             {
-                <form class="form-inline" action="@Url.Action("Index", "AddDocument")" method="post">
+                <form class="form-inline" action="@Url.Action("Index", "Forum")" method="post">
                     <div class="form-group">
                         <label for="topic">Topic</label>
                         <input type="text" class="form-control" id="topic" name="title" required />
