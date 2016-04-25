@@ -1,4 +1,4 @@
-﻿using BLL;
+﻿using BLL.Facade;
 using JLearnWeb.Constant;
 using JLearnWeb.Extensions;
 using log4net;

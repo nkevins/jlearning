@@ -10,11 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BLL
+namespace BLL.Facade
 {
     public class LoginFacade
     {
-        //private static string SaltString = "test";
         UnitOfWork unitofwork = new UnitOfWork();
 
         public string computePassword(string password, string salt)
