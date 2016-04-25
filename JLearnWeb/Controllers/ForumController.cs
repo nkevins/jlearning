@@ -1,5 +1,6 @@
 ﻿using BLL.Facade;
 using DL;
+using JLearnWeb.Constant;
 using JLearnWeb.Extensions;
 using log4net;
 using Microsoft.AspNet.Identity;
@@ -28,6 +29,7 @@ namespace JLearnWeb.Controllers
             ForumThread forum = null;
             try
             {
+              
                 forum = _forumThreadFacade.GetById(id);
             }
             catch (Exception ex)
@@ -45,6 +47,7 @@ namespace JLearnWeb.Controllers
         {
             if(ModelState.IsValid)
             {
+            
                 forum.CreatedDate = DateTime.Now;
                 forum.ObsInd = "N";
                 try

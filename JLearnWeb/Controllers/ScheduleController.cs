@@ -646,6 +646,18 @@ namespace JLearnWeb.Controllers
             List<Module> modules = null;
             try
             {
+                if (Session[ConstantFields.userSession] != null)
+                {
+                    User u = (User)Session[ConstantFields.userSession];
+                    ScheduleFacade usrSch = new ScheduleFacade();
+
+                    if (!usrSch.isUserEnrolled(u.UserID, id))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+
                 modules = _moduleFacade.GetBySchedule(id);
             }
             catch (Exception ex)
@@ -662,6 +674,18 @@ namespace JLearnWeb.Controllers
             List<ForumThread> forums = null;
             try
             {
+                if (Session[ConstantFields.userSession] != null)
+                {
+                    User u = (User)Session[ConstantFields.userSession];
+                    ScheduleFacade usrSch = new ScheduleFacade();
+
+                    if (!usrSch.isUserEnrolled(u.UserID, id))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+
                 forums = _forumThreadFacade.GetBySchedule(id);
             }
             catch(Exception ex)
@@ -678,6 +702,18 @@ namespace JLearnWeb.Controllers
             List<Quiz> quizes = null;
             try
             {
+                if (Session[ConstantFields.userSession] != null)
+                {
+                    User u = (User)Session[ConstantFields.userSession];
+                    ScheduleFacade usrSch = new ScheduleFacade();
+
+                    if (!usrSch.isUserEnrolled(u.UserID, id))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+
                 quizes = _quizFacade.GetBySchedule(id);
             }
             catch (Exception ex)
