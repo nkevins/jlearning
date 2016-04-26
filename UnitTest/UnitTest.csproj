@@ -55,6 +55,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LiveQuizFacadeTest.cs" />
+    <Compile Include="LoginFacadeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

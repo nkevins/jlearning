@@ -15,6 +15,18 @@ namespace BLL.Facade
     public class LoginFacade
     {
         UnitOfWork unitofwork = new UnitOfWork();
+        private Dictionary<int, User> usr;
+
+        public LoginFacade()
+        {
+
+        }
+
+        public LoginFacade(UnitOfWork uow)
+        {
+            usr = new Dictionary<int, User>();
+            unitofwork = uow;
+        }
 
         public string computePassword(string password, string salt)
         {
@@ -22,7 +34,7 @@ namespace BLL.Facade
             return crypto.Compute(password, salt);
         }
 
-        private bool compareUsrPassword(string userpwd, string inputpassword)
+        public bool compareUsrPassword(string userpwd, string inputpassword)
         {
             var crypto = new SimpleCrypto.PBKDF2();
             return crypto.Compare(userpwd, inputpassword);

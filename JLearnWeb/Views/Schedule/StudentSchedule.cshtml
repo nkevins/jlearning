@@ -75,16 +75,12 @@
 
             <td>
 
-                <a href='@Url.Action("EditStudentSchedule", new { id = item.scheduleId })' class="btn btn-info" role="button">
+                <a href='@Url.Action("EditStudentSchedule", new { id = item.usrScheduleId })' class="btn btn-info" role="button">
                     <span class="glyphicon glyphicon-pencil"></span>
                     Edit
                 </a>
 
-                <a href='@Url.Action("Index", new { id = item.scheduleId })' class="btn btn-info" role="button">
-                    <span class="glyphicon glyphicon-zoom-in"></span>
-                    Details
-                </a>
-
+          
                 <a href='@Url.Action("DeleteStudentSchedule", new { id = item.usrScheduleId })'
                    onclick="return confirm('Are you sure you wish to remove this student from this schedule enrollment?')" class="btn btn-info" role="button">
                     <span class="glyphicon glyphicon-remove"></span>
