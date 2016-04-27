@@ -9,6 +9,8 @@ namespace DAL.Repository
 {
     public interface IUnitOfWork : IDisposable
     {
+        IRepository<User> UserRepository { get; }
+        IRepository<Role> UserRoleRepository { get; }
         IRepository<Course> CourseRepository { get; }
         IRepository<ForumThread> ForumThreadRepository { get; }
         IRepository<ForumPost> ForumPostRepository { get; }

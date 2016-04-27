@@ -14,7 +14,7 @@ namespace BLL.Facade
 {
     public class LoginFacade
     {
-        UnitOfWork unitofwork = new UnitOfWork();
+        IUnitOfWork unitofwork = new UnitOfWork();
         private Dictionary<int, User> usr;
 
         public LoginFacade()
@@ -22,7 +22,7 @@ namespace BLL.Facade
 
         }
 
-        public LoginFacade(UnitOfWork uow)
+        public LoginFacade(IUnitOfWork uow)
         {
             usr = new Dictionary<int, User>();
             unitofwork = uow;
@@ -67,20 +67,14 @@ namespace BLL.Facade
 
         public string getUserRole(int userId)
         {
-            IQueryable<Role> userRoleModel = unitofwork.UserRoleRepository.GetAll();
-            List<Role> lstUser = userRoleModel.ToList();
-            string userRole = string.Empty;
+            var role = unitofwork.UserRepository.GetById(userId).Roles.FirstOrDefault();
 
-            for (int i = 0; i < lstUser.Count; i++)
+            if (role == null)
             {
-                Role role = lstUser[i];
-                if (role.UserID == userId)
-                {
-                    userRole = role.Name;
-                }
+                return "";
             }
 
-            return userRole;
+            return role.Name;
         }
     }
 }
