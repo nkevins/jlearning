@@ -259,7 +259,7 @@ namespace JLearnWeb.Controllers
                 {
 
                     this.AddNotification("This student already enrolled in this course schedule. ", NotificationType.ERROR);
-                    return RedirectToAction("EditStudentSchedule", new { id = usrSch.ScheduleID });
+                    return RedirectToAction("EditStudentSchedule", new { id = usrSch.UserScheduleID });
                     //return RedirectToAction("Index", "Home");
                 }
 
