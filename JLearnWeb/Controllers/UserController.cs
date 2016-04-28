@@ -28,7 +28,26 @@ namespace JLearnWeb.Controllers
         public ActionResult UserIndex()
         {
             List<User> lstUsr = base.Index();
-            Session.Add(Constant.ConstantFields.userList, lstUsr);
+            List<Role> lstUsrRole = usr.getListRole();
+
+            for (int i = 0; i < lstUsr.Count; i++)
+            {
+                User usr1 = lstUsr[i];
+                for (int j = 0; j < lstUsrRole.Count; j++)
+                {
+                    Role usr2 = lstUsrRole[j];
+
+                    if (usr1.UserID == usr2.UserID)
+                    {
+                        usr1.Roles.Add(usr2);
+                        break;
+                    }
+                }
+            }
+
+
+
+           Session.Add(Constant.ConstantFields.userList, lstUsr);
             return View("Index",lstUsr);
         }
 

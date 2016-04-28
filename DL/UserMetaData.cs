@@ -45,8 +45,6 @@ namespace DL
         public string Password { get; set; }
 
         public int UserID { get; set; }
-
-      
        
     }
 

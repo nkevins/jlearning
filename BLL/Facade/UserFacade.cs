@@ -19,6 +19,12 @@ namespace BLL.Facade
             return unitofwork.UserRepository.GetById(id);
         }
 
+
+        public List<Role> getListRole()
+        {
+            return unitofwork.UserRoleRepository.GetAll().Where(x => x.ObsInd == "N").ToList();
+        }
+
         public bool updateUser(User u)
         {
             try

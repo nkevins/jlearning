@@ -45,7 +45,7 @@ namespace BLL.Facade
             User usr = null;
             try
             {
-                usr = unitofwork.UserRepository.GetAll().Where(x => x.Email == username).FirstOrDefault();
+                usr = unitofwork.UserRepository.GetAll().Where(x => x.Email == username && x.ObsInd == "N").FirstOrDefault();
                 if (usr == null)
                 {
                     return null;

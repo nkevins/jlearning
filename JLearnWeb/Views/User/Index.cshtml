@@ -17,8 +17,12 @@
         <th>
           NRIC
         </th>
+
         <th>
-           Student Name
+           Name
+        </th>
+        <th>
+            Role
         </th>
         <th>
             Email
@@ -37,6 +41,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Roles.First().Name)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
