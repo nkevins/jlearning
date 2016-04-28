@@ -13,6 +13,32 @@ namespace BLL.Facade
         UnitOfWork unitofwork = new UnitOfWork();
         UserRepository usrRepo = new UserRepository();
 
+
+        public bool compareDateWithCurrent(DateTime startDt, DateTime endDt)
+        {
+            int result = DateTime.Compare(startDt, endDt);
+
+            if (result < 0)
+            {
+                return false;
+            }
+           
+            return true;
+        }
+
+        public bool compareDateWithEndDate(DateTime startDt, DateTime endDt)
+        {
+            int result = DateTime.Compare(startDt, endDt);
+
+            if (result > 0)
+            {
+                return false;
+            }
+
+
+            return true;
+        }
+
         public bool insertCourseSchedule(Schedule u)
         {
             try

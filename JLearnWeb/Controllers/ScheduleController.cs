@@ -1,6 +1,7 @@
 ﻿using BLL.Facade;
 using DL;
 using JLearnWeb.Constant;
+using JLearnWeb.Extensions;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -161,14 +162,30 @@ namespace JLearnWeb.Controllers
             try
             {
                 UserSchedule usr = new UserSchedule();
+                  ScheduleFacade usrSch = new ScheduleFacade(); 
+               
 
                 if (TempData[Constant.ConstantFields.scheduleID] != null)
                 {
                     usr.ScheduleID = (int)TempData[Constant.ConstantFields.scheduleID];
                 }
 
+               
+
                 usr.UserID = std.studentSelected;
                 usr.ObsInd = "N";
+
+                int uId = (int)usr.UserID;
+                int sId = (int)usr.ScheduleID;
+
+                if (usrSch.isUserEnrolled(uId, sId))
+                {
+
+                    this.AddNotification("This student already enrolled in this course schedule. ", NotificationType.ERROR);
+                    return RedirectToAction("CreateEnrollment", new { id = usr.ScheduleID });
+                    //return RedirectToAction("Index", "Home");
+                }
+
                 schFacade.insertLectureSchedule(usr);
                 StudentSchedule(string.Empty);
             }
@@ -220,6 +237,7 @@ namespace JLearnWeb.Controllers
             try
             {
                 UserSchedule usrSch = new UserSchedule();
+                 ScheduleFacade sch = new ScheduleFacade(); 
 
                 if (TempData[Constant.ConstantFields.usrScheduleID] != null)
                 {
@@ -233,6 +251,17 @@ namespace JLearnWeb.Controllers
 
                 usrSch.UserID = std.studentSelected;
                 usrSch.ObsInd = "N";
+
+                int uId = (int)usrSch.UserID;
+                int sId = (int)usrSch.ScheduleID;
+
+                if (sch.isUserEnrolled(uId, sId))
+                {
+
+                    this.AddNotification("This student already enrolled in this course schedule. ", NotificationType.ERROR);
+                    return RedirectToAction("EditStudentSchedule", new { id = usrSch.ScheduleID });
+                    //return RedirectToAction("Index", "Home");
+                }
 
                 schFacade.updateLectureSchedule(usrSch);
 
@@ -291,6 +320,22 @@ namespace JLearnWeb.Controllers
         {
             try
             {
+                DateTime startDt = (DateTime)std.startDate;
+                DateTime endDt = (DateTime)std.endDate;
+                DateTime now = DateTime.Now;
+
+                if (!schFacade.compareDateWithCurrent(startDt, now))
+                {
+                    this.AddNotification("Start date cannot smaller than current date", NotificationType.ERROR);
+                    return RedirectToAction("Create");
+                }
+
+                if (!schFacade.compareDateWithEndDate(startDt, endDt))
+                {
+                    this.AddNotification("Start date cannot smaller than end date", NotificationType.ERROR);
+                    return RedirectToAction("Create");
+                }
+
                 Schedule sch = new Schedule();
                 sch.ObsInd = "N";
                 sch.CourseID = std.courseSelected;
