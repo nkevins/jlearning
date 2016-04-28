@@ -63,14 +63,18 @@ namespace JLearnWeb.Controllers
         {
             try
             {
-                Course crs = new Course();
-                crs.CourseID = u.CourseID;
-                crs.CourseCode = u.CourseCode;
-                crs.CourseName = u.CourseName;
-                crs.Description = u.Description;
-                crs.ObsInd = u.ObsInd;
+                //Course crs = new Course();
+                //crs.CourseID = u.CourseID;
+                //crs.CourseCode = u.CourseCode;
+                //crs.CourseName = u.CourseName;
+                //crs.Description = u.Description;
+                //crs.ObsInd = u.ObsInd;
                // u.ObsInd = "N";
-                base.Update(crs);
+                u.CourseCode = u.CourseCode.Trim();
+                u.CourseName = u.CourseName.Trim();
+                u.Description = u.Description.Trim();
+                u.ObsInd = u.ObsInd.Trim();
+                base.Update(u);
             }
             catch (Exception ex)
             {
