@@ -143,7 +143,7 @@ namespace BLL.Facade
         {
             try
             {
-                List<UserSchedule> entities = unitofwork.UsrSchRepo.GetAll().Where((x => x.ScheduleID == scheduleId && x.UserID == userid)).ToList();
+                List<UserSchedule> entities = unitofwork.UsrSchRepo.GetAll().Where((x => x.ScheduleID == scheduleId && x.UserID == userid && x.ObsInd == "N")).ToList();
 
                if (entities == null || entities.Count == 0)
                {
