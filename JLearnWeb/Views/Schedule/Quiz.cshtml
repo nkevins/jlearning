@@ -15,7 +15,8 @@
                 using (Ajax.BeginForm("Add", "Quiz", null, new AjaxOptions
                 {
                     InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "quizList"
+                    UpdateTargetId = "quizList",
+                    OnSuccess = "OnSuccess"
                 },
                 new { @class = "form-inline" }))
                 {
@@ -61,4 +62,11 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryajax")
+    <script type="text/javascript">
+        function OnSuccess() {
+            this.reset();
+
+            $('#title').val('');
+        }
+    </script>
 }
