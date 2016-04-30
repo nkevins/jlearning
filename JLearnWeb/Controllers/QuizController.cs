@@ -59,6 +59,13 @@ namespace JLearnWeb.Controllers
                 throw ex;
             }
 
+            if (Request.IsAjaxRequest())
+            {
+                var quizes = _quizFac.GetBySchedule(scheduleId);
+
+                return PartialView("List", quizes);
+            }
+
             return RedirectToAction("Quiz", "Schedule", new { id = scheduleId });
         }
 

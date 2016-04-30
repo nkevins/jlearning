@@ -1,0 +1,20 @@
+﻿@model IEnumerable<DL.Quiz>
+
+@foreach (var q in Model.OrderByDescending(x => x.CreatedDate))
+{
+    <tr>
+        <td>
+            @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
+            {
+                <a href="@Url.Action("Detail", "Quiz", new { id = q.QuizID })">@q.Title</a>
+            }
+            else
+            {
+                @q.Title
+            }
+        </td>
+        <td>
+            <a href="@Url.Action("Live", "Quiz", new { id = q.QuizID })" class="btn btn-default" role="button"><span class="glyphicon glyphicon-play"></span> Start Quiz</a>
+        </td>
+    </tr>
+}
