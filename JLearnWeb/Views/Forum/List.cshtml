@@ -1,0 +1,19 @@
+﻿@model IEnumerable<DL.ForumThread>
+
+@foreach (var f in Model.OrderByDescending(x => x.CreatedDate))
+{
+    <tr>
+        <td class="text-center"></td>
+        <td>
+            <h4><a href="@Url.Action("Index", "Forum", new { id = @f.ForumThreadID})">@f.Title</a></h4>
+        </td>
+        <td class="text-center hidden-xs hidden-sm">@f.ForumPosts.Count</td>
+        <td class="hidden-xs hidden-sm">
+            @if (f.ForumPosts.Count > 0)
+            {
+                <span>by @f.GetLatestPost().User.Name</span><br />
+                                    <small><i class="glyphicon glyphicon-time"></i> @f.GetLatestPost().CreatedDate</small>
+            }
+        </td>
+    </tr>
+}

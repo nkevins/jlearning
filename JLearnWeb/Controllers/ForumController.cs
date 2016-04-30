@@ -59,7 +59,14 @@ namespace JLearnWeb.Controllers
                     log.Error("Exception ", ex);
                     throw ex;
                 }
-                
+
+                if (Request.IsAjaxRequest())
+                {
+                    var forums = _forumThreadFacade.GetBySchedule(scheduleId);
+
+                    return PartialView("List", forums);
+                }
+
                 this.AddNotification("Forum added", NotificationType.SUCCESS);
             }
             else

@@ -12,14 +12,20 @@
             @Html.Partial("_Notifications")
             @if (Context.User.IsInRole(JLearnWeb.Constant.ConstantFields.Lecturer))
             {
-                <form class="form-inline" action="@Url.Action("Index", "Forum")" method="post">
+                using (Ajax.BeginForm("Index", "Forum", null, new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "topicList"
+                },
+                new { @class = "form-inline" }))
+                {
                     <div class="form-group">
                         <label for="topic">Topic</label>
                         <input type="text" class="form-control" id="topic" name="title" required />
                         <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
                     </div>
                     <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                </form>
+                }
             }
             <table class="table forum table-striped" id="topicTable">
                 <thead>
@@ -32,7 +38,7 @@
                         <th class="cell-stat-2x hidden-xs hidden-sm">Last Post</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="topicList">
                     @foreach (var f in Model.OrderByDescending(x => x.CreatedDate))
                     {
                         <tr>
@@ -55,3 +61,7 @@
         </div>
     </div>
 </div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryajax")
+}
