@@ -24,7 +24,7 @@
                         <input type="text" class="form-control" name="title" id="title" required />
                         <input type="hidden" name="scheduleId" value="@ViewBag.ScheduleId" />
                     </div>
-                    <button class="btn btn-primary" id="submit_btn"><span class="glyphicon glyphicon-plus"></span> Add Quiz</button>
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Quiz</button>
                 }
             }
             <table class="table forum table-striped">
@@ -61,9 +61,4 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryajax")
-    <script type="text/javascript">
-        $(document).on("click", "#submit_btn", function (event) {
-            $('#title').val('');
-        });
-    </script>
 }
