@@ -68,6 +68,16 @@ namespace UnitTest
             user3.ObsInd = "N";
             users.Add(user3);
 
+            User user4 = new User();
+            user4.UserID = 4;
+            user4.NRIC = "S1111122222";
+            user4.Name = "Aaron";
+            user4.Email = "aaron@test.com";
+            user4.Salt = "5000.OSozqG/jXs4BK7XoBHdAKw==";
+            user4.Password = "OfvPayFOQMeuEFtwW3NsfgPemVUGrEhI2PBBVWkeAocvyUme5SFgaLgRO/qfb3BeSFeC+dF57SNjKGwr3dQYZA==";
+            user4.ObsInd = "Y";
+            users.Add(user4);
+
             mockUow = new Mock<IUnitOfWork>();
             mockUow.Setup(x => x.UserRepository.GetAll()).Returns(users.AsQueryable());
 
@@ -87,6 +97,7 @@ namespace UnitTest
         {
             Assert.IsNull(facade.login("test@gmail.com", "test1234"));
             Assert.IsNull(facade.login("jimmy@gmail.com", "test123"));
+            Assert.IsNull(facade.login("aaron@gmail.com", "test123"));
             try
             {
                 facade.login("test@gmail.com", "");
@@ -111,6 +122,10 @@ namespace UnitTest
             mockUow.Setup(x => x.UserRepository.GetById(It.IsAny<int>()))
                .Returns(users[2]); ;
             Assert.AreEqual("", facade.getUserRole(3));
+
+            mockUow.Setup(x => x.UserRepository.GetById(It.IsAny<int>()))
+               .Returns(users[3]); ;
+            Assert.AreEqual("", facade.getUserRole(4));
         }
     }
 }
